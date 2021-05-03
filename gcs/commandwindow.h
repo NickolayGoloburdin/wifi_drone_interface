@@ -1,0 +1,4 @@
+#ifndef COMMANDWINDOW_H
+#define COMMANDWINDOW_H
+
+#endif // COMMANDWINDOW_H
