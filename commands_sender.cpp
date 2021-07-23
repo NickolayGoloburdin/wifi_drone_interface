@@ -74,6 +74,19 @@ void CommandsSender::send_disarm(){
       m_communicator->sendMessageOnAllLinks(message);
 
 }
+void CommandsSender::req_log_list(){
+
+    mavlink_log_request_list_t req = {0};
+    req.start = 0;
+    req.end = 0xffff;
+    req.target_system = target_system_id_;
+    req.target_component = target_component_id_autopilot_;
+    mavlink_message_t message;
+    mavlink_msg_log_request_list_encode(system_id_, component_id_, &message,
+                                    &req);
+    m_communicator->sendMessageOnAllLinks(message);
+
+}
 void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land){
 
       waypoints.clear();

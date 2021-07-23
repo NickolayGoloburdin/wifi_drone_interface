@@ -64,3 +64,11 @@ void MainWindow::on_Start_clicked()
     emit startSignal();
 }
 
+void MainWindow::update_log_list(mavlink_log_entry_t log_entry){
+ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.id) + QString("\n") + QString("Total number of logs:") + QString(log_entry.num_logs) + QString("\n") + QString("High log number:") + QString(log_entry.last_log_num) + QString("\n"));
+
+}
+void MainWindow::on_log_list_request_clicked()
+{
+    emit logListReqSignal();
+}

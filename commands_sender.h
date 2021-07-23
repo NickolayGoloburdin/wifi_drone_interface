@@ -31,6 +31,7 @@ namespace domain
         void mission_request_handler(mavlink_mission_request_t mission_req);
         void command_ack_handler();
         void mission_ack_handler(int type);
+        void req_log_list();
 
 
     protected:

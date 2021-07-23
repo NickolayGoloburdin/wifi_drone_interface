@@ -9,6 +9,7 @@
 #include "ack_handler.h"
 #include "gps_handler.h"
 #include "battery_handler.h"
+#include "log_handler.h"
 #include <QApplication>
 #include <QThread>
 
@@ -28,12 +29,15 @@ MavLinkCommunicator* GcsCommunicatorFactory::create()
     domain::CommandsSender* sender = new domain::CommandsSender(communicator);
     domain::AckHandler* ack = new domain::AckHandler(communicator);
     domain::GPSHandler* gps = new domain::GPSHandler(communicator);
+    domain::LogHandler* log = new domain::LogHandler(communicator);
     domain::BatteryHandler* battery = new domain::BatteryHandler(communicator);
     QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, window, &MainWindow::update_connection);
     QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
+    QObject::connect(window, &MainWindow::logListReqSignal, sender, &CommandsSender::req_log_list);
     QObject::connect(ack, &AckHandler::missionackSignal, sender, &CommandsSender::mission_ack_handler);
-     QObject::connect(gps, &GPSHandler::gpsSignal, window, &MainWindow::update_sattelites);
-     QObject::connect(battery, &BatteryHandler::BatterySignal, window, &MainWindow::update_battery);
+    QObject::connect(log, &LogHandler::logEntrySignal, window, &MainWindow::update_log_list);
+    QObject::connect(gps, &GPSHandler::gpsSignal, window, &MainWindow::update_sattelites);
+    QObject::connect(battery, &BatteryHandler::BatterySignal, window, &MainWindow::update_battery);
     QObject::connect(status, &StatusHandler::statusSignal, window, &MainWindow::update_status);
     QObject::connect(window, &MainWindow::armSignal, sender, &CommandsSender::send_arm);
     QObject::connect(window, &MainWindow::disarmSignal, sender, &CommandsSender::send_disarm);
