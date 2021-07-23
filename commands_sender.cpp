@@ -5,6 +5,7 @@
 #include <QtMath>
 #include <QDebug>
 #include <QThread>
+#include <cstring>
 
 using namespace domain;
 CommandsSender::CommandsSender(MavLinkCommunicator* communicator):
@@ -208,5 +209,33 @@ void CommandsSender::set_guided_mode() {
    m_communicator->sendMessageOnAllLinks(msg);
 
 }
+void CommandsSender::set_takeoff_speed(float speed){
+    mavlink_param_set_t param = {0};
+
+    /*param.target_system = target_system_id_;
+    param.target_component = target_component_id_autopilot_;
+    param.param_type = MAV_PARAM_TYPE_INT8;
+    param.param_id = std::strcpy(param.param_id,"LAND_SPEED");
+    param.param_value = speed;
+    mavlink_message_t msg;
+    mavlink_message_t msg;
+    mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
+     m_communicator->sendMessageOnAllLinks(msg);
+
+*/}
+void CommandsSender::set_land_speed(float speed){
+  /*  mavlink_param_set_t param = {0};
+
+    param.target_system = target_system_id_;
+    param.target_component = target_component_id_autopilot_;
+    param.param_type = MAV_PARAM_TYPE_INT8;
+    param.param_id = "LAND_SPEED";
+    param.param_value = speed;
+    mavlink_message_t msg;
+    mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
+     m_communicator->sendMessageOnAllLinks(msg);
+*/
+}
+
 
 

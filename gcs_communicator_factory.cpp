@@ -44,6 +44,11 @@ MavLinkCommunicator* GcsCommunicatorFactory::create()
     QObject::connect(window, &MainWindow::disarmSignal, sender, &CommandsSender::send_disarm);
     QObject::connect(window, &MainWindow::missionSignal, sender, &CommandsSender::form_send_fly_mission);
     QObject::connect(window, &MainWindow::startSignal, sender, &CommandsSender::start_mission);
+    QObject::connect(window, &MainWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
+    QObject::connect(window, &MainWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
+
+
+
 
 
     return communicator;

@@ -65,8 +65,14 @@ void MainWindow::on_Start_clicked()
 }
 
 void MainWindow::update_log_list(mavlink_log_entry_t log_entry){
+    if (log_entry.size != 0)
+    {
 ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.id) + QString("\n") + QString("Total number of logs:") + QString(log_entry.num_logs) + QString("\n") + QString("High log number:") + QString(log_entry.last_log_num) + QString("\n"));
-
+    }
+    else
+    {
+        ui->log_list->setText(ui->log_list->text() + QString("В дроне нет сохраненных логов\n"));
+    }
 }
 void MainWindow::on_log_list_request_clicked()
 {
@@ -76,4 +82,15 @@ void MainWindow::on_log_list_request_clicked()
 void MainWindow::on_log_request_clicked()
 {
     emit logReqSignal(ui->log_id->text().toInt());
+}
+
+void MainWindow::on_set_takeoff_speed_clicked()
+{
+    emit takeoffSpeedSignal(ui->takeoff_speed->text().toFloat());
+}
+
+void MainWindow::on_set_land_speed_clicked()
+{
+    emit landSpeedSignal(ui->land_speed->text().toFloat());
+
 }

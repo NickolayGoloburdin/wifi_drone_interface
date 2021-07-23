@@ -27,12 +27,10 @@ void LogHandler::processMessage(const mavlink_message_t& message)
         mavlink_log_data_t log_data;
         mavlink_msg_log_data_decode(&message, &log_data);
         //emit logDataSignal(log_data);
-        QString filename = "logs.txt";
+        QString filename = "C:\\logs.txt";
         QFile file(filename);
           if (file.open(QIODevice::ReadWrite)) {
           QTextStream out(&file);
-
-            // Для записи данных в файл используем оператор <<
             out << "id:" << log_data.id << endl;
             out << "data" << log_data.data << endl;
 
