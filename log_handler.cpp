@@ -6,6 +6,8 @@
 // Qt
 #include <QtMath>
 #include <QDebug>
+#include <QTextStream>
+#include <QFile>
 
 using namespace domain;
 
@@ -24,7 +26,22 @@ void LogHandler::processMessage(const mavlink_message_t& message)
     case MAVLINK_MSG_ID_LOG_DATA:
         mavlink_log_data_t log_data;
         mavlink_msg_log_data_decode(&message, &log_data);
-        emit logDataSignal(log_data);
+        //emit logDataSignal(log_data);
+        QString filename = "logs.txt";
+        QFile file(filename);
+          if (file.open(QIODevice::ReadWrite)) {
+          QTextStream out(&file);
+
+            // Для записи данных в файл используем оператор <<
+            out << "id:" << log_data.id << endl;
+            out << "data" << log_data.data << endl;
+
+          } else {
+
+            qWarning("Could not open file");
+          }
+
+          file.close();
         break;
     }
 

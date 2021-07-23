@@ -32,6 +32,7 @@ namespace domain
         void command_ack_handler();
         void mission_ack_handler(int type);
         void req_log_list();
+        void req_log(int number);
 
 
     protected:

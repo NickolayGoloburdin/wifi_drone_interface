@@ -30,6 +30,7 @@ signals:
     void missionSignal(int x, int y, int x_land, int y_land,float height_takeoff, float height_point, float height_land);
     void startSignal();
     void logListReqSignal();
+    void logReqSignal(int number);
 protected:
     void timerEvent(QTimerEvent *event) override;
     int timer_id_;
@@ -41,6 +42,8 @@ private slots:
 
 
     void on_log_list_request_clicked();
+
+    void on_log_request_clicked();
 
 private:
     Ui::MainWindow *ui;

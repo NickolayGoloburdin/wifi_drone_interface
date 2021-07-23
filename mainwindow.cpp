@@ -72,3 +72,8 @@ void MainWindow::on_log_list_request_clicked()
 {
     emit logListReqSignal();
 }
+
+void MainWindow::on_log_request_clicked()
+{
+    emit logReqSignal(ui->log_id->text().toInt());
+}
