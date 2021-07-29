@@ -1,6 +1,7 @@
 #ifndef GCS_COMMUNICATOR_FACTORY_H
 #define GCS_COMMUNICATOR_FACTORY_H
 #include "abstract_communicator_factory.h"
+#include <tuple>
 
 namespace domain
 {
@@ -9,7 +10,7 @@ namespace domain
     public:
         GcsCommunicatorFactory();
 
-        MavLinkCommunicator* create() override;
+        std::tuple<MavLinkCommunicator*, InfoCommunicator*> create() override;
     };
 }
 

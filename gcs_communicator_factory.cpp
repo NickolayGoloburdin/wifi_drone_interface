@@ -1,6 +1,8 @@
 
 #include "gcs_communicator_factory.h"// Internal
 #include "mavlink_communicator.h"
+#include "info_communicator.h"
+
 #include "mainwindow.h"
 #include "heartbeat_handler.h"
 #include "attitude_handler.h"
@@ -13,14 +15,17 @@
 #include <QApplication>
 #include <QThread>
 
+
 using namespace domain;
 
 GcsCommunicatorFactory::GcsCommunicatorFactory()
 {}
 
-MavLinkCommunicator* GcsCommunicatorFactory::create()
+std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::create()
 {
     MavLinkCommunicator* communicator = new MavLinkCommunicator(255, 0);
+    InfoCommunicator* infcommun = new InfoCommunicator();
+
     MainWindow* window = new MainWindow();
     window->show();
     //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
@@ -47,9 +52,5 @@ MavLinkCommunicator* GcsCommunicatorFactory::create()
     QObject::connect(window, &MainWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
     QObject::connect(window, &MainWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
 
-
-
-
-
-    return communicator;
+    return std::make_tuple(communicator, infcommun);
 }

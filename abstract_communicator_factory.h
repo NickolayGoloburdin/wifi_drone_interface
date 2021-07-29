@@ -1,8 +1,10 @@
 #ifndef ABSTRACT_COMMUNICATOR_FACTORY_H
 #define ABSTRACT_COMMUNICATOR_FACTORY_H
+#include <tuple>
 namespace domain
 {
     class MavLinkCommunicator;
+    class InfoCommunicator;
 
     class AbstractCommunicatorFactory
     {
@@ -10,7 +12,7 @@ namespace domain
         AbstractCommunicatorFactory();
         virtual ~AbstractCommunicatorFactory();
 
-        virtual MavLinkCommunicator* create() = 0;
+        virtual std::tuple<MavLinkCommunicator*, InfoCommunicator*> create() = 0;
     };
 }
 #endif // ABSTRACT_COMMUNICATOR_FACTORY_H
