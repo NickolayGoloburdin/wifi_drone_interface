@@ -67,7 +67,7 @@ void InfoCommunicator::onDataReceived(const QByteArray& data)
     uint8_t channel = m_linkChannels.value(m_lastReceivedLink);
     for (int pos = 0; pos < data.length(); ++pos)
     {
-        //qDebug() << data;
+        qDebug() << data;
         //QString msg("123");
         //sendMessageOnAllLinks(msg);
        // QString dat = QString::fromUtf8(data);

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     timer_id_ =  this->startTimer(10000);
+    ui->status->textCursor().insertText(QString("\nGui is started"));
 
 }
 
@@ -28,6 +29,7 @@ void MainWindow::timerEvent(QTimerEvent* event)
 void MainWindow::update_status(QString status){
     //ui->status->setText(ui->status->text() +QString("\n") + status );
     ui->status->textCursor().insertText(QString("\n") + status );
+    //ui->status->
 }
 void MainWindow::update_sattelites(int sattelites){
     ui->sattelites->setText("Спутников:" + QString::number(sattelites));
@@ -38,11 +40,13 @@ ui->battery->setText("Заряд дрона:" + QString::number(battery_charge)+
 
 void MainWindow::on_Arm_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nArming..."));
     emit armSignal();
 }
 
 void MainWindow::on_Disarm_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nDisarming..."));
     emit disarmSignal();
 
 }
@@ -57,11 +61,13 @@ void MainWindow::on_SendPoint_clicked()
    height_takeoff = static_cast<float>(ui->height_takeoff->text().toDouble());
    height_point = static_cast<float>(ui->height_point->text().toDouble());
    height_land = static_cast<float>(ui->height_land->text().toDouble());
+   ui->status->textCursor().insertText(QString("\nFlight Plan Sending..."));
    emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land);
 }
 
 void MainWindow::on_Start_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nMission starting..."));
     emit startSignal();
 }
 
@@ -77,26 +83,35 @@ ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.
 }
 void MainWindow::on_log_list_request_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nLog list request"));
+
     emit logListReqSignal();
 }
 
 void MainWindow::on_log_request_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nLog request"));
+
     emit logReqSignal(ui->log_id->text().toInt());
 }
 
 void MainWindow::on_set_takeoff_speed_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nTakeoff speed is uploaded"));
     emit takeoffSpeedSignal(ui->takeoff_speed->text().toFloat());
 }
 
 void MainWindow::on_set_land_speed_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nLand speed is uploaded"));
+
     emit landSpeedSignal(ui->land_speed->text().toFloat());
 
 }
 
 void MainWindow::on_set_fly_speed_clicked()
 {
+    ui->status->textCursor().insertText(QString("\nFly speed is uploaded"));
+
     emit flySpeedSignal(ui->fly_speed->text().toFloat());
 }

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     domain::UdpLink link(14551, QString("192.168.2.1"), 14550);
     domain::UdpLink linkinfo(7777, QString("192.168.52.101"), 7776);
-    // domain::SerialLink link("/dev/ttyUSB0", 57600);
+    //domain::SerialLink link("/dev/ttyUSB0", 57600);
     communicator->addLink(&link, MAVLINK_COMM_0);
     infcommun->addLink(&linkinfo, 0);
     linkinfo.up();
