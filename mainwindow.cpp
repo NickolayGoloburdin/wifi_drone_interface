@@ -95,3 +95,8 @@ void MainWindow::on_set_land_speed_clicked()
     emit landSpeedSignal(ui->land_speed->text().toFloat());
 
 }
+
+void MainWindow::on_set_fly_speed_clicked()
+{
+    emit flySpeedSignal(ui->fly_speed->text().toFloat());
+}

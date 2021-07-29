@@ -33,6 +33,7 @@ signals:
     void logReqSignal(int number);
     void takeoffSpeedSignal(float speed);
     void landSpeedSignal(float speed);
+    void flySpeedSignal(float speed);
 protected:
     void timerEvent(QTimerEvent *event) override;
     int timer_id_;
@@ -50,6 +51,8 @@ private slots:
     void on_set_takeoff_speed_clicked();
 
     void on_set_land_speed_clicked();
+
+    void on_set_fly_speed_clicked();
 
 private:
     Ui::MainWindow *ui;

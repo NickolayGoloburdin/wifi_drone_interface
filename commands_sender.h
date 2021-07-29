@@ -35,6 +35,7 @@ namespace domain
         void req_log(int number);
         void set_takeoff_speed(float speed);
         void set_land_speed(float speed);
+        void set_fly_speed(float speed);
 
 
     protected:

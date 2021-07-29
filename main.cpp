@@ -25,5 +25,6 @@ int main(int argc, char *argv[])
     communicator->addLink(&link, MAVLINK_COMM_0);
     infcommun->addLink(&linkinfo, 0);
     linkinfo.up();
+    link.up();
     return app.exec();
 }
