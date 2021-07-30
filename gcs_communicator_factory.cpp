@@ -12,6 +12,7 @@
 #include "gps_handler.h"
 #include "battery_handler.h"
 #include "log_handler.h"
+#include "info_message_handler.h"
 #include <QApplication>
 #include <QThread>
 
@@ -29,6 +30,7 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     MainWindow* window = new MainWindow();
     window->show();
     //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
+    domain::InfoMessageHandler* pointinfo = new domain::InfoMessageHandler(infcommun);
     domain::HeartbeatHandler* connection = new domain::HeartbeatHandler(254,communicator);
     domain::StatusHandler* status = new domain::StatusHandler(communicator);
     domain::CommandsSender* sender = new domain::CommandsSender(communicator);
@@ -36,6 +38,7 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     domain::GPSHandler* gps = new domain::GPSHandler(communicator);
     domain::LogHandler* log = new domain::LogHandler(communicator);
     domain::BatteryHandler* battery = new domain::BatteryHandler(communicator);
+    QObject::connect(pointinfo, &InfoMessageHandler::CoordinatesSignal, window, &MainWindow::update_coordinates);
     QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, window, &MainWindow::update_connection);
     QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
     QObject::connect(window, &MainWindow::logListReqSignal, sender, &CommandsSender::req_log_list);

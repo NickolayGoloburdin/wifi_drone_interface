@@ -179,7 +179,7 @@ border-radius: 8px;
       <x>860</x>
       <y>270</y>
       <width>161</width>
-      <height>61</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -258,7 +258,7 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
       <x>700</x>
       <y>270</y>
       <width>151</width>
-      <height>61</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -290,7 +290,8 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="text">
-     <string>Запросить список
+     <string>Запросить
+список
 логов</string>
     </property>
    </widget>
@@ -774,7 +775,8 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="text">
-     <string>Установить скорость
+     <string>Установить
+скорость
 взлета</string>
     </property>
    </widget>
@@ -816,7 +818,8 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="text">
-     <string>Установить скорость
+     <string>Установить
+скорость
 посадки</string>
     </property>
    </widget>
@@ -858,7 +861,8 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="text">
-     <string>Установить скорость
+     <string>Установить
+скорость
 полета</string>
     </property>
    </widget>

@@ -37,12 +37,18 @@ void MainWindow::update_sattelites(int sattelites){
 void MainWindow::update_battery(int8_t battery_charge){
 ui->battery->setText("Заряд дрона:" + QString::number(battery_charge)+ QString("%"));
 }
+void MainWindow::update_coordinates(QString in_x, QString in_y){
+
+ui->attitude->setText(in_x);
+ui->longtitude->setText(in_y);
+QMessageBox::warning(this,"Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
+}
 
 void MainWindow::on_Arm_clicked()
 {
     ui->status->textCursor().insertText(QString("\nArming..."));
     emit armSignal();
-}
+    QMessageBox::warning(this,"Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");}
 
 void MainWindow::on_Disarm_clicked()
 {

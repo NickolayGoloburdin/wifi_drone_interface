@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QPushButton>
+#include <QMessageBox>
 #include "mavlink_communicator.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,7 @@ public slots:
     void update_sattelites(int sattelites);
     void update_battery(int8_t battery_charge);
     void update_log_list(mavlink_log_entry_t log_entry);
+    void update_coordinates(QString in_x, QString in_y);
 signals:
     void armSignal();
     void disarmSignal();

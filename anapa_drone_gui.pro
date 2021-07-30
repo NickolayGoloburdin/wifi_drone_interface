@@ -28,7 +28,9 @@ SOURCES += \
     gcs_communicator_factory.cpp \
     gps_handler.cpp \
     heartbeat_handler.cpp \
+    info_abstract_handler.cpp \
     info_communicator.cpp \
+    info_message_handler.cpp \
     log_handler.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -417,7 +419,9 @@ HEADERS += \
     gcs_communicator_factory.h \
     gps_handler.h \
     heartbeat_handler.h \
+    info_abstract_handler.h \
     info_communicator.h \
+    info_message_handler.h \
     log_handler.h \
     mainwindow.h \
     mavlink_communicator.h \
