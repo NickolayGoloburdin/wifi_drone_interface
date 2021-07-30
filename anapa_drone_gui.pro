@@ -10,6 +10,7 @@ CONFIG += qt
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 QT += network
+QT +=sql
 CONFIG += qt thread
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -28,7 +29,9 @@ SOURCES += \
     gcs_communicator_factory.cpp \
     gps_handler.cpp \
     heartbeat_handler.cpp \
+    info_abstract_handler.cpp \
     info_communicator.cpp \
+    info_message_handler.cpp \
     log_handler.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -417,10 +420,13 @@ HEADERS += \
     gcs_communicator_factory.h \
     gps_handler.h \
     heartbeat_handler.h \
+    info_abstract_handler.h \
     info_communicator.h \
+    info_message_handler.h \
     log_handler.h \
     mainwindow.h \
     mavlink_communicator.h \
+    sql_communicator.h \
     status_handler.h \
     udp_link.h
 

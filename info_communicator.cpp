@@ -63,16 +63,9 @@ void InfoCommunicator::onDataReceived(const QByteArray& data)
 
     m_lastReceivedLink = qobject_cast<AbstractLink*>(this->sender());
     if (!m_lastReceivedLink) return;
+       QString msg = QString::fromUtf8(data);
+       emit messageReceived(msg);
 
-    uint8_t channel = m_linkChannels.value(m_lastReceivedLink);
-    for (int pos = 0; pos < data.length(); ++pos)
-    {
-        qDebug() << data;
-        //QString msg("123");
-        //sendMessageOnAllLinks(msg);
-       // QString dat = QString::fromUtf8(data);
-        //emit messageReceived("done");
-    }
 
     // TODO: Link RX status
 }

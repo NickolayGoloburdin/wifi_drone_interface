@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     timer_id_ =  this->startTimer(10000);
-    ui->status->textCursor().insertText(QString("\nGui is started"));
+    ui->status->textCursor().insertText(QString("\nИнтерфейс запущен"));
+
 
 }
 
@@ -18,18 +19,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::update_connection(){
 ui->connection->setText("Подключение: установлено");
+ui->status->textCursor().insertText(QString("\nСоединение установлено"));
 this->killTimer(timer_id_);
 timer_id_ =  this->startTimer(10000);
 }
 void MainWindow::timerEvent(QTimerEvent* event)
 {
     Q_UNUSED(event)
-    ui->connection->setText("Подключение: не  установлено");
+    ui->connection->setText("Подключение: не установлено");
+    ui->status->textCursor().insertText(QString("\nСоединение потеряно"));
 }
 void MainWindow::update_status(QString status){
     //ui->status->setText(ui->status->text() +QString("\n") + status );
+    if (status == QString("Flight plan recieved")){ ui->status->textCursor().insertText(QString("\n") + "Полетный план получен" );}
+    else{
     ui->status->textCursor().insertText(QString("\n") + status );
-    //ui->status->
+    }
+
 }
 void MainWindow::update_sattelites(int sattelites){
     ui->sattelites->setText("Спутников:" + QString::number(sattelites));
@@ -37,16 +43,23 @@ void MainWindow::update_sattelites(int sattelites){
 void MainWindow::update_battery(int8_t battery_charge){
 ui->battery->setText("Заряд дрона:" + QString::number(battery_charge)+ QString("%"));
 }
+void MainWindow::update_coordinates(QString in_x, QString in_y){
+
+ui->attitude->setText(in_x);
+ui->longtitude->setText(in_y);
+QMessageBox::warning(this, "Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
+}
 
 void MainWindow::on_Arm_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nArming..."));
+    ui->status->textCursor().insertText(QString("\nЗапуск..."));
     emit armSignal();
+    //QMessageBox::warning(this,"Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
 }
 
 void MainWindow::on_Disarm_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nDisarming..."));
+    ui->status->textCursor().insertText(QString("\nВыключение двигателей..."));
     emit disarmSignal();
 
 }
@@ -54,6 +67,7 @@ void MainWindow::on_Disarm_clicked()
 void MainWindow::on_SendPoint_clicked()
 {
    int x,y,x_land, y_land, height_takeoff, height_point, height_land;
+   bool manual_drop;
    x = static_cast<int>(10000000*(ui->attitude->text().toDouble()));
    y = static_cast<int>(10000000*(ui->longtitude->text().toDouble()));
    x_land = static_cast<int>(10000000*(ui->land_x->text().toDouble()));
@@ -61,13 +75,14 @@ void MainWindow::on_SendPoint_clicked()
    height_takeoff = static_cast<float>(ui->height_takeoff->text().toDouble());
    height_point = static_cast<float>(ui->height_point->text().toDouble());
    height_land = static_cast<float>(ui->height_land->text().toDouble());
-   ui->status->textCursor().insertText(QString("\nFlight Plan Sending..."));
-   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land);
+   manual_drop = ui->manual_drop->isChecked();
+   ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
+   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop);
 }
 
 void MainWindow::on_Start_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nMission starting..."));
+    ui->status->textCursor().insertText(QString("\nЗапуск миссии..."));
     emit startSignal();
 }
 
@@ -83,27 +98,27 @@ ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.
 }
 void MainWindow::on_log_list_request_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nLog list request"));
+    ui->status->textCursor().insertText(QString("\nЗапрошен лист логов"));
 
     emit logListReqSignal();
 }
 
 void MainWindow::on_log_request_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nLog request"));
+    ui->status->textCursor().insertText(QString("\nЗапрос логов"));
 
     emit logReqSignal(ui->log_id->text().toInt());
 }
 
 void MainWindow::on_set_takeoff_speed_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nTakeoff speed is uploaded"));
+    ui->status->textCursor().insertText(QString("\nСкорость взлета установлена"));
     emit takeoffSpeedSignal(ui->takeoff_speed->text().toFloat());
 }
 
 void MainWindow::on_set_land_speed_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nLand speed is uploaded"));
+    ui->status->textCursor().insertText(QString("\nСкорость посадки установлена"));
 
     emit landSpeedSignal(ui->land_speed->text().toFloat());
 
@@ -111,7 +126,7 @@ void MainWindow::on_set_land_speed_clicked()
 
 void MainWindow::on_set_fly_speed_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nFly speed is uploaded"));
+    ui->status->textCursor().insertText(QString("\nСкорость полета установлена"));
 
     emit flySpeedSignal(ui->fly_speed->text().toFloat());
 }

@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QThread>
 #include <cstring>
+#include <QFile>
+
 
 using namespace domain;
 CommandsSender::CommandsSender(MavLinkCommunicator* communicator):
@@ -99,7 +101,7 @@ void CommandsSender::req_log(int number){
     m_communicator->sendMessageOnAllLinks(message);
 
 }
-void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land){
+void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land, bool drop){
 
       waypoints.clear();
       mavlink_mission_item_int_t set_home = {0};
@@ -124,7 +126,8 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
 
       mavlink_mission_item_int_t waypoint = {0};
       waypoint.command = MAV_CMD_NAV_WAYPOINT;
-      waypoint.param1 = 0;
+      if (drop == true){waypoint.param1 = 150;}
+      else{waypoint.param1 = 2;}
       waypoint.z = height_point;
       waypoint.x = x;
       waypoint.y = y;
@@ -160,7 +163,6 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       waypoints.push_back(land);
       sender_count_ = waypoints.size();
       upload_fly_mission();
-
     }
 
 void CommandsSender::upload_fly_mission(){

@@ -3,6 +3,7 @@
 #include <QObject>
 #include "mavlink_communicator.h"
 #include "abstract_handler.h"
+#include <QVector>
 namespace domain
 {
     class MavLinkCommunicator;
@@ -21,12 +22,12 @@ namespace domain
         void wait_mission_message();
         void wait_ack_message();
         void wait_ack_mission_message();
-        std::vector<mavlink_mission_item_int_t> waypoints;
+        QVector<mavlink_mission_item_int_t> waypoints;
     public slots:
         void send_arm();
         void send_disarm();
         void start_mission();
-        void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land);
+        void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land, bool drop);
         void set_guided_mode();
         void mission_request_handler(mavlink_mission_request_t mission_req);
         void command_ack_handler();
