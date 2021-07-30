@@ -29,7 +29,7 @@ public slots:
 signals:
     void armSignal();
     void disarmSignal();
-    void missionSignal(int x, int y, int x_land, int y_land,float height_takeoff, float height_point, float height_land);
+    void missionSignal(int x, int y, int x_land, int y_land,float height_takeoff, float height_point, float height_land, bool drop);
     void startSignal();
     void logListReqSignal();
     void logReqSignal(int number);

@@ -10,6 +10,7 @@ CONFIG += qt
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 QT += network
+QT +=sql
 CONFIG += qt thread
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -425,6 +426,7 @@ HEADERS += \
     log_handler.h \
     mainwindow.h \
     mavlink_communicator.h \
+    sql_communicator.h \
     status_handler.h \
     udp_link.h
 
