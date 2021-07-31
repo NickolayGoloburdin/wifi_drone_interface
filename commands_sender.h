@@ -37,6 +37,8 @@ namespace domain
         void set_takeoff_speed(float speed);
         void set_land_speed(float speed);
         void set_fly_speed(float speed);
+    signals:
+        void dbSignal(QVector<mavlink_mission_item_int_t>& mission);
 
 
     protected:

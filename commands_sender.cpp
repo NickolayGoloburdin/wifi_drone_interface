@@ -162,6 +162,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       land.target_component = target_component_id_autopilot_;
       waypoints.push_back(land);
       sender_count_ = waypoints.size();
+      emit dbSignal(waypoints);
       upload_fly_mission();
     }
 

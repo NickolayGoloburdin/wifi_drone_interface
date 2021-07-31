@@ -36,6 +36,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mavlink_communicator.cpp \
+    sql_communicator.cpp \
     status_handler.cpp \
     udp_link.cpp
 

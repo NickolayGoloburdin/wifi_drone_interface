@@ -77,6 +77,7 @@ void MainWindow::on_SendPoint_clicked()
    height_land = static_cast<float>(ui->height_land->text().toDouble());
    manual_drop = ui->manual_drop->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
+   ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
    emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop);
 }
 
