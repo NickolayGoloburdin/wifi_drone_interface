@@ -19,7 +19,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::update_connection(){
 ui->connection->setText("Подключение: установлено");
-ui->status->textCursor().insertText(QString("\nСоединение установлено"));
 this->killTimer(timer_id_);
 timer_id_ =  this->startTimer(10000);
 }
@@ -27,7 +26,7 @@ void MainWindow::timerEvent(QTimerEvent* event)
 {
     Q_UNUSED(event)
     ui->connection->setText("Подключение: не установлено");
-    ui->status->textCursor().insertText(QString("\nСоединение потеряно"));
+    //ui->status->textCursor().insertText(QString("\nСоединение потеряно"));
 }
 void MainWindow::update_status(QString status){
     //ui->status->setText(ui->status->text() +QString("\n") + status );
@@ -77,6 +76,7 @@ void MainWindow::on_SendPoint_clicked()
    height_land = static_cast<float>(ui->height_land->text().toDouble());
    manual_drop = ui->manual_drop->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
+   ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
    emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop);
 }
 
