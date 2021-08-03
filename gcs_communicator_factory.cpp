@@ -3,7 +3,6 @@
 #include "mavlink_communicator.h"
 #include "info_communicator.h"
 #include "sql_communicator.h"
-
 #include "mainwindow.h"
 #include "heartbeat_handler.h"
 #include "attitude_handler.h"
@@ -28,7 +27,7 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
 {
     MavLinkCommunicator* communicator = new MavLinkCommunicator(255, 0);
     InfoCommunicator* infcommun = new InfoCommunicator();
-    SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("IPU-RAN"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
+    SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     MainWindow* window = new MainWindow();
     window->show();
     //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
@@ -57,6 +56,8 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     QObject::connect(window, &MainWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
     QObject::connect(window, &MainWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
     QObject::connect(sender, &CommandsSender::dbSignal, sqlcommunicator, &SQLCommunicator::send_mission);
+    QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
+
 
     return std::make_tuple(communicator, infcommun);
 }

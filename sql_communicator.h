@@ -12,6 +12,8 @@ public:
     SQLCommunicator() = delete;
 public slots:
     void send_mission(QVector<mavlink_mission_item_int_t>& mission);
+signals:
+    void sqlStatus(QString status);
 private:
     QSqlDatabase db;
 
