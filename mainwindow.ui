@@ -1026,7 +1026,7 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="SendPoint_2">
+   <widget class="QPushButton" name="takeoff">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -1067,7 +1067,7 @@ QPushButton::hover {
      <string>Взлететь</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Arm_2">
+   <widget class="QPushButton" name="Hold_time">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -1108,13 +1108,13 @@ QPushButton::hover {
      <string>Зависнуть</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Disarm_2">
+   <widget class="QPushButton" name="Pause">
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>400</y>
+      <y>410</y>
       <width>141</width>
-      <height>101</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
@@ -1151,11 +1151,11 @@ QPushButton::hover {
 воздухе</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="set_takeoff_speed_2">
+   <widget class="QPushButton" name="return_to_home">
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>520</y>
+      <y>620</y>
       <width>141</width>
       <height>91</height>
      </rect>
@@ -1193,7 +1193,7 @@ QPushButton::hover {
 домой</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="land_x_2">
+   <widget class="QLineEdit" name="takeoff_height">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -1231,7 +1231,7 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
 взлета</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="land_x_3">
+   <widget class="QLineEdit" name="tim_of_holdng">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -1275,6 +1275,70 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_19">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>70</y>
+      <width>121</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+    </property>
+    <property name="text">
+     <string>Мгновенные
+команды</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="continue_mission">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>520</y>
+      <width>141</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Semibold</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+    </property>
+    <property name="text">
+     <string>Продолжить
+миссию</string>
+    </property>
+   </widget>
    <zorder>label_15</zorder>
    <zorder>Start</zorder>
    <zorder>label_4</zorder>
@@ -1295,14 +1359,16 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
    <zorder>Disarm</zorder>
    <zorder>Arm</zorder>
    <zorder>verticalLayoutWidget_2</zorder>
-   <zorder>SendPoint_2</zorder>
-   <zorder>Arm_2</zorder>
-   <zorder>Disarm_2</zorder>
-   <zorder>set_takeoff_speed_2</zorder>
-   <zorder>land_x_2</zorder>
+   <zorder>takeoff</zorder>
+   <zorder>Hold_time</zorder>
+   <zorder>Pause</zorder>
+   <zorder>return_to_home</zorder>
+   <zorder>takeoff_height</zorder>
    <zorder>label_17</zorder>
-   <zorder>land_x_3</zorder>
+   <zorder>tim_of_holdng</zorder>
    <zorder>label_18</zorder>
+   <zorder>label_19</zorder>
+   <zorder>continue_mission</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
