@@ -49,12 +49,17 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     QObject::connect(battery, &BatteryHandler::BatterySignal, window, &MainWindow::update_battery);
     QObject::connect(status, &StatusHandler::statusSignal, window, &MainWindow::update_status);
     QObject::connect(window, &MainWindow::armSignal, sender, &CommandsSender::send_arm);
+    QObject::connect(window, &MainWindow::takeoffSignal, sender, &CommandsSender::send_takeoff);
     QObject::connect(window, &MainWindow::logReqSignal, sender, &CommandsSender::req_log);
     QObject::connect(window, &MainWindow::disarmSignal, sender, &CommandsSender::send_disarm);
     QObject::connect(window, &MainWindow::missionSignal, sender, &CommandsSender::form_send_fly_mission);
     QObject::connect(window, &MainWindow::startSignal, sender, &CommandsSender::start_mission);
     QObject::connect(window, &MainWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
     QObject::connect(window, &MainWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
+    QObject::connect(window, &MainWindow::RTLSignal, sender, &CommandsSender::send_rtl_cmd);
+    QObject::connect(window, &MainWindow::AutoModeSignal, sender, &CommandsSender::set_auto_mode);
+    QObject::connect(window, &MainWindow::LoiterModeSignal, sender, &CommandsSender::set_loiter_mode);
+      QObject::connect(window, &MainWindow::LoiterTimeModeSignal, sender, &CommandsSender::loiter_time_wait);
     QObject::connect(sender, &CommandsSender::dbSignal, sqlcommunicator, &SQLCommunicator::send_mission);
     QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
 

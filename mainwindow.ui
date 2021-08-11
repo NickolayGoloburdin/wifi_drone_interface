@@ -1231,7 +1231,7 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
 взлета</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tim_of_holdng">
+   <widget class="QLineEdit" name="time_of_holdng">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -1268,7 +1268,7 @@ font: 9pt &quot;Segoe UI Semibold&quot;;
 	color:rgb(23, 31, 79)}</string>
     </property>
     <property name="text">
-     <string>на
+     <string>На
 сколько</string>
     </property>
     <property name="alignment">
@@ -1365,7 +1365,7 @@ QPushButton::hover {
    <zorder>return_to_home</zorder>
    <zorder>takeoff_height</zorder>
    <zorder>label_17</zorder>
-   <zorder>tim_of_holdng</zorder>
+   <zorder>time_of_holdng</zorder>
    <zorder>label_18</zorder>
    <zorder>label_19</zorder>
    <zorder>continue_mission</zorder>

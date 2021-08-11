@@ -130,3 +130,35 @@ void MainWindow::on_set_fly_speed_clicked()
 
     emit flySpeedSignal(ui->fly_speed->text().toFloat());
 }
+
+void MainWindow::on_return_to_home_clicked()
+{
+    emit RTLSignal();
+    ui->status->textCursor().insertText(QString("\nРежим возвращения домой"));
+}
+
+void MainWindow::on_continue_mission_clicked()
+{
+     ui->status->textCursor().insertText(QString("\nПродолжение миссии"));
+    emit AutoModeSignal();
+}
+
+void MainWindow::on_Pause_clicked()
+{
+    ui->status->textCursor().insertText(QString("\nОстановка"));
+   emit LoiterModeSignal();
+}
+
+void MainWindow::on_takeoff_clicked()
+{
+    ui->status->textCursor().insertText(QString("\nВзлет"));
+    emit takeoffSignal(ui->takeoff_height->text().toFloat());
+}
+
+void MainWindow::on_Hold_time_clicked()
+{
+    emit LoiterTimeModeSignal(ui->time_of_holdng->text().toFloat());
+    ui->status->textCursor().insertText(QString("\nОстановка"));
+    emit AutoModeSignal();
+
+}

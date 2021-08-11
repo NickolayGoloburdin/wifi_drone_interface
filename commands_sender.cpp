@@ -212,20 +212,45 @@ void CommandsSender::set_guided_mode() {
    m_communicator->sendMessageOnAllLinks(msg);
 
 }
+void CommandsSender::set_auto_mode() {
+
+  mavlink_set_mode_t set_mode = {0};
+  mavlink_message_t msg;
+
+  set_mode.base_mode = 1;
+  set_mode.custom_mode = 3;
+  set_mode.target_system = target_system_id_;
+
+  mavlink_msg_set_mode_encode(1, component_id_, &msg, &set_mode);
+   m_communicator->sendMessageOnAllLinks(msg);
+
+}
+void CommandsSender::set_loiter_mode() {
+
+  mavlink_set_mode_t set_mode = {0};
+  mavlink_message_t msg;
+
+  set_mode.base_mode = 1;
+  set_mode.custom_mode = 5;
+  set_mode.target_system = target_system_id_;
+
+  mavlink_msg_set_mode_encode(1, component_id_, &msg, &set_mode);
+   m_communicator->sendMessageOnAllLinks(msg);
+
+}
 void CommandsSender::set_takeoff_speed(float speed){
     mavlink_param_set_t param = {0};
 
-    /*param.target_system = target_system_id_;
+    param.target_system = target_system_id_;
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
-    strcpy(param.param_id,"LAND_SPEED");
+    strcpy(param.param_id,"WPNAV_SPEED_UP");
     param.param_value = speed;
-    mavlink_message_t msg;
     mavlink_message_t msg;
     mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
      m_communicator->sendMessageOnAllLinks(msg);
 
-*/}
+}
 void CommandsSender::set_land_speed(float speed){
    mavlink_param_set_t param = {0};
     param.target_system = target_system_id_;
@@ -250,6 +275,43 @@ void CommandsSender::set_fly_speed(float speed){
      m_communicator->sendMessageOnAllLinks(msg);
 
 }
+
+void CommandsSender::send_rtl_cmd(){
+    set_guided_mode();
+    mavlink_command_long_t start = {0};
+    start.target_system = target_system_id_;
+    start.target_component = target_component_id_autopilot_;
+    start.command = MAV_CMD_NAV_RETURN_TO_LAUNCH; // 176
+    start.confirmation = 1;
+    mavlink_message_t message;
+    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+     m_communicator->sendMessageOnAllLinks(message);
+}
+void CommandsSender::send_takeoff(float meters){
+    set_guided_mode();
+    mavlink_command_long_t start = {0};
+    start.target_system = target_system_id_;
+    start.target_component = target_component_id_autopilot_;
+    start.command = MAV_CMD_NAV_TAKEOFF; // 176
+    start.confirmation = 1;
+    start.param7 = meters;
+    mavlink_message_t message;
+    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+     m_communicator->sendMessageOnAllLinks(message);
+}
+void CommandsSender::loiter_time_wait(float seconds){
+    set_guided_mode();
+    mavlink_command_long_t start = {0};
+    start.target_system = target_system_id_;
+    start.target_component = target_component_id_autopilot_;
+    start.command = MAV_CMD_NAV_LOITER_TIME; // 176
+    start.confirmation = 1;
+    start.param1 = seconds;
+    mavlink_message_t message;
+    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+     m_communicator->sendMessageOnAllLinks(message);
+}
+
 
 
 
