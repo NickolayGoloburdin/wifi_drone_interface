@@ -101,7 +101,7 @@ void CommandsSender::req_log(int number){
     m_communicator->sendMessageOnAllLinks(message);
 
 }
-void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land, bool drop){
+void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land, bool drop,bool db){
 
       waypoints.clear();
       mavlink_mission_item_int_t set_home = {0};
@@ -150,6 +150,19 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       waypoints.push_back(camera);
 
 
+      mavlink_mission_item_int_t wp = {0};
+      wp.command = MAV_CMD_NAV_WAYPOINT;
+      wp.z = height_takeoff;
+      wp.x = x;
+      wp.y = y;
+      wp.autocontinue = 1;
+      wp.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+      wp.seq = 4;
+      wp.target_system = target_system_id_;
+      wp.target_component = target_component_id_autopilot_;
+      waypoints.push_back(wp);
+
+
       mavlink_mission_item_int_t land = {0};
       land.command = MAV_CMD_NAV_LAND;
       land.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
@@ -157,12 +170,12 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       land.y = y_land;
       land.z = height_land;
       land.autocontinue = 1;
-      land.seq = 4;
+      land.seq = 5;
       land.target_system = target_system_id_;
       land.target_component = target_component_id_autopilot_;
       waypoints.push_back(land);
       sender_count_ = waypoints.size();
-      emit dbSignal(waypoints);
+      if (db) emit dbSignal(waypoints);
       upload_fly_mission();
     }
 

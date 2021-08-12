@@ -28,7 +28,7 @@ namespace domain
         void send_disarm();
         void send_takeoff(float meters);
         void start_mission();
-        void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land, bool drop);
+        void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land, bool drop, bool db);
         void set_guided_mode();
         void set_auto_mode();
         void set_loiter_mode();

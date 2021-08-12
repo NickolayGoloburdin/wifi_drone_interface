@@ -66,7 +66,7 @@ void MainWindow::on_Disarm_clicked()
 void MainWindow::on_SendPoint_clicked()
 {
    int x,y,x_land, y_land, height_takeoff, height_point, height_land;
-   bool manual_drop;
+   bool manual_drop,db_send;
    x = static_cast<int>(10000000*(ui->attitude->text().toDouble()));
    y = static_cast<int>(10000000*(ui->longtitude->text().toDouble()));
    x_land = static_cast<int>(10000000*(ui->land_x->text().toDouble()));
@@ -75,9 +75,10 @@ void MainWindow::on_SendPoint_clicked()
    height_point = static_cast<float>(ui->height_point->text().toDouble());
    height_land = static_cast<float>(ui->height_land->text().toDouble());
    manual_drop = ui->manual_drop->isChecked();
+   db_send = ui->db_upload->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
-   ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
-   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop);
+   if (db_send) ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
+   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop,db_send);
 }
 
 void MainWindow::on_Start_clicked()
