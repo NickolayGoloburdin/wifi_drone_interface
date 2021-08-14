@@ -49,7 +49,7 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     QObject::connect(battery, &BatteryHandler::BatterySignal, window, &MainWindow::update_battery);
     QObject::connect(status, &StatusHandler::statusSignal, window, &MainWindow::update_status);
     QObject::connect(window, &MainWindow::armSignal, sender, &CommandsSender::send_arm);
-    QObject::connect(window, &MainWindow::takeoffSignal, sender, &CommandsSender::send_takeoff);
+    QObject::connect(window, &MainWindow::takeoffMissionSignal, sender, &CommandsSender::send_takeoff_mission);
     QObject::connect(window, &MainWindow::logReqSignal, sender, &CommandsSender::req_log);
     QObject::connect(window, &MainWindow::disarmSignal, sender, &CommandsSender::send_disarm);
     QObject::connect(window, &MainWindow::missionSignal, sender, &CommandsSender::form_send_fly_mission);

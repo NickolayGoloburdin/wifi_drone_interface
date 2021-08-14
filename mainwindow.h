@@ -31,7 +31,7 @@ signals:
     void disarmSignal();
     void missionSignal(int x, int y, int x_land, int y_land,float height_takeoff, float height_point, float height_land, bool drop, bool send_db);
     void startSignal();
-    void takeoffSignal(float meters);
+    void takeoffMissionSignal(float meters, float time);
     void logListReqSignal();
     void logReqSignal(int number);
     void takeoffSpeedSignal(float speed);

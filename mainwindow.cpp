@@ -152,8 +152,8 @@ void MainWindow::on_Pause_clicked()
 
 void MainWindow::on_takeoff_clicked()
 {
-    ui->status->textCursor().insertText(QString("\nВзлет"));
-    emit takeoffSignal(ui->takeoff_height->text().toFloat());
+    ui->status->textCursor().insertText(QString("\nОтправка тестового задания, высота ")+ui->takeoff_height->text() +QString(" м, Время зависания ") + ui->time_of_holdng->text()+QString(" секунды ") );
+    emit takeoffMissionSignal(ui->takeoff_height->text().toFloat(), ui->time_of_holdng->text().toFloat());
 }
 
 void MainWindow::on_Hold_time_clicked()

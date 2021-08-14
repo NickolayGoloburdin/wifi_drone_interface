@@ -300,17 +300,54 @@ void CommandsSender::send_rtl_cmd(){
     mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
      m_communicator->sendMessageOnAllLinks(message);
 }
-void CommandsSender::send_takeoff(float meters){
-    set_guided_mode();
-    mavlink_command_long_t start = {0};
-    start.target_system = target_system_id_;
-    start.target_component = target_component_id_autopilot_;
-    start.command = MAV_CMD_NAV_TAKEOFF; // 176
-    start.confirmation = 1;
-    start.param7 = meters;
-    mavlink_message_t message;
-    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
-     m_communicator->sendMessageOnAllLinks(message);
+void CommandsSender::send_takeoff_mission(float meters, float time){
+    waypoints.clear();
+    mavlink_mission_item_int_t set_home = {0};
+    set_home.command = MAV_CMD_NAV_TAKEOFF;
+    set_home.param1 = 0;
+    set_home.autocontinue = 1;
+    set_home.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+    set_home.seq = 0;
+    set_home.target_system = target_system_id_;
+    set_home.target_component = target_component_id_autopilot_;
+    waypoints.push_back(set_home);
+
+    mavlink_mission_item_int_t takeoff = {0};
+    takeoff.command = MAV_CMD_NAV_TAKEOFF;
+    takeoff.z = meters;
+    takeoff.autocontinue = 1;
+    takeoff.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+    takeoff.seq = 1;
+    takeoff.target_system = target_system_id_;
+    takeoff.target_component = target_component_id_autopilot_;
+    waypoints.push_back(takeoff);
+
+    mavlink_mission_item_int_t waypoint = {0};
+    waypoint.command = MAV_CMD_NAV_WAYPOINT;
+    waypoint.param1 = time;
+    waypoint.z = meters;
+    waypoint.x = 0;
+    waypoint.y = 0;
+    waypoint.autocontinue = 1;
+    waypoint.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+    waypoint.seq = 2;
+    waypoint.target_system = target_system_id_;
+    waypoint.target_component = target_component_id_autopilot_;
+    waypoints.push_back(waypoint);
+
+    mavlink_mission_item_int_t land = {0};
+    land.command = MAV_CMD_NAV_RETURN_TO_LAUNCH;
+    land.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+    land.autocontinue = 1;
+    land.seq = 3;
+    land.target_system = target_system_id_;
+    land.target_component = target_component_id_autopilot_;
+    waypoints.push_back(land);
+    sender_count_ = waypoints.size();
+
+    upload_fly_mission();
+
+
 }
 void CommandsSender::loiter_time_wait(float seconds){
     set_guided_mode();

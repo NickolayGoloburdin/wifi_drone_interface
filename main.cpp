@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     std::tie(communicator, infcommun) = factory.create();
     communicator->setParent(&app);
 
-    domain::UdpLink link(14551, QString("192.168.2.1"), 14550);
+    domain::UdpLink link(14555, QString("127.0.0.1"), 14550);
     domain::UdpLink linkinfo(7777, QString("127.0.0.1"), 7776);
     //domain::SerialLink link("/dev/ttyUSB0", 57600);
     communicator->addLink(&link, MAVLINK_COMM_0);
