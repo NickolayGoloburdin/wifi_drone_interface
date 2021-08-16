@@ -25,7 +25,7 @@ GcsCommunicatorFactory::GcsCommunicatorFactory()
 
 std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::create()
 {
-    MavLinkCommunicator* communicator = new MavLinkCommunicator(255, 0);
+    MavLinkCommunicator* communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator* infcommun = new InfoCommunicator();
     SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     MainWindow* window = new MainWindow();

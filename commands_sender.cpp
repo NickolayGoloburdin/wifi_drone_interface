@@ -37,7 +37,7 @@ void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_r
     if (mission_req.seq >50 ){return;}
       mavlink_message_t message;
     //wait_mission_message();
-      mavlink_msg_mission_item_int_encode(system_id_, component_id_, &message, &waypoints[mission_req.seq]);
+      mavlink_msg_mission_item_int_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &waypoints[mission_req.seq]);
       m_communicator->sendMessageOnAllLinks(message);
       count_++;
     //  if (count_ == 3){
@@ -52,7 +52,7 @@ void CommandsSender::mission_ack_handler(int type){
 
 }
 void CommandsSender::send_arm(){
-
+    set_guided_mode();
     mavlink_command_long_t set_mode = {0};
       set_mode.target_system = target_system_id_;
       set_mode.target_component = target_component_id_all_;
@@ -60,11 +60,12 @@ void CommandsSender::send_arm(){
       set_mode.confirmation = 0;
       set_mode.param1 = 1;
       mavlink_message_t message;
-      mavlink_msg_command_long_encode(system_id_, component_id_, &message,
+      mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                       &set_mode);
       m_communicator->sendMessageOnAllLinks(message);
 }
 void CommandsSender::send_disarm(){
+    set_guided_mode();
     mavlink_command_long_t set_mode = {0};
       set_mode.target_system = target_system_id_;
       set_mode.target_component = target_component_id_all_;
@@ -72,7 +73,7 @@ void CommandsSender::send_disarm(){
       set_mode.confirmation = 0;
       set_mode.param1 = 0;
       mavlink_message_t message;
-      mavlink_msg_command_long_encode(system_id_, component_id_, &message,
+      mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                       &set_mode);
       m_communicator->sendMessageOnAllLinks(message);
 
@@ -85,7 +86,7 @@ void CommandsSender::req_log_list(){
     req.target_system = target_system_id_;
     req.target_component = target_component_id_autopilot_;
     mavlink_message_t message;
-    mavlink_msg_log_request_list_encode(system_id_, component_id_, &message,
+    mavlink_msg_log_request_list_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                     &req);
     m_communicator->sendMessageOnAllLinks(message);
 
@@ -96,7 +97,7 @@ void CommandsSender::req_log(int number){
     req.target_component = target_component_id_autopilot_;
     req.id = number;
     mavlink_message_t message;
-    mavlink_msg_log_request_data_encode(system_id_, component_id_, &message,
+    mavlink_msg_log_request_data_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                     &req);
     m_communicator->sendMessageOnAllLinks(message);
 
@@ -124,6 +125,20 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       takeoff.target_component = target_component_id_autopilot_;
       waypoints.push_back(takeoff);
 
+      mavlink_mission_item_int_t waypoint1 = {0};
+      waypoint1.command = MAV_CMD_NAV_WAYPOINT;
+      if (drop == true){waypoint1.param1 = 150;}
+      else{waypoint1.param1 = 2;}
+      waypoint1.z = height_takeoff;
+      waypoint1.x = x;
+      waypoint1.y = y;
+      waypoint1.autocontinue = 1;
+      waypoint1.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
+      waypoint1.seq = 2;
+      waypoint1.target_system = target_system_id_;
+      waypoint1.target_component = target_component_id_autopilot_;
+      waypoints.push_back(waypoint1);
+
       mavlink_mission_item_int_t waypoint = {0};
       waypoint.command = MAV_CMD_NAV_WAYPOINT;
       if (drop == true){waypoint.param1 = 150;}
@@ -133,7 +148,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       waypoint.y = y;
       waypoint.autocontinue = 1;
       waypoint.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
-      waypoint.seq = 2;
+      waypoint.seq = 3;
       waypoint.target_system = target_system_id_;
       waypoint.target_component = target_component_id_autopilot_;
       waypoints.push_back(waypoint);
@@ -144,7 +159,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       camera.x = 1;
       camera.autocontinue = 1;
       camera.frame = MAV_FRAME_MISSION;
-      camera.seq = 3;
+      camera.seq = 4;
       camera.target_system = target_system_id_;
       camera.target_component = target_component_id_autopilot_;
       waypoints.push_back(camera);
@@ -157,7 +172,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       wp.y = y;
       wp.autocontinue = 1;
       wp.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
-      wp.seq = 4;
+      wp.seq = 5;
       wp.target_system = target_system_id_;
       wp.target_component = target_component_id_autopilot_;
       waypoints.push_back(wp);
@@ -170,7 +185,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
       land.y = y_land;
       land.z = height_land;
       land.autocontinue = 1;
-      land.seq = 5;
+      land.seq = 6;
       land.target_system = target_system_id_;
       land.target_component = target_component_id_autopilot_;
       waypoints.push_back(land);
@@ -184,14 +199,14 @@ void CommandsSender::upload_fly_mission(){
       a.target_component = target_component_id_all_;
       a.target_system = target_system_id_;
       mavlink_message_t message;
-      mavlink_msg_mission_clear_all_encode(system_id_, 255, &message, &a);
+      mavlink_msg_mission_clear_all_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &a);
       m_communicator->sendMessageOnAllLinks(message);
       //wait_ack_mission_message();
       mavlink_mission_count_t count = {0};
       count.count = waypoints.size();
       count.target_component = target_component_id_autopilot_;
       count.target_system = target_system_id_;
-      mavlink_msg_mission_count_encode(system_id_, component_id_, &message,
+      mavlink_msg_mission_count_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                          &count);
       m_communicator->sendMessageOnAllLinks(message);
 
@@ -208,7 +223,7 @@ void CommandsSender::start_mission(){
     start.command = MAV_CMD_MISSION_START; // 176
     start.confirmation = 1;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
      m_communicator->sendMessageOnAllLinks(message);
 }
 
@@ -221,7 +236,7 @@ void CommandsSender::set_guided_mode() {
   set_mode.custom_mode = 4;
   set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(1, component_id_, &msg, &set_mode);
+  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
    m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -234,7 +249,7 @@ void CommandsSender::set_auto_mode() {
   set_mode.custom_mode = 3;
   set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(1, component_id_, &msg, &set_mode);
+  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
    m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -247,7 +262,7 @@ void CommandsSender::set_loiter_mode() {
   set_mode.custom_mode = 5;
   set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(1, component_id_, &msg, &set_mode);
+  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
    m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -260,7 +275,7 @@ void CommandsSender::set_takeoff_speed(float speed){
     strcpy(param.param_id,"WPNAV_SPEED_UP");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
+    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
      m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -272,7 +287,7 @@ void CommandsSender::set_land_speed(float speed){
     strcpy(param.param_id,"LAND_SPEED");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
+    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
      m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -284,7 +299,7 @@ void CommandsSender::set_fly_speed(float speed){
     strcpy(param.param_id,"WPNAV_SPEED");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(1,component_id_, &msg, &param);
+    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
      m_communicator->sendMessageOnAllLinks(msg);
 
 }
@@ -297,7 +312,7 @@ void CommandsSender::send_rtl_cmd(){
     start.command = MAV_CMD_NAV_RETURN_TO_LAUNCH; // 176
     start.confirmation = 1;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
      m_communicator->sendMessageOnAllLinks(message);
 }
 void CommandsSender::send_takeoff_mission(float meters, float time){
@@ -358,7 +373,7 @@ void CommandsSender::loiter_time_wait(float seconds){
     start.confirmation = 1;
     start.param1 = seconds;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(system_id_, component_id_, &message, &start);
+    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
      m_communicator->sendMessageOnAllLinks(message);
 }
 
