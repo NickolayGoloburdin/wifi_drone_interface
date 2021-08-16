@@ -66,7 +66,7 @@ void MainWindow::on_Disarm_clicked()
 void MainWindow::on_SendPoint_clicked()
 {
    int x,y,x_land, y_land, height_takeoff, height_point, height_land;
-   bool manual_drop;
+   bool manual_drop,db_send;
    x = static_cast<int>(10000000*(ui->attitude->text().toDouble()));
    y = static_cast<int>(10000000*(ui->longtitude->text().toDouble()));
    x_land = static_cast<int>(10000000*(ui->land_x->text().toDouble()));
@@ -75,9 +75,10 @@ void MainWindow::on_SendPoint_clicked()
    height_point = static_cast<float>(ui->height_point->text().toDouble());
    height_land = static_cast<float>(ui->height_land->text().toDouble());
    manual_drop = ui->manual_drop->isChecked();
+   db_send = ui->db_upload->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
-   ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
-   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop);
+   if (db_send) ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
+   emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop,db_send);
 }
 
 void MainWindow::on_Start_clicked()
@@ -129,4 +130,36 @@ void MainWindow::on_set_fly_speed_clicked()
     ui->status->textCursor().insertText(QString("\nСкорость полета установлена"));
 
     emit flySpeedSignal(ui->fly_speed->text().toFloat());
+}
+
+void MainWindow::on_return_to_home_clicked()
+{
+    emit RTLSignal();
+    ui->status->textCursor().insertText(QString("\nРежим возвращения домой"));
+}
+
+void MainWindow::on_continue_mission_clicked()
+{
+     ui->status->textCursor().insertText(QString("\nПродолжение миссии"));
+    emit AutoModeSignal();
+}
+
+void MainWindow::on_Pause_clicked()
+{
+    ui->status->textCursor().insertText(QString("\nОстановка"));
+   emit LoiterModeSignal();
+}
+
+void MainWindow::on_takeoff_clicked()
+{
+    ui->status->textCursor().insertText(QString("\nОтправка тестового задания, высота ")+ui->takeoff_height->text() +QString(" м, Время зависания ") + ui->time_of_holdng->text()+QString(" секунды ") );
+    emit takeoffMissionSignal(ui->takeoff_height->text().toFloat(), ui->time_of_holdng->text().toFloat());
+}
+
+void MainWindow::on_Hold_time_clicked()
+{
+    emit LoiterTimeModeSignal(ui->time_of_holdng->text().toFloat());
+    ui->status->textCursor().insertText(QString("\nОстановка"));
+    emit AutoModeSignal();
+
 }
