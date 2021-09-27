@@ -13,6 +13,7 @@ namespace domain
 
     signals:
         void CoordinatesSignal(QString x, QString y);
+        void StartSignal();
 
     public slots:
         void processMessage(QString message) override;

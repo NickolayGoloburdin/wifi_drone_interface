@@ -62,6 +62,8 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
       QObject::connect(window, &MainWindow::LoiterTimeModeSignal, sender, &CommandsSender::loiter_time_wait);
     QObject::connect(sender, &CommandsSender::dbSignal, sqlcommunicator, &SQLCommunicator::send_mission);
     QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
+    QObject::connect(pointinfo, &InfoMessageHandler::StartSignal, sender, &CommandsSender::start_mission);
+
 
 
     return std::make_tuple(communicator, infcommun);

@@ -46,7 +46,9 @@ void MainWindow::update_coordinates(QString in_x, QString in_y){
 
 ui->attitude->setText(in_x);
 ui->longtitude->setText(in_y);
-QMessageBox::warning(this, "Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
+
+//QMessageBox::warning(this, "Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
+on_SendPoint_clicked();
 }
 
 void MainWindow::on_Arm_clicked()
@@ -54,6 +56,7 @@ void MainWindow::on_Arm_clicked()
     ui->status->textCursor().insertText(QString("\nЗапуск..."));
     emit armSignal();
     //QMessageBox::warning(this,"Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
+
 }
 
 void MainWindow::on_Disarm_clicked()

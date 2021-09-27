@@ -127,7 +127,7 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
 
       mavlink_mission_item_int_t waypoint1 = {0};
       waypoint1.command = MAV_CMD_NAV_WAYPOINT;
-      if (drop == true){waypoint1.param1 = 150;}
+      if (drop == true){waypoint1.param1 = 100;}
       else{waypoint1.param1 = 2;}
       waypoint1.z = height_takeoff;
       waypoint1.x = x;
