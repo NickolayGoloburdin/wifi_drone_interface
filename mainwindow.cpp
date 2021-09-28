@@ -93,6 +93,7 @@ void MainWindow::on_SendPoint_clicked()
    db_send = ui->db_upload->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
    if (db_send) ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
+   else ui->status->textCursor().insertText(QString("\nБез загрузки в базу данных"));
    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
    emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop,db_send);
 }
