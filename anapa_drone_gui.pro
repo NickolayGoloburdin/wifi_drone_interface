@@ -11,6 +11,7 @@ CONFIG += qt
 DEFINES += QT_DEPRECATED_WARNINGS
 QT += network
 QT +=sql
+
 CONFIG += qt thread
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

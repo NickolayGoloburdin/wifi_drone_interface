@@ -26,6 +26,7 @@ public slots:
     void update_battery(int8_t battery_charge);
     void update_log_list(mavlink_log_entry_t log_entry);
     void update_coordinates(QString in_x, QString in_y);
+    void on_Start_clicked();
 signals:
     void armSignal();
     void disarmSignal();
@@ -47,7 +48,7 @@ protected:
 private slots:
     void on_SendPoint_clicked();
 
-    void on_Start_clicked();
+
 
 
 

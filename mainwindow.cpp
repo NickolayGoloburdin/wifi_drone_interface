@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QScrollBar>
+#include <QCoreApplication>
+#include <QNetworkConfigurationManager>
+#include <QNetworkConfiguration>
+#include <QDebug>
+#include <QNetworkSession>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,9 +24,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::update_connection(){
-ui->connection->setText("Подключение: установлено");
-this->killTimer(timer_id_);
-timer_id_ =  this->startTimer(10000);
+    ui->connection->setText("Подключение: установлено");
+    this->killTimer(timer_id_);
+    timer_id_ =  this->startTimer(10000);
 }
 void MainWindow::timerEvent(QTimerEvent* event)
 {
@@ -30,22 +36,26 @@ void MainWindow::timerEvent(QTimerEvent* event)
 }
 void MainWindow::update_status(QString status){
     //ui->status->setText(ui->status->text() +QString("\n") + status );
-    if (status == QString("Flight plan recieved")){ ui->status->textCursor().insertText(QString("\n") + "Полетный план получен" );}
-    else{
-    ui->status->textCursor().insertText(QString("\n") + status );
+    if (status == QString("Flight plan recieved")){
+
+        ui->status->textCursor().insertText(QString("\n") + "Полетный план получен" );
     }
+    else{
+        ui->status->textCursor().insertText(QString("\n") + status );
+    }
+        ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
 
 }
 void MainWindow::update_sattelites(int sattelites){
     ui->sattelites->setText("Спутников:" + QString::number(sattelites));
 }
 void MainWindow::update_battery(int8_t battery_charge){
-ui->battery->setText("Заряд дрона:" + QString::number(battery_charge)+ QString("%"));
+    ui->battery->setText("Заряд дрона:" + QString::number(battery_charge)+ QString("%"));
 }
 void MainWindow::update_coordinates(QString in_x, QString in_y){
 
-ui->attitude->setText(in_x);
-ui->longtitude->setText(in_y);
+    ui->attitude->setText(in_x);
+    ui->longtitude->setText(in_y);
 
 //QMessageBox::warning(this, "Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
 on_SendPoint_clicked();
@@ -54,6 +64,7 @@ on_SendPoint_clicked();
 void MainWindow::on_Arm_clicked()
 {
     ui->status->textCursor().insertText(QString("\nЗапуск..."));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit armSignal();
     //QMessageBox::warning(this,"Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
 
@@ -62,6 +73,7 @@ void MainWindow::on_Arm_clicked()
 void MainWindow::on_Disarm_clicked()
 {
     ui->status->textCursor().insertText(QString("\nВыключение двигателей..."));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit disarmSignal();
 
 }
@@ -81,19 +93,21 @@ void MainWindow::on_SendPoint_clicked()
    db_send = ui->db_upload->isChecked();
    ui->status->textCursor().insertText(QString("\nОтправка полетного задания..."));
    if (db_send) ui->status->textCursor().insertText(QString("\nЗагрузка в базу данных..."));
+   ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
    emit missionSignal(x, y, x_land, y_land,height_takeoff, height_point, height_land,manual_drop,db_send);
 }
 
 void MainWindow::on_Start_clicked()
 {
     ui->status->textCursor().insertText(QString("\nЗапуск миссии..."));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit startSignal();
 }
 
 void MainWindow::update_log_list(mavlink_log_entry_t log_entry){
     if (log_entry.size != 0)
     {
-ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.id) + QString("\n") + QString("Total number of logs:") + QString(log_entry.num_logs) + QString("\n") + QString("High log number:") + QString(log_entry.last_log_num) + QString("\n"));
+        ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.id) + QString("\n") + QString("Total number of logs:") + QString(log_entry.num_logs) + QString("\n") + QString("High log number:") + QString(log_entry.last_log_num) + QString("\n"));
     }
     else
     {
@@ -103,6 +117,7 @@ ui->log_list->setText(ui->log_list->text() + QString("id:") + QString(log_entry.
 void MainWindow::on_log_list_request_clicked()
 {
     ui->status->textCursor().insertText(QString("\nЗапрошен лист логов"));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
 
     emit logListReqSignal();
 }
@@ -110,6 +125,7 @@ void MainWindow::on_log_list_request_clicked()
 void MainWindow::on_log_request_clicked()
 {
     ui->status->textCursor().insertText(QString("\nЗапрос логов"));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
 
     emit logReqSignal(ui->log_id->text().toInt());
 }
@@ -117,13 +133,14 @@ void MainWindow::on_log_request_clicked()
 void MainWindow::on_set_takeoff_speed_clicked()
 {
     ui->status->textCursor().insertText(QString("\nСкорость взлета установлена"));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit takeoffSpeedSignal(ui->takeoff_speed->text().toFloat());
 }
 
 void MainWindow::on_set_land_speed_clicked()
 {
     ui->status->textCursor().insertText(QString("\nСкорость посадки установлена"));
-
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit landSpeedSignal(ui->land_speed->text().toFloat());
 
 }
@@ -131,7 +148,7 @@ void MainWindow::on_set_land_speed_clicked()
 void MainWindow::on_set_fly_speed_clicked()
 {
     ui->status->textCursor().insertText(QString("\nСкорость полета установлена"));
-
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit flySpeedSignal(ui->fly_speed->text().toFloat());
 }
 
@@ -139,23 +156,27 @@ void MainWindow::on_return_to_home_clicked()
 {
     emit RTLSignal();
     ui->status->textCursor().insertText(QString("\nРежим возвращения домой"));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
 }
 
 void MainWindow::on_continue_mission_clicked()
 {
      ui->status->textCursor().insertText(QString("\nПродолжение миссии"));
-    emit AutoModeSignal();
+     ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
+     emit AutoModeSignal();
 }
 
 void MainWindow::on_Pause_clicked()
 {
     ui->status->textCursor().insertText(QString("\nОстановка"));
-   emit LoiterModeSignal();
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
+    emit LoiterModeSignal();
 }
 
 void MainWindow::on_takeoff_clicked()
 {
     ui->status->textCursor().insertText(QString("\nОтправка тестового задания, высота ")+ui->takeoff_height->text() +QString(" м, Время зависания ") + ui->time_of_holdng->text()+QString(" секунды ") );
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit takeoffMissionSignal(ui->takeoff_height->text().toFloat(), ui->time_of_holdng->text().toFloat());
 }
 
@@ -163,6 +184,7 @@ void MainWindow::on_Hold_time_clicked()
 {
     emit LoiterTimeModeSignal(ui->time_of_holdng->text().toFloat());
     ui->status->textCursor().insertText(QString("\nОстановка"));
+    ui->status->verticalScrollBar()->setValue(ui->status->verticalScrollBar()->maximum());
     emit AutoModeSignal();
 
 }
