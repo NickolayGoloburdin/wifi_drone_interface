@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "dronewindow.h"
 
 #include <QApplication>
 #include "gcs_communicator_factory.h"

@@ -1,0 +1,1370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DroneWindow</class>
+ <widget class="QWidget" name="DroneWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1183</width>
+    <height>774</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DroneWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(220, 220, 220);</string>
+  </property>
+  <widget class="QPushButton" name="Start">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>590</y>
+     <width>301</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color:rgb(156, 54, 55);
+}</string>
+   </property>
+   <property name="text">
+    <string>Начать 
+ выполненение 
+ миссии</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>50</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>15</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 15pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Состояние дрона</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>0</y>
+     <width>681</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>20</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 20pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Управление спасательным дроном</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>50</y>
+     <width>271</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>15</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 15pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Доп. информация</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="log_list">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>350</y>
+     <width>151</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Yu Gothic UI Semibold</family>
+     <pointsize>6</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  QLabel {background-color: rgb(61, 60, 90);
+border-radius: 8px;
+color:rgb(164, 255, 16);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="log_request">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>270</y>
+     <width>161</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Запросить
+лог</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="log_id">
+   <property name="geometry">
+    <rect>
+     <x>1040</x>
+     <y>360</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>390</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>ID Лога</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="log_list_request">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>270</y>
+     <width>151</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Запросить
+список
+логов</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="status">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>90</y>
+     <width>301</width>
+     <height>481</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>System</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit {background-color: rgb(61, 60, 90);
+color:rgb(164, 255, 16);
+ border-radius: 8px;
+}</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>50</y>
+     <width>131</width>
+     <height>661</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>1</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QLineEdit" name="land_x">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>44.901594</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="land_y">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>37.316289</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="attitude">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>44.901462011</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="longtitude">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>37.3151076313</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="height_takeoff">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="height_point">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="height_land">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="takeoff_speed">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="land_speed">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fly_speed">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="manual_drop">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="SendPoint">
+   <property name="geometry">
+    <rect>
+     <x>219</x>
+     <y>70</y>
+     <width>141</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Отправить
+полетное
+задание</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>120</y>
+     <width>311</width>
+     <height>135</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <widget class="QLabel" name="connection">
+      <property name="font">
+       <font>
+        <family>Segoe UI Semibold</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 12pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Подключение: не установлено</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="sattelites">
+      <property name="font">
+       <font>
+        <family>Segoe UI Semibold</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 12pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Спутников:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="battery">
+      <property name="font">
+       <font>
+        <family>Segoe UI Semibold</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 12pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Заряд дрона:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="logs">
+      <property name="font">
+       <font>
+        <family>Segoe UI Semibold</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 12pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Список логов:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="set_takeoff_speed">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>410</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Установить
+скорость
+взлета</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_land_speed">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>520</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Установить
+скорость
+посадки</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_fly_speed">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>630</y>
+     <width>141</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Установить
+скорость
+полета</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Disarm">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>290</y>
+     <width>141</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Выключить 
+ двигатели</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Arm">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>170</y>
+     <width>141</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Включить 
+ двигатели</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>540</y>
+     <width>201</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="accessibleName">
+    <string/>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{background-image:url(ipu.png);}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>C:/Users/kokak/Desktop/build-anapa_drone_gui-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/debug/ipu.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>50</y>
+     <width>71</width>
+     <height>661</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>18</number>
+    </property>
+    <property name="bottomMargin">
+     <number>22</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="label_7">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Широта
+посадки</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_8">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Долгота
+посадки</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Широта</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Долгота</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Высота
+взлета</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_9">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Высота
+над
+точкой</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_10">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Высота
+посадки</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_12">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Скорость
+взлета</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_13">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Скорость
+посадки</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_14">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Скорость
+полета</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_16">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+      </property>
+      <property name="text">
+       <string>Ручной
+сброс</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="takeoff">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>130</y>
+     <width>91</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Отправить
+тестовое
+полетное
+задание</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Pause">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>300</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Пауза
+в
+воздухе</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="return_to_home">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>520</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Возврат
+домой</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="takeoff_height">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>170</y>
+     <width>51</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+   </property>
+   <property name="text">
+    <string>3</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>130</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 7pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Высота,
+метров</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="time_of_holdng">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>240</y>
+     <width>51</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{background-color:rgb(255, 255, 255);
+border-radius: 4px;
+border:2px solid gray;
+}</string>
+   </property>
+   <property name="text">
+    <string>3</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>190</y>
+     <width>61</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 7pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Пауза,
+секунд</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="continue_mission">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>410</y>
+     <width>141</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Semibold</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(203, 203, 203);
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: gray;
+	font: 10pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)
+}
+QPushButton::pressed {
+    border-style: inset;
+    
+}
+QPushButton::hover {
+    
+     background-color: rgb(158, 158, 158);
+}</string>
+   </property>
+   <property name="text">
+    <string>Продолжить
+миссию</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="db_upload">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>80</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>60</y>
+     <width>69</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+font: 9pt &quot;Segoe UI Semibold&quot;;
+	color:rgb(23, 31, 79)}</string>
+   </property>
+   <property name="text">
+    <string>Загрузка
+в бд</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Настройка</string>
+   </property>
+  </action>
+  <zorder>label_18</zorder>
+  <zorder>label_15</zorder>
+  <zorder>Start</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>log_list</zorder>
+  <zorder>log_request</zorder>
+  <zorder>log_id</zorder>
+  <zorder>label_11</zorder>
+  <zorder>log_list_request</zorder>
+  <zorder>status</zorder>
+  <zorder>verticalLayoutWidget</zorder>
+  <zorder>SendPoint</zorder>
+  <zorder>verticalLayoutWidget_3</zorder>
+  <zorder>set_takeoff_speed</zorder>
+  <zorder>set_land_speed</zorder>
+  <zorder>set_fly_speed</zorder>
+  <zorder>Disarm</zorder>
+  <zorder>Arm</zorder>
+  <zorder>verticalLayoutWidget_2</zorder>
+  <zorder>takeoff</zorder>
+  <zorder>Pause</zorder>
+  <zorder>return_to_home</zorder>
+  <zorder>takeoff_height</zorder>
+  <zorder>label_17</zorder>
+  <zorder>time_of_holdng</zorder>
+  <zorder>continue_mission</zorder>
+  <zorder>db_upload</zorder>
+  <zorder>label_20</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

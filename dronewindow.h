@@ -1,22 +1,22 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DroneWindow_H
+#define DroneWindow_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QString>
 #include <QPushButton>
 #include <QMessageBox>
 #include "mavlink_communicator.h"
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class DroneWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class DroneWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    DroneWindow(QWidget *parent = nullptr);
+    ~DroneWindow();
 public slots:
     void on_Arm_clicked();
     void on_Disarm_clicked();
@@ -73,6 +73,6 @@ private slots:
     void on_Hold_time_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::DroneWindow *ui;
 };
-#endif // MAINWINDOW_H
+#endif // DroneWindow_H

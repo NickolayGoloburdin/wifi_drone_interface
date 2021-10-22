@@ -27,6 +27,9 @@ SOURCES += \
     attitude_handler.cpp \
     battery_handler.cpp \
     commands_sender.cpp \
+    drone.cpp \
+    dronelist.cpp \
+    dronewindow.cpp \
     gcs_communicator_factory.cpp \
     gps_handler.cpp \
     heartbeat_handler.cpp \
@@ -35,7 +38,6 @@ SOURCES += \
     info_message_handler.cpp \
     log_handler.cpp \
     main.cpp \
-    mainwindow.cpp \
     mavlink_communicator.cpp \
     sql_communicator.cpp \
     status_handler.cpp \
@@ -419,6 +421,9 @@ HEADERS += \
     attitude_handler.h \
     battery_handler.h \
     commands_sender.h \
+    drone.h \
+    dronelist.h \
+    dronewindow.h \
     gcs_communicator_factory.h \
     gps_handler.h \
     heartbeat_handler.h \
@@ -426,14 +431,15 @@ HEADERS += \
     info_communicator.h \
     info_message_handler.h \
     log_handler.h \
-    mainwindow.h \
     mavlink_communicator.h \
     sql_communicator.h \
     status_handler.h \
     udp_link.h
 
 FORMS += \
-    mainwindow.ui
+    drone_unit.ui \
+    dronelist.ui \
+    dronewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

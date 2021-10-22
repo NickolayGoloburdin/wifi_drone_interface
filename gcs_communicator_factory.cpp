@@ -3,7 +3,9 @@
 #include "mavlink_communicator.h"
 #include "info_communicator.h"
 #include "sql_communicator.h"
-#include "mainwindow.h"
+#include "dronewindow.h"
+#include "dronelist.h"
+#include "ui_dronelist.h"
 #include "heartbeat_handler.h"
 #include "attitude_handler.h"
 #include "status_handler.h"
@@ -28,8 +30,10 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     MavLinkCommunicator* communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator* infcommun = new InfoCommunicator();
     SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
-    MainWindow* window = new MainWindow();
-    window->show();
+    DroneWindow* window = new DroneWindow();
+    DroneList* list = new DroneList();
+
+    list->show();
     //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
     domain::InfoMessageHandler* pointinfo = new domain::InfoMessageHandler(infcommun);
     domain::HeartbeatHandler* connection = new domain::HeartbeatHandler(254,communicator);
@@ -39,30 +43,31 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     domain::GPSHandler* gps = new domain::GPSHandler(communicator);
     domain::LogHandler* log = new domain::LogHandler(communicator);
     domain::BatteryHandler* battery = new domain::BatteryHandler(communicator);
-    QObject::connect(pointinfo, &InfoMessageHandler::CoordinatesSignal, window, &MainWindow::update_coordinates);
-    QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, window, &MainWindow::update_connection);
+
+    QObject::connect(pointinfo, &InfoMessageHandler::CoordinatesSignal, list->ui->drone, &DroneWindow::update_coordinates);
+    QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, list->ui->drone, &DroneWindow::update_connection);
     QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
-    QObject::connect(window, &MainWindow::logListReqSignal, sender, &CommandsSender::req_log_list);
+    QObject::connect(list->ui->drone, &DroneWindow::logListReqSignal, sender, &CommandsSender::req_log_list);
     QObject::connect(ack, &AckHandler::missionackSignal, sender, &CommandsSender::mission_ack_handler);
-    QObject::connect(log, &LogHandler::logEntrySignal, window, &MainWindow::update_log_list);
-    QObject::connect(gps, &GPSHandler::gpsSignal, window, &MainWindow::update_sattelites);
-    QObject::connect(battery, &BatteryHandler::BatterySignal, window, &MainWindow::update_battery);
-    QObject::connect(status, &StatusHandler::statusSignal, window, &MainWindow::update_status);
-    QObject::connect(window, &MainWindow::armSignal, sender, &CommandsSender::send_arm);
-    QObject::connect(window, &MainWindow::takeoffMissionSignal, sender, &CommandsSender::send_takeoff_mission);
-    QObject::connect(window, &MainWindow::logReqSignal, sender, &CommandsSender::req_log);
-    QObject::connect(window, &MainWindow::disarmSignal, sender, &CommandsSender::send_disarm);
-    QObject::connect(window, &MainWindow::missionSignal, sender, &CommandsSender::form_send_fly_mission);
-    QObject::connect(window, &MainWindow::startSignal, sender, &CommandsSender::start_mission);
-    QObject::connect(window, &MainWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
-    QObject::connect(window, &MainWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
-    QObject::connect(window, &MainWindow::RTLSignal, sender, &CommandsSender::send_rtl_cmd);
-    QObject::connect(window, &MainWindow::AutoModeSignal, sender, &CommandsSender::set_auto_mode);
-    QObject::connect(window, &MainWindow::LoiterModeSignal, sender, &CommandsSender::set_loiter_mode);
-      QObject::connect(window, &MainWindow::LoiterTimeModeSignal, sender, &CommandsSender::loiter_time_wait);
+    QObject::connect(log, &LogHandler::logEntrySignal, window, &DroneWindow::update_log_list);
+    QObject::connect(gps, &GPSHandler::gpsSignal, list->ui->drone, &DroneWindow::update_sattelites);
+    QObject::connect(battery, &BatteryHandler::BatterySignal, list->ui->drone, &DroneWindow::update_battery);
+    QObject::connect(status, &StatusHandler::statusSignal, list->ui->drone, &DroneWindow::update_status);
+    QObject::connect(list->ui->drone, &DroneWindow::armSignal, sender, &CommandsSender::send_arm);
+    QObject::connect(list->ui->drone, &DroneWindow::takeoffMissionSignal, sender, &CommandsSender::send_takeoff_mission);
+    QObject::connect(list->ui->drone, &DroneWindow::logReqSignal, sender, &CommandsSender::req_log);
+    QObject::connect(list->ui->drone, &DroneWindow::disarmSignal, sender, &CommandsSender::send_disarm);
+    QObject::connect(list->ui->drone, &DroneWindow::missionSignal, sender, &CommandsSender::form_send_fly_mission);
+    QObject::connect(list->ui->drone, &DroneWindow::startSignal, sender, &CommandsSender::start_mission);
+    QObject::connect(list->ui->drone, &DroneWindow::takeoffSpeedSignal, sender, &CommandsSender::set_takeoff_speed);
+    QObject::connect(list->ui->drone, &DroneWindow::landSpeedSignal, sender, &CommandsSender::set_land_speed);
+    QObject::connect(list->ui->drone, &DroneWindow::RTLSignal, sender, &CommandsSender::send_rtl_cmd);
+    QObject::connect(list->ui->drone, &DroneWindow::AutoModeSignal, sender, &CommandsSender::set_auto_mode);
+    QObject::connect(list->ui->drone, &DroneWindow::LoiterModeSignal, sender, &CommandsSender::set_loiter_mode);
+    QObject::connect(list->ui->drone, &DroneWindow::LoiterTimeModeSignal, sender, &CommandsSender::loiter_time_wait);
     QObject::connect(sender, &CommandsSender::dbSignal, sqlcommunicator, &SQLCommunicator::send_mission);
-    QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
-    QObject::connect(pointinfo, &InfoMessageHandler::StartSignal, window, &MainWindow::on_Start_clicked);
+    QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, list->ui->drone, &DroneWindow::update_status);
+    QObject::connect(pointinfo, &InfoMessageHandler::StartSignal, list->ui->drone, &DroneWindow::on_Start_clicked);
 
 
 
