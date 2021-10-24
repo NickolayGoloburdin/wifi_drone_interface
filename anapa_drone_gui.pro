@@ -39,7 +39,8 @@ SOURCES += \
     mavlink_communicator.cpp \
     sql_communicator.cpp \
     status_handler.cpp \
-    udp_link.cpp
+    udp_link.cpp \
+    http_communicator.cpp
 
 HEADERS += \
     3dparty/mavlink_v2/ASLUAV/ASLUAV.h \
@@ -430,7 +431,8 @@ HEADERS += \
     mavlink_communicator.h \
     sql_communicator.h \
     status_handler.h \
-    udp_link.h
+    udp_link.h \
+    http_communicator.h
 
 FORMS += \
     mainwindow.ui
