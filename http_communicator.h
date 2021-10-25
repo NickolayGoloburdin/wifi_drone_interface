@@ -14,7 +14,7 @@ namespace httpc {
 class HTTPCommunicator : public QObject {
 Q_OBJECT
 public:
-    explicit HTTPCommunicator(QApplication* app, QString url, QString user_name_, QString operation_system_, QString ardu_version_);
+    explicit HTTPCommunicator(QString url, QString user_name_, QString operation_system_, QString ardu_version_, QObject* parent = nullptr);
     void send_mission_json(QVector<mavlink_mission_item_int_t>& mission) const;
 
     QNetworkAccessManager *manager;

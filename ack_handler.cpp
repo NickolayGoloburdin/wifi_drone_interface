@@ -15,6 +15,7 @@ AckHandler::AckHandler(MavLinkCommunicator* communicator):
 
 void AckHandler::processMessage(const mavlink_message_t& message)
 {
+
     switch(message.msgid ){
     case MAVLINK_MSG_ID_MISSION_ACK:
         mavlink_mission_ack_t ack;

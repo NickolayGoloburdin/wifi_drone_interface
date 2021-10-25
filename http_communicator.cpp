@@ -2,9 +2,9 @@
 #include <QDate>
 using namespace httpc;
 
-HTTPCommunicator::HTTPCommunicator(QApplication* app, QString url, QString user_name_, QString operation_system_, QString ardu_version_):
-                                    user_name(user_name_), operation_system(operation_system_), ardu_version(ardu_version_){
-    manager = new QNetworkAccessManager(app);
+HTTPCommunicator::HTTPCommunicator(QString url, QString user_name_, QString operation_system_, QString ardu_version_, QObject* parent):
+                                    user_name(user_name_), operation_system(operation_system_), ardu_version(ardu_version_), QObject(parent){
+    manager = new QNetworkAccessManager();
     url_string = "http://" + url;
     get_self_ip();
 }
