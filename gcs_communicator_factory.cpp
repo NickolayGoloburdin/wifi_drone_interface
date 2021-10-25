@@ -14,6 +14,7 @@
 #include "log_handler.h"
 #include "info_message_handler.h"
 #include "sql_communicator.h"
+#include "http_communicator.h"
 #include <QApplication>
 #include <QThread>
 
@@ -27,7 +28,8 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
 {
     MavLinkCommunicator* communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator* infcommun = new InfoCommunicator();
-    SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
+    httpc::HTTPCommunicator* http_communicator = new httpc::HTTPCommunicator("127.0.0.1:8000/api/mission/add", "user_name", "operation_sys", "ardu_version");
+//    SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     MainWindow* window = new MainWindow();
     window->show();
     //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
@@ -60,8 +62,8 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     QObject::connect(window, &MainWindow::AutoModeSignal, sender, &CommandsSender::set_auto_mode);
     QObject::connect(window, &MainWindow::LoiterModeSignal, sender, &CommandsSender::set_loiter_mode);
       QObject::connect(window, &MainWindow::LoiterTimeModeSignal, sender, &CommandsSender::loiter_time_wait);
-    QObject::connect(sender, &CommandsSender::dbSignal, sqlcommunicator, &SQLCommunicator::send_mission);
-    QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
+    QObject::connect(sender, &CommandsSender::dbSignal, http_communicator, &httpc::HTTPCommunicator::send_mission_json);
+//    QObject::connect(sqlcommunicator, &SQLCommunicator::sqlStatus, window, &MainWindow::update_status);
     QObject::connect(pointinfo, &InfoMessageHandler::StartSignal, window, &MainWindow::on_Start_clicked);
 
 

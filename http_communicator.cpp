@@ -40,8 +40,8 @@ void HTTPCommunicator::send_mission_json(QVector<mavlink_mission_item_int_t>& mi
         obj["param2"] = item.param2;
         obj["param3"] = item.param3;
         obj["param4"] = item.param4;
-        obj["x"] = item.x;
-        obj["y"] = item.y;
+        obj["x"] = item.x/10000000.0;
+        obj["y"] = item.y/10000000.0;
         obj["z"] = item.z;
         obj["seq"] = item.seq;
         obj["command"] = item.command;
@@ -57,16 +57,19 @@ void HTTPCommunicator::send_mission_json(QVector<mavlink_mission_item_int_t>& mi
         QNetworkReply *reply = manager->post(request, data);
 
 
-        QObject::connect(reply, &QNetworkReply::finished, [=](){
-            if(reply->error() == QNetworkReply::NoError){
-                QString contents = QString::fromUtf8(reply->readAll());
-                qDebug() << contents;
-            }
-            else{
-                QString err = reply->errorString();
-                qDebug() << err;
-            }
-            reply->deleteLater();
-        });
+        while (!reply->isFinished())
+        {
+            qApp->processEvents();
+        }
+        if(reply->error() == QNetworkReply::NoError){
+//            QString contents = QString::fromUtf8(reply->readAll());
+//            qDebug() << contents;
+            continue;
+        }
+        else{
+            QString err = reply->errorString();
+            qDebug() << err;
+        }
+        reply->deleteLater();
     }
 }
