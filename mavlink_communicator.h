@@ -31,6 +31,7 @@ namespace domain
         void setComponentId(uint8_t componentId);
 
         void sendMessage(mavlink_message_t& message, AbstractLink* link);
+        void sendMessageOnChannel(mavlink_message_t& message, uint8_t channel);
         void sendMessageOnLastReceivedLink(mavlink_message_t& message);
         void sendMessageOnAllLinks(mavlink_message_t& message);
 

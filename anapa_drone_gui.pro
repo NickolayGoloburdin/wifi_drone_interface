@@ -27,7 +27,7 @@ SOURCES += \
     attitude_handler.cpp \
     battery_handler.cpp \
     commands_sender.cpp \
-    drone.cpp \
+    drone_units.cpp \
     dronelist.cpp \
     dronewindow.cpp \
     gcs_communicator_factory.cpp \
@@ -421,7 +421,7 @@ HEADERS += \
     attitude_handler.h \
     battery_handler.h \
     commands_sender.h \
-    drone.h \
+    drone_units.h \
     dronelist.h \
     dronewindow.h \
     gcs_communicator_factory.h \
@@ -437,7 +437,7 @@ HEADERS += \
     udp_link.h
 
 FORMS += \
-    drone_unit.ui \
+    drone_units.ui \
     dronelist.ui \
     dronewindow.ui
 

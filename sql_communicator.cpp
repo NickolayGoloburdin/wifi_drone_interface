@@ -11,7 +11,7 @@ SQLCommunicator::SQLCommunicator(QString host, QString database, QString usernam
 }
 void SQLCommunicator::send_mission(QVector<mavlink_mission_item_int_t>& mission){
 
-    if (!db.open()){emit sqlStatus(QString("База данных не подключена"));}
+    if (!db.open()){emit sqlStatus(QString("База данных не подключена"));return;}
     else {emit sqlStatus(QString("База данных подключена"));}
     QString cd = QDate::currentDate().toString("yyyy-MM-dd");
     QString ct = QTime::currentTime().toString("hh:mm:ss.zzz");

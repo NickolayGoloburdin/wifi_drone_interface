@@ -21,19 +21,19 @@
     <rect>
      <x>30</x>
      <y>70</y>
-     <width>291</width>
+     <width>311</width>
      <height>781</height>
     </rect>
    </property>
    <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
+   <widget class="drone_units" name="scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>289</width>
+      <width>309</width>
       <height>779</height>
      </rect>
     </property>
@@ -58,6 +58,12 @@
    <class>DroneWindow</class>
    <extends>QWidget</extends>
    <header location="global">dronewindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>drone_units</class>
+   <extends>QWidget</extends>
+   <header location="global">drone_units.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

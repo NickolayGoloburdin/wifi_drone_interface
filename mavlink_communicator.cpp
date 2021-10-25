@@ -71,6 +71,17 @@ void MavLinkCommunicator::sendMessage(mavlink_message_t& message, AbstractLink* 
     if (!lenght) return;
     link->sendData(QByteArray((const char*)buffer, lenght));
 }
+void MavLinkCommunicator::sendMessageOnChannel(mavlink_message_t& message, uint8_t channel){
+    AbstractLink* link = m_linkChannels.key(channel);
+
+    if (!link || !link->isUp()) return;
+
+    uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+    int lenght = mavlink_msg_to_send_buffer(buffer, &message);
+
+    if (!lenght) return;
+    link->sendData(QByteArray((const char*)buffer, lenght));
+}
 
 void MavLinkCommunicator::sendMessageOnLastReceivedLink(mavlink_message_t& message)
 {
