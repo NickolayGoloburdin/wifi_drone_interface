@@ -28,7 +28,7 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
 {
     MavLinkCommunicator* communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator* infcommun = new InfoCommunicator();
-    httpc::HTTPCommunicator* http_communicator = new httpc::HTTPCommunicator("127.0.0.1:8000/api/mission/add", "user_name", "operation_sys", "ardu_version");
+    httpc::HTTPCommunicator* http_communicator = new httpc::HTTPCommunicator("127.0.0.1:8000/api/mission/add", "user_name", "operation_sys", "ardu_version"); // add drone ip, mission_name
 //    SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     MainWindow* window = new MainWindow();
     window->show();

@@ -21,6 +21,23 @@ void HTTPCommunicator::send_mission_json(QVector<mavlink_mission_item_int_t>& mi
 
     const QUrl url(url_string);
     QNetworkRequest request(url);
+
+    QNetworkReply *reply = manager->get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+    if(reply->error() == QNetworkReply::NoError){
+//            QString contents = QString::fromUtf8(reply->readAll());
+//            qDebug() << contents;
+    }
+    else{
+        QString err = reply->errorString();
+        qDebug() << err << ". Cant connect to server.";
+        return;
+    }
+
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QJsonObject obj;
@@ -64,7 +81,6 @@ void HTTPCommunicator::send_mission_json(QVector<mavlink_mission_item_int_t>& mi
         if(reply->error() == QNetworkReply::NoError){
 //            QString contents = QString::fromUtf8(reply->readAll());
 //            qDebug() << contents;
-            continue;
         }
         else{
             QString err = reply->errorString();
