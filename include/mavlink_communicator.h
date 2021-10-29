@@ -19,7 +19,7 @@ namespace domain
                             QObject* parent = nullptr);
 
         QList<AbstractLink*> links() const;
-
+        QMap<AbstractLink*, uint8_t> m_linkChannels;
         uint8_t systemId() const;
         uint8_t componentId() const;
 
@@ -42,7 +42,7 @@ namespace domain
         void onDataReceived(const QByteArray& data);
 
     protected:
-        QMap<AbstractLink*, uint8_t> m_linkChannels;
+
         AbstractLink* m_lastReceivedLink;
 
         uint8_t m_systemId;

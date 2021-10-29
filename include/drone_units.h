@@ -2,6 +2,7 @@
 #define DRONE_UNITS_H
 
 #include <QWidget>
+#include <abstract_link.h>
 
 namespace Ui {
 class drone_units;

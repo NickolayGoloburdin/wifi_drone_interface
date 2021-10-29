@@ -16,41 +16,61 @@
   <property name="styleSheet">
    <string notr="true">background-color:rgb(224, 224, 224);</string>
   </property>
-  <widget class="QScrollArea" name="scrollArea">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>70</y>
-     <width>311</width>
-     <height>781</height>
-    </rect>
-   </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="drone_units" name="scrollAreaWidgetContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>309</width>
-      <height>779</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
   <widget class="DroneWindow" name="drone" native="true">
    <property name="geometry">
     <rect>
-     <x>340</x>
+     <x>360</x>
      <y>10</y>
-     <width>1151</width>
+     <width>1131</width>
      <height>811</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color:rgb(220, 220, 220);</string>
    </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>39</x>
+     <y>30</y>
+     <width>261</width>
+     <height>771</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>259</width>
+      <height>769</height>
+     </rect>
+    </property>
+    <widget class="drone_units" name="widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>201</width>
+       <height>51</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="drone_units" name="widget_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>120</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <customwidgets>
