@@ -11,8 +11,8 @@ namespace domain
     public:
         LogHandler(MavLinkCommunicator* communicator);
     signals:
-        void logEntrySignal(mavlink_log_entry_t log_entry);
-        void logDataSignal(mavlink_log_data_t lof_data);
+        void logEntrySignal(mavlink_log_entry_t log_entry, int id);
+        void logDataSignal(mavlink_log_data_t lof_data, int id);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

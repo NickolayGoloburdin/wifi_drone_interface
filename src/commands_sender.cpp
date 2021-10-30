@@ -40,9 +40,6 @@ void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_r
       mavlink_msg_mission_item_int_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &waypoints[mission_req.seq]);
       m_communicator->sendMessageOnAllLinks(message);
       count_++;
-    //  if (count_ == 3){
-      //int b=1;
-      //}
 
 }
 void CommandsSender::command_ack_handler(){

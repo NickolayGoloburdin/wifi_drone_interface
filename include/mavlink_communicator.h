@@ -20,6 +20,7 @@ namespace domain
 
         QList<AbstractLink*> links() const;
         QMap<AbstractLink*, uint8_t> m_linkChannels;
+        QMap<AbstractLink*, uint8_t> m_chosenChannels;
         uint8_t systemId() const;
         uint8_t componentId() const;
 
@@ -34,7 +35,9 @@ namespace domain
         void sendMessageOnChannel(mavlink_message_t& message, uint8_t channel);
         void sendMessageOnLastReceivedLink(mavlink_message_t& message);
         void sendMessageOnAllLinks(mavlink_message_t& message);
-
+        void sendMessageOnAllChosenLinks(mavlink_message_t& message);
+        void addLinkToChosen(int channel);
+        void removeLinkFromChosen(int channel);
     signals:
         void messageReceived(const mavlink_message_t& message);
 

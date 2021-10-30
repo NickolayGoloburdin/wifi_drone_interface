@@ -12,7 +12,7 @@ namespace domain
     public:
         StatusHandler(MavLinkCommunicator* communicator);
     signals:
-        void statusSignal(QString status);
+        void statusSignal(QString status, int id);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

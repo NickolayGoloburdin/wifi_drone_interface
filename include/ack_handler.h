@@ -11,9 +11,9 @@ namespace domain
     public:
         AckHandler(MavLinkCommunicator* communicator);
     signals:
-        void missionSignal(mavlink_mission_request_t mission_req);
-        void commandSignal();
-        void missionackSignal(int type);
+        void missionSignal(mavlink_mission_request_t mission_req, int id);
+        void commandSignal(int id);
+        void missionackSignal(int type, int id);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

@@ -53,5 +53,5 @@ void HeartbeatHandler::processMessage(const mavlink_message_t& message)
 {
     if (message.msgid != MAVLINK_MSG_ID_HEARTBEAT) return;
 
-    emit HeartbeatSignal();
+    emit HeartbeatSignal(message.msgid);
 }

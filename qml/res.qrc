@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml_mainwindow.qml</file>
+        <file>ControlButton.qml</file>
+        <file>Controlarea.qml</file>
+        <file>DropMissionComponent.qml</file>
+        <file>Dronelist.qml</file>
+    </qresource>
+</RCC>

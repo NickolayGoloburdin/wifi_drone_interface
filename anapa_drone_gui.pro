@@ -49,7 +49,9 @@ DISTFILES += \
     3dparty/mavlink_v2/message_definitions/test.xml \
     3dparty/mavlink_v2/message_definitions/uAvionix.xml \
     3dparty/mavlink_v2/message_definitions/ualberta.xml \
-    qml_mainwindow.qml
+
+OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
+
 
 
 
@@ -59,6 +61,9 @@ HEADERS += $$PWD/include/*.h
 
 SOURCES += $$PWD/src/*.cpp \
     main.cpp
+
+RESOURCES += \
+    qml/res.qrc
 
 
 

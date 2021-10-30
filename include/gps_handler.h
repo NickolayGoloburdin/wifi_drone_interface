@@ -11,7 +11,7 @@ namespace domain
     public:
         GPSHandler(MavLinkCommunicator* communicator);
     signals:
-        void gpsSignal(int sattelites);
+        void gpsSignal(int sattelites, int id);
     public slots:
         void processMessage(const mavlink_message_t& message) override;
     };

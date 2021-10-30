@@ -14,7 +14,7 @@ namespace domain
         void timerEvent(QTimerEvent *event) override;
 
     signals:
-        void HeartbeatSignal();
+        void HeartbeatSignal(int id);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

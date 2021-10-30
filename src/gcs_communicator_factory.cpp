@@ -26,8 +26,9 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     MavLinkCommunicator* communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator* infcommun = new InfoCommunicator();
     SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QLatin1String("qml_mainwindow.qml")));
+    QQmlApplicationEngine* engine = new QQmlApplicationEngine(nullptr);
+
+    engine->load(QUrl(QLatin1String("qrc:/qml_mainwindow.qml")));
 
 //    DroneWindow* window = new DroneWindow();
 //    DroneList* list = new DroneList(communicator->m_linkChannels);

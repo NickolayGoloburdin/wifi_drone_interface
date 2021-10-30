@@ -5,6 +5,7 @@
 #include "info_communicator.h"
 #include "udp_link.h"
 #include <tuple>
+
 int main(int argc, char *argv[])
 {
 
@@ -14,9 +15,9 @@ int main(int argc, char *argv[])
     domain::GcsCommunicatorFactory factory;
     domain::MavLinkCommunicator *communicator;
     domain::InfoCommunicator* infcommun;
+
     std::tie(communicator, infcommun) = factory.create();
     communicator->setParent(&app);
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     //domain::UdpLink drone1(14551, QString("192.168.2.1"), 14550);
     //domain::UdpLink drone2(14551, QString("192.168.2.2"), 14550);
     //domain::UdpLink linkinfo(7777, QString("127.0.0.1"), 7776);

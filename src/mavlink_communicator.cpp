@@ -93,7 +93,19 @@ void MavLinkCommunicator::sendMessageOnAllLinks(mavlink_message_t& message)
     for (AbstractLink* link: m_linkChannels.keys())
         this->sendMessage(message, link);
 }
+void MavLinkCommunicator::sendMessageOnAllChosenLinks(mavlink_message_t& message){
+    for (AbstractLink* link: m_chosenChannels.keys())
+        this->sendMessage(message, link);
+}
 
+void MavLinkCommunicator::addLinkToChosen(int channel){
+    if (m_chosenChannels.values().contains(channel)) return;
+    m_chosenChannels[m_linkChannels.key(channel)] = channel;
+}
+void MavLinkCommunicator::removeLinkFromChosen(int channel){
+    if (!m_chosenChannels.values().contains(channel)) return;
+    m_chosenChannels.remove(m_linkChannels.key(channel));
+}
 void MavLinkCommunicator::onDataReceived(const QByteArray& data)
 {
     mavlink_message_t message;

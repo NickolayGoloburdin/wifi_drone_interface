@@ -11,7 +11,7 @@ namespace domain
     public:
         BatteryHandler(MavLinkCommunicator* communicator);
     signals:
-        void BatterySignal(int8_t battery_rem);
+        void BatterySignal(int8_t battery_rem, int id);
     public slots:
         void processMessage(const mavlink_message_t& message) override;
     };
