@@ -16,6 +16,7 @@
 #include "info_message_handler.h"
 #include "sql_communicator.h"
 #include <QQmlApplicationEngine>
+#include "qsjsonlistmodel.h"
 using namespace domain;
 
 GcsCommunicatorFactory::GcsCommunicatorFactory()

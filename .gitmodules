@@ -1,0 +1,3 @@
+[submodule "qsyncable"]
+	path = qsyncable
+	url = https://github.com/benlau/qsyncable.git

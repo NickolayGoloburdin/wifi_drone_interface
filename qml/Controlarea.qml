@@ -11,10 +11,7 @@ Item {
     property int koeff_height: 5
     id: controlarea
     width: parent.width / koeff_width
-    anchors.bottom: parent.bottom
-    anchors.top: parent.top
-    anchors.bottomMargin: defverticalmargin
-    anchors.topMargin: defverticalmargin
+
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.horizontalCenterOffset: -defcontrolmargin * 2
 

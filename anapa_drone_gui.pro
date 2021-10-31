@@ -12,6 +12,7 @@ CONFIG += qt
 DEFINES += QT_DEPRECATED_WARNINGS
 QT += network
 QT +=sql
+include($$PWD/qsyncable-1.0.2/qsyncable-1.0.2/qsyncable.pri)
 
 CONFIG += qt thread
 # You can also make your code fail to compile if it uses deprecated APIs.
@@ -48,7 +49,8 @@ DISTFILES += \
     3dparty/mavlink_v2/message_definitions/standard.xml \
     3dparty/mavlink_v2/message_definitions/test.xml \
     3dparty/mavlink_v2/message_definitions/uAvionix.xml \
-    3dparty/mavlink_v2/message_definitions/ualberta.xml \
+    3dparty/mavlink_v2/message_definitions/ualberta.xml \ \
+    qsyncable-1.0.2/qsyncable-1.0.2/qsyncable.pri
 
 OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
 

@@ -64,7 +64,6 @@ void MavLinkCommunicator::setComponentId(uint8_t componentId)
 void MavLinkCommunicator::sendMessage(mavlink_message_t& message, AbstractLink* link)
 {
     if (!link || !link->isUp()) return;
-
     uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
     int lenght = mavlink_msg_to_send_buffer(buffer, &message);
 

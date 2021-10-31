@@ -32,11 +32,15 @@ Window {
     }
     Dronelist {
         id: dronearea
-        width: 240
-        height: 229
+        anchors.right: controlarea.left
+        anchors.rightMargin: 50
     }
     Controlarea {
         id: controlarea
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        anchors.bottomMargin: parent.height / 5
+        anchors.topMargin: parent.height / 5
         property int defcontrolmargin: 30
         anchors.right: terminalarea.left
         anchors.rightMargin: defcontrolmargin
