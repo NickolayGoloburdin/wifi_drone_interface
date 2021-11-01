@@ -49,6 +49,7 @@ void MavLinkCommunicator::removeLink(AbstractLink* link)
     m_linkChannels.remove(link);
     disconnect(link, &AbstractLink::dataReceived,
             this, &MavLinkCommunicator::onDataReceived);
+    delete link;
 }
 
 void MavLinkCommunicator::setSystemId(uint8_t systemId)

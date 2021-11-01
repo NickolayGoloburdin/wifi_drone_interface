@@ -21,7 +21,6 @@ Item {
         anchors.fill: parent
         model: ["Drone id:1", "Drone id:2", "Drone id:3", "Drone id:1", "Drone id:2", "Drone id:3"]
         delegate: Item {
-            id: item
             property color buttoncolor: "#1e1f30"
             property bool active: false
             anchors.left: parent.left

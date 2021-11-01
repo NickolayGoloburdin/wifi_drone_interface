@@ -1,6 +1,7 @@
 #ifndef ABSTRACT_COMMUNICATOR_FACTORY_H
 #define ABSTRACT_COMMUNICATOR_FACTORY_H
 #include <tuple>
+
 namespace domain
 {
     class MavLinkCommunicator;

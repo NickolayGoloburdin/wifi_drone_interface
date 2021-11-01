@@ -12,7 +12,7 @@ CONFIG += qt
 DEFINES += QT_DEPRECATED_WARNINGS
 QT += network
 QT +=sql
-include($$PWD/qsyncable-1.0.2/qsyncable-1.0.2/qsyncable.pri)
+include($$PWD/qsyncable/qsyncable.pri)
 
 CONFIG += qt thread
 # You can also make your code fail to compile if it uses deprecated APIs.
@@ -50,7 +50,8 @@ DISTFILES += \
     3dparty/mavlink_v2/message_definitions/test.xml \
     3dparty/mavlink_v2/message_definitions/uAvionix.xml \
     3dparty/mavlink_v2/message_definitions/ualberta.xml \ \
-    qsyncable-1.0.2/qsyncable-1.0.2/qsyncable.pri
+    qsyncable-1.0.2/qsyncable-1.0.2/qsyncable.pri \
+    setting.json
 
 OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
 
@@ -58,10 +59,16 @@ OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
 
 
 
-HEADERS += $$PWD/include/*.h
+HEADERS += $$PWD/include/*.h \
+    include/delegate.h \
+    include/drone.h \
+    include/drone_container.h
 
 
 SOURCES += $$PWD/src/*.cpp \
+    include/delegate.cpp \
+    include/drone.cpp \
+    include/drone_container.cpp \
     main.cpp
 
 RESOURCES += \

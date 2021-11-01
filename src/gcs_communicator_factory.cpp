@@ -2,9 +2,8 @@
 #include "mavlink_communicator.h"
 #include "info_communicator.h"
 #include "sql_communicator.h"
-#include "dronewindow.h"
-#include "dronelist.h"
-#include "ui_dronelist.h"
+//#include "dronewindow.h"
+//#include "ui_dronelist.h"
 #include "heartbeat_handler.h"
 #include "attitude_handler.h"
 #include "status_handler.h"
@@ -16,7 +15,9 @@
 #include "info_message_handler.h"
 #include "sql_communicator.h"
 #include <QQmlApplicationEngine>
-#include "qsjsonlistmodel.h"
+#include "delegate.h"
+#include <QQmlContext>
+
 using namespace domain;
 
 GcsCommunicatorFactory::GcsCommunicatorFactory()
@@ -28,6 +29,10 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     InfoCommunicator* infcommun = new InfoCommunicator();
     SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(nullptr);
+    Delegate* model = new Delegate("setting.json");
+    model->run();
+    engine->rootContext()->setContextProperty("PersistFilePath", QString("setting.json"));
+    engine->rootContext()->setContextProperty("droneStore", model->droneStore_);
 
     engine->load(QUrl(QLatin1String("qrc:/qml_mainwindow.qml")));
 
