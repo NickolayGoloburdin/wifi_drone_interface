@@ -21,7 +21,7 @@ void StatusHandler::processMessage(const mavlink_message_t& message)
     mavlink_statustext_t text;
     mavlink_msg_statustext_decode(&message, &text);
     QString status = QString(text.text);
-    emit statusSignal(status, message.msgid);
+    emit statusSignal( QString::number(message.sysid), status);
 
 
 }

@@ -43,7 +43,7 @@ Item {
     Text {
         font.pointSize: 10
         font.family: "Arial"
-        text: "id :" + uuid
+        text: "id : " + uuid
         anchors.centerIn: rect
         color: "white"
     }
@@ -58,7 +58,7 @@ Item {
     Text {
         font.pointSize: 7
         font.family: "Arial"
-        text: "Соединение :" + heartbeat.toString()
+        text: "Соединение : " + heartbeat.toString()
         anchors.left: rect.left
         anchors.bottom: rect.bottom
         color: "white"
@@ -66,7 +66,7 @@ Item {
     Text {
         font.pointSize: 7
         font.family: "Arial"
-        text: "Напряжение :" + voltage.toString()
+        text: "Напряжение : " + voltage.toString()
         anchors.left: rect.left
         anchors.top: rect.top
         color: "white"

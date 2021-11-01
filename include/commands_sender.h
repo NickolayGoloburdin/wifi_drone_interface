@@ -26,7 +26,7 @@ namespace domain
     public slots:
         Q_INVOKABLE void send_arm();
         Q_INVOKABLE void send_disarm();
-        Q_INVOKABLE void send_takeoff_mission(float meters = 3, float time = 10.0);
+        Q_INVOKABLE void send_takeoff_mission(float meters = 5, float time = 10.0);
         Q_INVOKABLE void start_mission();
         void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land, bool drop, bool db);
         Q_INVOKABLE void set_guided_mode();

@@ -4,17 +4,19 @@
 #include <QObject>
 #include "qslistmodel.h"
 #include <QDir>
+#include <QQmlApplicationEngine>
 
 #include "drone_container.h"
 class Delegate: public QObject
 {
     Q_OBJECT
 public:
-     explicit Delegate(QString persistDir, QObject *parent = 0);
+     explicit Delegate(QString persistDir, QQmlApplicationEngine* engine, QObject *parent = 0);
     void run();
     QSListModel* droneStore_;
     QString path_;
     DroneContainer m_drone;
+
     signals:
 
     public slots:
@@ -33,7 +35,8 @@ public:
     private slots:
 
         void sync();
-
+    private:
+        QQmlApplicationEngine* engine_;
 
 
         // A fake trello board

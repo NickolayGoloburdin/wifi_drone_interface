@@ -32,34 +32,21 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     SQLCommunicator* sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"),QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(nullptr);
     domain::CommandsSender* sender = new domain::CommandsSender(communicator);
-    Delegate* model = new Delegate("setting.json");
+    Delegate* model = new Delegate("setting.json", engine);
     model->run();
-    engine->rootContext()->setContextProperty("PersistFilePath", QString("setting.json"));
-    engine->rootContext()->setContextProperty("droneStore", model->droneStore_);
+
+
+
     engine->rootContext()->setContextProperty("communicator", communicator);
     engine->rootContext()->setContextProperty("commandSender", sender);
     for (auto i : model->m_drone.drones_){
-        communicator->addLink(new domain::UdpLink(14551, i.ip_, 14550), i.uuid_.toInt());
+        auto link = new domain::UdpLink(14550, i.ip_, 14550);
+        communicator->addLink(link, i.uuid_.toInt());
+        link->up();
     }
-    //domain::UdpLink drone1(14551, QString("192.168.2.1"), 14550);
-    //domain::UdpLink drone2(14551, QString("192.168.2.2"), 14550);
-    //domain::UdpLink linkinfo(7777, QString("127.0.0.1"), 7776);
-    //domain::SerialLink link("/dev/ttyUSB0", 57600);
-    //communicator->addLink(&drone1, MAVLINK_COMM_0);
-    //communicator->addLink(&drone2, 1);
 
-    //infcommun->addLink(&linkinfo, 0);
-    //linkinfo.up();
-    //drone1.up();
-    //drone2.up();
     engine->load(QUrl(QLatin1String("qrc:/qml_mainwindow.qml")));
 
-//    DroneWindow* window = new DroneWindow();
-//    DroneList* list = new DroneList(communicator->m_linkChannels);
-//    list->show();
-
-
-    //new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
     domain::InfoMessageHandler* pointinfo = new domain::InfoMessageHandler(infcommun);
     domain::HeartbeatHandler* connection = new domain::HeartbeatHandler(254,communicator);
     domain::StatusHandler* status = new domain::StatusHandler(communicator);
@@ -67,11 +54,15 @@ std::tuple<MavLinkCommunicator*, InfoCommunicator*> GcsCommunicatorFactory::crea
     domain::AckHandler* ack = new domain::AckHandler(communicator);
     domain::GPSHandler* gps = new domain::GPSHandler(communicator);
     domain::LogHandler* log = new domain::LogHandler(communicator);
+
     domain::BatteryHandler* battery = new domain::BatteryHandler(communicator);
+    QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, model, &Delegate::setHeartbeat);
+    QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
+    QObject::connect(battery, &BatteryHandler::BatterySignal, model, &Delegate::setvoltage);
+
 
 //    QObject::connect(pointinfo, &InfoMessageHandler::CoordinatesSignal, list->ui->drone, &DroneWindow::update_coordinates);
-//    QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, list->ui->drone, &DroneWindow::update_connection);
-      QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
+
 //    QObject::connect(list->ui->drone, &DroneWindow::logListReqSignal, sender, &CommandsSender::req_log_list);
 //    QObject::connect(ack, &AckHandler::missionackSignal, sender, &CommandsSender::mission_ack_handler);
 //    QObject::connect(log, &LogHandler::logEntrySignal, window, &DroneWindow::update_log_list);

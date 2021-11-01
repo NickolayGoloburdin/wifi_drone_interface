@@ -1,7 +1,8 @@
 #include "delegate.h"
 #include "qsdiffrunner.h"
-
-Delegate::Delegate(QString persistDir, QObject *parent): QObject(parent), path_(persistDir)
+#include <QQmlContext>
+Delegate::Delegate(QString persistDir, QQmlApplicationEngine* engine, QObject *parent): QObject(parent), path_(persistDir),
+    engine_(engine)
 {
    droneStore_ = new QSListModel();
 
@@ -10,6 +11,9 @@ Delegate::Delegate(QString persistDir, QObject *parent): QObject(parent), path_(
 void Delegate::run()
 {
     m_drone.load(path_);
+    engine_->rootContext()->setContextProperty("PersistFilePath", QString("setting.json"));
+    engine_->rootContext()->setContextProperty("droneStore", droneStore_);
+    engine_->rootContext()->setContextProperty("App", this);
     sync();
 
 }
@@ -80,7 +84,7 @@ void Delegate::removeDrone(const QString &droneUuid)
 
 void Delegate::sync()
 {
-    QVariantMap map = m_drone.toMap();
+        QVariantMap map = m_drone.toMap();
 
        QVariantList drones = map["drones"].toList();
 

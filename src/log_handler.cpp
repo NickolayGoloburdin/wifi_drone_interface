@@ -21,7 +21,7 @@ void LogHandler::processMessage(const mavlink_message_t& message)
     case MAVLINK_MSG_ID_LOG_ENTRY:
         mavlink_log_entry_t log_entry;
         mavlink_msg_log_entry_decode(&message, &log_entry);
-        emit logEntrySignal(log_entry, message.msgid);
+        emit logEntrySignal(log_entry, message.sysid);
         break;
     case MAVLINK_MSG_ID_LOG_DATA:
         mavlink_log_data_t log_data;

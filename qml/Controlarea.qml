@@ -95,6 +95,7 @@ Item {
             MouseArea {
                 id: mousearea4
                 anchors.fill: parent
+                onClicked: commandSender.send_takeoff_mission()
             }
         }
         ControlButton {

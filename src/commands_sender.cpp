@@ -205,11 +205,13 @@ void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,
 void CommandsSender::upload_fly_mission(){
     mavlink_mission_clear_all_t a = {0};
       a.target_component = target_component_id_all_;
-      a.target_system = target_system_id_;
+
       mavlink_message_t message;
-      mavlink_msg_mission_clear_all_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &a);
-      m_communicator->sendMessageOnAllLinks(message);
-      //wait_ack_mission_message();
+       for (auto itr : m_communicator->m_chosenChannels.keys()){
+            a.target_system = m_communicator->m_chosenChannels.value(itr);
+            mavlink_msg_mission_clear_all_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &a);
+            m_communicator->sendMessage(message, itr);
+       }
       mavlink_mission_count_t count = {0};
       count.count = waypoints.size();
       count.target_component = target_component_id_autopilot_;
@@ -217,9 +219,9 @@ void CommandsSender::upload_fly_mission(){
       for (auto itr : m_communicator->m_chosenChannels.keys()){
           count.target_system = m_communicator->m_chosenChannels.value(itr);
 
-      mavlink_msg_mission_count_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
+          mavlink_msg_mission_count_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                          &count);
-      m_communicator->sendMessage(message, itr);}
+          m_communicator->sendMessage(message, itr);}
 
 
       }
