@@ -23,71 +23,111 @@ Item {
         rows: 4
         columns: 5
         ControlButton {
-            name: "arm"
+
+            name: "Включить \n двигатели"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 2
             Layout.rowSpan: 1
             Layout.row: 1
             Layout.column: 1
+            press: mousearea.containsPress
+
+            MouseArea {
+                id: mousearea
+                anchors.fill: parent
+                onClicked: commandSender.send_arm()
+            }
         }
         ControlButton {
-            name: "Add drone"
+            name: "Добавить \n дрон"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 2
             Layout.rowSpan: 1
             Layout.row: 1
             Layout.column: 3
+            press: mousearea1.containsPress
+            MouseArea {
+                id: mousearea1
+                anchors.fill: parent
+            }
         }
         ControlButton {
-            name: "Upload Fly mission"
+            name: "Сформировать \n миссию"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 2
             Layout.row: 1
             Layout.column: 5
+            press: mousearea2.containsPress
+            MouseArea {
+                id: mousearea2
+                anchors.fill: parent
+            }
         }
         ControlButton {
-            name: "disarm"
+            name: "Выключить \n двигатели"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 2
             Layout.rowSpan: 1
             Layout.row: 2
             Layout.column: 1
+            press: mousearea3.containsPress
+            MouseArea {
+                id: mousearea3
+                anchors.fill: parent
+                onClicked: commandSender.send_disarm()
+            }
         }
 
         ControlButton {
-            name: "test fly mission"
+            name: "Загрузка \n тестовой \n миссии"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 2
             Layout.column: 3
+            press: mousearea4.containsPress
+            MouseArea {
+                id: mousearea4
+                anchors.fill: parent
+            }
         }
         ControlButton {
-            name: "Download logs"
+            name: "Скачать \n логи"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 2
             Layout.column: 4
+            press: mousearea5.containsPress
+            MouseArea {
+                id: mousearea5
+                anchors.fill: parent
+            }
         }
         ControlButton {
-            name: "Stop flight"
+            name: "Остановка"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 3
             Layout.column: 1
+            press: mousearea6.containsPress
+            MouseArea {
+                id: mousearea6
+                anchors.fill: parent
+                onClicked: commandSender.set_guided_mode()
+            }
         }
         ControlButton {
-            name: "Upload Drop mission"
+            name: "Загрузить \n миссию \n сброса"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 2
@@ -95,33 +135,56 @@ Item {
 
             Layout.row: 3
             Layout.column: 4
+            press: mousearea7.containsPress
+            MouseArea {
+                id: mousearea7
+                anchors.fill: parent
+            }
         }
         ControlButton {
-            name: "Start"
+            name: "Старт"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 5
             Layout.rowSpan: 1
             Layout.row: 4
             Layout.column: 1
+            press: mousearea8.containsPress
+            MouseArea {
+                id: mousearea8
+                anchors.fill: parent
+                onClicked: commandSender.start_mission()
+            }
         }
         ControlButton {
-            name: "Return"
+            name: "Возврат"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 3
             Layout.column: 2
+            press: mousearea9.containsPress
+            MouseArea {
+                id: mousearea9
+                anchors.fill: parent
+                onClicked: commandSender.send_rtl_cmd()
+            }
         }
         ControlButton {
-            name: "Continue"
+            name: "Продолжить"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 3
             Layout.column: 3
+            press: mousearea10.containsPress
+            MouseArea {
+                id: mousearea10
+                anchors.fill: parent
+                onClicked: commandSender.set_auto_mode()
+            }
         }
         //        DropMissionComponent {
         //            Layout.fillHeight: true

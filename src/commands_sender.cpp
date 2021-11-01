@@ -33,12 +33,13 @@ void CommandsSender::wait_ack_mission_message(){
     }
     mission_ack_ = false;
 }
-void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_req){
+void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_req, int id){
     if (mission_req.seq >50 ){return;}
       mavlink_message_t message;
     //wait_mission_message();
+      waypoints[mission_req.seq].target_system = id;
       mavlink_msg_mission_item_int_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &waypoints[mission_req.seq]);
-      m_communicator->sendMessageOnAllLinks(message);
+      m_communicator->sendMessageOnChannel(message, id);
       count_++;
 
 }
@@ -51,28 +52,34 @@ void CommandsSender::mission_ack_handler(int type){
 void CommandsSender::send_arm(){
     set_guided_mode();
     mavlink_command_long_t set_mode = {0};
-      set_mode.target_system = target_system_id_;
-      set_mode.target_component = target_component_id_all_;
-      set_mode.command = MAV_CMD_COMPONENT_ARM_DISARM; // 176
-      set_mode.confirmation = 0;
-      set_mode.param1 = 1;
-      mavlink_message_t message;
+    set_mode.target_component = target_component_id_all_;
+    set_mode.command = MAV_CMD_COMPONENT_ARM_DISARM; // 176
+    set_mode.confirmation = 0;
+    set_mode.param1 = 1;
+    mavlink_message_t message;
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+      set_mode.target_system = m_communicator->m_chosenChannels.value(itr);
       mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                       &set_mode);
-      m_communicator->sendMessageOnAllLinks(message);
+      m_communicator->sendMessage(message, itr);
+    }
 }
 void CommandsSender::send_disarm(){
     set_guided_mode();
     mavlink_command_long_t set_mode = {0};
-      set_mode.target_system = target_system_id_;
-      set_mode.target_component = target_component_id_all_;
-      set_mode.command = MAV_CMD_COMPONENT_ARM_DISARM; // 176
-      set_mode.confirmation = 0;
-      set_mode.param1 = 0;
-      mavlink_message_t message;
+    set_mode.target_component = target_component_id_all_;
+    set_mode.command = MAV_CMD_COMPONENT_ARM_DISARM; // 176
+    set_mode.confirmation = 0;
+    set_mode.param1 = 0;
+    mavlink_message_t message;
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+
+      set_mode.target_system = m_communicator->m_chosenChannels.value(itr);
+
       mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                       &set_mode);
-      m_communicator->sendMessageOnAllLinks(message);
+       m_communicator->sendMessage(message, itr);
+    }
 
 }
 void CommandsSender::req_log_list(){
@@ -80,24 +87,28 @@ void CommandsSender::req_log_list(){
     mavlink_log_request_list_t req = {0};
     req.start = 0;
     req.end = 0xffff;
-    req.target_system = target_system_id_;
+
     req.target_component = target_component_id_autopilot_;
     mavlink_message_t message;
-    mavlink_msg_log_request_list_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        req.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_log_request_list_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                     &req);
-    m_communicator->sendMessageOnAllLinks(message);
-
+        m_communicator->sendMessage(message, itr);
+}
 }
 void CommandsSender::req_log(int number){
     mavlink_log_request_data_t req = {0};
-    req.target_system = target_system_id_;
+
     req.target_component = target_component_id_autopilot_;
     req.id = number;
     mavlink_message_t message;
-    mavlink_msg_log_request_data_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        req.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_log_request_data_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                     &req);
-    m_communicator->sendMessageOnAllLinks(message);
-
+        m_communicator->sendMessage(message, itr);
+    }
 }
 void CommandsSender::form_send_fly_mission(int x, int y, int x_land, int y_land,float height_takeoff,float height_point,float height_land, bool drop,bool db){
 
@@ -202,10 +213,13 @@ void CommandsSender::upload_fly_mission(){
       mavlink_mission_count_t count = {0};
       count.count = waypoints.size();
       count.target_component = target_component_id_autopilot_;
-      count.target_system = target_system_id_;
+
+      for (auto itr : m_communicator->m_chosenChannels.keys()){
+          count.target_system = m_communicator->m_chosenChannels.value(itr);
+
       mavlink_msg_mission_count_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                          &count);
-      m_communicator->sendMessageOnAllLinks(message);
+      m_communicator->sendMessage(message, itr);}
 
 
       }
@@ -215,13 +229,16 @@ void CommandsSender::start_mission(){
     set_guided_mode();
     send_arm();
     mavlink_command_long_t start = {0};
-    start.target_system = target_system_id_;
+
     start.target_component = target_component_id_autopilot_;
     start.command = MAV_CMD_MISSION_START; // 176
     start.confirmation = 1;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
-     m_communicator->sendMessageOnAllLinks(message);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        start.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
+        m_communicator->sendMessage(message, itr);
+    }
 }
 
 void CommandsSender::set_guided_mode() {
@@ -231,10 +248,12 @@ void CommandsSender::set_guided_mode() {
 
   set_mode.base_mode = 1;
   set_mode.custom_mode = 4;
-  set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
-   m_communicator->sendMessageOnAllLinks(msg);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        set_mode.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+        m_communicator->sendMessage(msg, itr);
+    }
 
 }
 void CommandsSender::set_auto_mode() {
@@ -244,10 +263,12 @@ void CommandsSender::set_auto_mode() {
 
   set_mode.base_mode = 1;
   set_mode.custom_mode = 3;
-  set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
-   m_communicator->sendMessageOnAllLinks(msg);
+  for (auto itr : m_communicator->m_chosenChannels.keys()){
+      set_mode.target_system = m_communicator->m_chosenChannels.value(itr);
+      mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+      m_communicator->sendMessage(msg, itr);
+  }
 
 }
 void CommandsSender::set_loiter_mode() {
@@ -257,60 +278,73 @@ void CommandsSender::set_loiter_mode() {
 
   set_mode.base_mode = 1;
   set_mode.custom_mode = 5;
-  set_mode.target_system = target_system_id_;
 
-  mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
-   m_communicator->sendMessageOnAllLinks(msg);
+  for (auto itr : m_communicator->m_chosenChannels.keys()){
+      set_mode.target_system = m_communicator->m_chosenChannels.value(itr);
+      mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+      m_communicator->sendMessage(msg, itr);
+  }
 
 }
 void CommandsSender::set_takeoff_speed(float speed){
     mavlink_param_set_t param = {0};
-
-    param.target_system = target_system_id_;
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
     strcpy(param.param_id,"WPNAV_SPEED_UP");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
-     m_communicator->sendMessageOnAllLinks(msg);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        param.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
+        m_communicator->sendMessage(msg, itr);
+    }
 
 }
 void CommandsSender::set_land_speed(float speed){
    mavlink_param_set_t param = {0};
-    param.target_system = target_system_id_;
+
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
     strcpy(param.param_id,"LAND_SPEED");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
-     m_communicator->sendMessageOnAllLinks(msg);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        param.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
+        m_communicator->sendMessage(msg, itr);
+    }
 
 }
 void CommandsSender::set_fly_speed(float speed){
    mavlink_param_set_t param = {0};
-    param.target_system = target_system_id_;
+
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
     strcpy(param.param_id,"WPNAV_SPEED");
     param.param_value = speed;
     mavlink_message_t msg;
-    mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
-     m_communicator->sendMessageOnAllLinks(msg);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        param.target_system = m_communicator->m_chosenChannels.value(itr);
+
+        mavlink_msg_param_set_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &param);
+        m_communicator->sendMessage(msg, itr);
+    }
 
 }
 
 void CommandsSender::send_rtl_cmd(){
     set_guided_mode();
     mavlink_command_long_t start = {0};
-    start.target_system = target_system_id_;
+
     start.target_component = target_component_id_autopilot_;
     start.command = MAV_CMD_NAV_RETURN_TO_LAUNCH; // 176
     start.confirmation = 1;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
-     m_communicator->sendMessageOnAllLinks(message);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        start.target_system = m_communicator->m_chosenChannels.value(itr);;
+        mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
+        m_communicator->sendMessage(message, itr);
+    }
 }
 void CommandsSender::send_takeoff_mission(float meters, float time){
     waypoints.clear();
@@ -370,8 +404,12 @@ void CommandsSender::loiter_time_wait(float seconds){
     start.confirmation = 1;
     start.param1 = seconds;
     mavlink_message_t message;
-    mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
-     m_communicator->sendMessageOnAllLinks(message);
+    for (auto itr : m_communicator->m_chosenChannels.keys()){
+        start.target_system = m_communicator->m_chosenChannels.value(itr);
+        mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
+        m_communicator->sendMessage(message, itr);
+
+     }
 }
 
 

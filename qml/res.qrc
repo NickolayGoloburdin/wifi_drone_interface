@@ -6,5 +6,6 @@
         <file>DropMissionComponent.qml</file>
         <file>Dronelist.qml</file>
         <file>setting.json</file>
+        <file>DroneUnit.qml</file>
     </qresource>
 </RCC>

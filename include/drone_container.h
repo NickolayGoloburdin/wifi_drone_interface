@@ -18,10 +18,11 @@ public:
     void load(const QString &persistFilePath);
     void failsafeLoad();
     QVariantMap toMap() const;
+    QList<Drone> drones_;
 
 
 private:
-    QList<Drone> drones_;
+
 
 };
 

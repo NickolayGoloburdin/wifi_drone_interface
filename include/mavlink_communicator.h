@@ -36,8 +36,8 @@ namespace domain
         void sendMessageOnLastReceivedLink(mavlink_message_t& message);
         void sendMessageOnAllLinks(mavlink_message_t& message);
         void sendMessageOnAllChosenLinks(mavlink_message_t& message);
-        void addLinkToChosen(int channel);
-        void removeLinkFromChosen(int channel);
+   Q_INVOKABLE     void addLinkToChosen(const int& channel);
+   Q_INVOKABLE     void removeLinkFromChosen(const int& channel);
     signals:
         void messageReceived(const mavlink_message_t& message);
 

@@ -14,6 +14,7 @@ public:
     void run();
     QSListModel* droneStore_;
     QString path_;
+    DroneContainer m_drone;
     signals:
 
     public slots:
@@ -33,10 +34,10 @@ public:
 
         void sync();
 
-    private:
+
 
         // A fake trello board
-        DroneContainer m_drone;
+
     };
 
 

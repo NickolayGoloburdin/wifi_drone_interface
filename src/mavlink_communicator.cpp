@@ -98,11 +98,11 @@ void MavLinkCommunicator::sendMessageOnAllChosenLinks(mavlink_message_t& message
         this->sendMessage(message, link);
 }
 
-void MavLinkCommunicator::addLinkToChosen(int channel){
+ void MavLinkCommunicator::addLinkToChosen(const int& channel){
     if (m_chosenChannels.values().contains(channel)) return;
     m_chosenChannels[m_linkChannels.key(channel)] = channel;
 }
-void MavLinkCommunicator::removeLinkFromChosen(int channel){
+ void MavLinkCommunicator::removeLinkFromChosen(const int& channel){
     if (!m_chosenChannels.values().contains(channel)) return;
     m_chosenChannels.remove(m_linkChannels.key(channel));
 }

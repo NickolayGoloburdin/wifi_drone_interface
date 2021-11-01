@@ -24,24 +24,24 @@ namespace domain
         void wait_ack_mission_message();
         QVector<mavlink_mission_item_int_t> waypoints;
     public slots:
-        void send_arm();
-        void send_disarm();
-        void send_takeoff_mission(float meters, float time);
-        void start_mission();
+        Q_INVOKABLE void send_arm();
+        Q_INVOKABLE void send_disarm();
+        Q_INVOKABLE void send_takeoff_mission(float meters = 3, float time = 10.0);
+        Q_INVOKABLE void start_mission();
         void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff,float height_point,float height_land, bool drop, bool db);
-        void set_guided_mode();
-        void set_auto_mode();
-        void set_loiter_mode();
+        Q_INVOKABLE void set_guided_mode();
+        Q_INVOKABLE void set_auto_mode();
+        Q_INVOKABLE void set_loiter_mode();
         void loiter_time_wait(float seconds);
-        void mission_request_handler(mavlink_mission_request_t mission_req);
+        void mission_request_handler(mavlink_mission_request_t mission_req, int id);
         void command_ack_handler();
         void mission_ack_handler(int type);
-        void req_log_list();
+        Q_INVOKABLE void req_log_list();
         void req_log(int number);
         void set_takeoff_speed(float speed);
-        void set_land_speed(float speed);
-        void set_fly_speed(float speed);
-        void send_rtl_cmd();
+        Q_INVOKABLE void set_land_speed(float speed);
+        Q_INVOKABLE void set_fly_speed(float speed);
+        Q_INVOKABLE void send_rtl_cmd();
     signals:
         void dbSignal(QVector<mavlink_mission_item_int_t>& mission);
 
