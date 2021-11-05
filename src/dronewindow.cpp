@@ -58,7 +58,7 @@ void DroneWindow::update_coordinates(QString in_x, QString in_y){
     ui->longtitude->setText(in_y);
 
 //QMessageBox::warning(this, "Внимание", "Координаты точки для сброса обновлены, можно загружать полетное задание");
-on_SendPoint_clicked();
+    on_SendPoint_clicked();
 }
 
 void DroneWindow::on_Arm_clicked()

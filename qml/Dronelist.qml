@@ -21,10 +21,6 @@ Item {
         id: listview1
         anchors.fill: parent
         model: droneStore
-        JsonListModel {
-            keyField: "uuid"
-            source: droneStore.drones
-        }
         delegate: DroneUnit {
             uuid: model.uuid
             ip: model.ip

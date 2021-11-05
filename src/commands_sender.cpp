@@ -78,7 +78,7 @@ void CommandsSender::send_disarm(){
 
       mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message,
                                       &set_mode);
-       m_communicator->sendMessage(message, itr);
+      m_communicator->sendMessage(message, itr);
     }
 
 }

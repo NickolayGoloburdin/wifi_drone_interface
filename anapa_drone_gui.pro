@@ -60,15 +60,10 @@ OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
 
 
 HEADERS += $$PWD/include/*.h \
-    include/delegate.h \
-    include/drone.h \
-    include/drone_container.h
+
 
 
 SOURCES += $$PWD/src/*.cpp \
-    include/delegate.cpp \
-    include/drone.cpp \
-    include/drone_container.cpp \
     main.cpp
 
 RESOURCES += \
