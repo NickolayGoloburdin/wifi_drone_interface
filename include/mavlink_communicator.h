@@ -8,36 +8,38 @@
 
 namespace domain
 {
-    class AbstractLink;
+class AbstractClient;
+class AbstractServer;
 
-    class MavLinkCommunicator: public QObject
-    {
+class MavLinkCommunicator: public QObject
+{
         Q_OBJECT
 
     public:
         MavLinkCommunicator(uint8_t systemId = 254, uint8_t componentId = 1,
                             QObject* parent = nullptr);
 
-        QList<AbstractLink*> links() const;
-        QMap<AbstractLink*, uint8_t> m_linkChannels;
-        QMap<AbstractLink*, uint8_t> m_chosenChannels;
+        QList<AbstractClient*> links() const;
+        QMap<AbstractClient*, uint8_t> m_linkChannels;
+        QMap<AbstractServer*, uint8_t> m_RecievedlinkChannels;
+        QMap<AbstractClient*, uint8_t> m_chosenChannels;
         uint8_t systemId() const;
         uint8_t componentId() const;
 
     public slots:
-        void addLink(AbstractLink* link, uint8_t channel);
-        void removeLink(AbstractLink* link);
-
+        void addLink(AbstractClient* link, uint8_t channel);
+        void removeLink(AbstractClient* link);
+        void addServer(AbstractServer* link, uint8_t channel);
+        void removeServer(AbstractServer* link);
         void setSystemId(uint8_t systemId);
         void setComponentId(uint8_t componentId);
 
-        void sendMessage(mavlink_message_t& message, AbstractLink* link);
+        void sendMessage(mavlink_message_t& message, AbstractClient* link);
         void sendMessageOnChannel(mavlink_message_t& message, uint8_t channel);
-        void sendMessageOnLastReceivedLink(mavlink_message_t& message);
         void sendMessageOnAllLinks(mavlink_message_t& message);
         void sendMessageOnAllChosenLinks(mavlink_message_t& message);
-   Q_INVOKABLE     void addLinkToChosen(const int& channel);
-   Q_INVOKABLE     void removeLinkFromChosen(const int& channel);
+        Q_INVOKABLE     void addLinkToChosen(const int& channel);
+        Q_INVOKABLE     void removeLinkFromChosen(const int& channel);
     signals:
         void messageReceived(const mavlink_message_t& message);
 
@@ -46,10 +48,10 @@ namespace domain
 
     protected:
 
-        AbstractLink* m_lastReceivedLink;
+        AbstractServer* m_lastReceivedLink;
 
         uint8_t m_systemId;
         uint8_t m_componentId;
-    };
+};
 }
 #endif // MAVLINK_COMMUNICATOR_H

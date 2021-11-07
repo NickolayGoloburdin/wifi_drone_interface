@@ -4,23 +4,23 @@
 
 namespace domain
 {
-    class HeartbeatHandler: public AbstractHandler
-    {
-        Q_OBJECT
+class HeartbeatHandler: public AbstractHandler
+{
+    Q_OBJECT
 
-    public:
-        HeartbeatHandler(uint8_t type, MavLinkCommunicator* communicator);
-    protected:
-        void timerEvent(QTimerEvent *event) override;
+public:
+    HeartbeatHandler(uint8_t type, MavLinkCommunicator* communicator);
+protected:
+    void timerEvent(QTimerEvent *event) override;
 
-    signals:
-        void HeartbeatSignal(QString id, bool heartbeat);
+signals:
+    void HeartbeatSignal(QString id, bool heartbeat);
 
-    public slots:
-        void processMessage(const mavlink_message_t& message) override;
-    private:
-        const uint8_t m_type;
-    };
+public slots:
+    void processMessage(const mavlink_message_t& message) override;
+private:
+    const uint8_t m_type;
+};
 }
 
 #endif // HEARTBEAT_HANDLER_H

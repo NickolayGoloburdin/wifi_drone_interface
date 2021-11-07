@@ -13,14 +13,14 @@ InfoMessageHandler::InfoMessageHandler(InfoCommunicator* communicator):
 
 void InfoMessageHandler::processMessage(QString message)
 {
-    if (message[0] != '#') {return;}
+    if (message[0] != '#') {
+        return;
+    }
     QStringList coordinates = message.split('#');
 
-    if (coordinates.at(1) == "start")
-    {
+    if (coordinates.at(1) == "start") {
         emit StartSignal();
-    }
-    else
+    } else
 
         emit CoordinatesSignal(coordinates.at(1), coordinates.at(2));
 

@@ -11,37 +11,37 @@ class Delegate: public QObject
 {
     Q_OBJECT
 public:
-     explicit Delegate(QString persistDir, QQmlApplicationEngine* engine, QObject *parent = 0);
+    explicit Delegate(QString persistDir, QQmlApplicationEngine* engine, QObject *parent = 0);
     void run();
     QSListModel* droneStore_;
     QString path_;
     DroneContainer m_drone;
 
-    signals:
+signals:
 
-    public slots:
-        void persistDrones(); //NPM
-        QByteArray stringifyDrones(); //NPM
-
-
-
-        void addDrone(const QString& droneUuid);
-        void setGps(const QString& droneUuid, int sattelites);
-        void setvoltage(const QString& droneUuid, int voltage);
-        void setHeartbeat(const QString& droneUuid, bool heartbeat);
-        void removeDrone(const QString& droneUuid);
+public slots:
+    void persistDrones(); //NPM
+    QByteArray stringifyDrones(); //NPM
 
 
-    private slots:
 
-        void sync();
-    private:
-        QQmlApplicationEngine* engine_;
+    void addDrone(const QString& droneUuid);
+    void setGps(const QString& droneUuid, int sattelites);
+    void setvoltage(const QString& droneUuid, int voltage);
+    void setHeartbeat(const QString& droneUuid, bool heartbeat);
+    void removeDrone(const QString& droneUuid);
 
 
-        // A fake trello board
+private slots:
 
-    };
+    void sync();
+private:
+    QQmlApplicationEngine* engine_;
+
+
+    // A fake trello board
+
+};
 
 
 #endif // DELEGATE_H

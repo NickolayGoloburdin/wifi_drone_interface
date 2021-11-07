@@ -8,23 +8,25 @@
 
 namespace domain
 {
-    class AbstractLink;
+class AbstractServer;
+class AbstractClient;
 
-    class InfoCommunicator: public QObject
-    {
+class InfoCommunicator: public QObject
+{
         Q_OBJECT
 
     public:
         InfoCommunicator(QObject* parent = nullptr);
 
-        QList<AbstractLink*> links() const;
-
+        QList<AbstractClient*> links() const;
+        QMap<AbstractServer*, uint8_t> m_RecievedlinkChannels;
 
     public slots:
-        void addLink(AbstractLink* link, uint8_t channel);
-        void removeLink(AbstractLink* link);
-        void sendMessage(QString message, AbstractLink* link);
-        void sendMessageOnLastReceivedLink(QString message);
+        void addLink(AbstractClient* link, uint8_t channel);
+        void removeLink(AbstractClient* link);
+        void addServer(AbstractServer* link, uint8_t channel);
+        void removeServer(AbstractServer* link);
+        void sendMessage(QString message, AbstractClient* link);
         void sendMessageOnAllLinks(QString message);
 
     signals:
@@ -34,11 +36,11 @@ namespace domain
         void onDataReceived(const QByteArray& data);
 
     protected:
-        QMap<AbstractLink*, uint8_t> m_linkChannels;
-        AbstractLink* m_lastReceivedLink;
+        QMap<AbstractClient*, uint8_t> m_linkChannels;
+        AbstractServer* m_lastReceivedLink;
 
         uint8_t m_systemId;
         uint8_t m_componentId;
-    };
+};
 }
 #endif // INFO_COMMUNICATOR_H

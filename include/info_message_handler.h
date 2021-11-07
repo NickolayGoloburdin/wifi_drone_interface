@@ -4,20 +4,20 @@
 
 namespace domain
 {
-    class InfoMessageHandler: public InfoAbstractHandler
-    {
-        Q_OBJECT
+class InfoMessageHandler: public InfoAbstractHandler
+{
+    Q_OBJECT
 
-    public:
-        InfoMessageHandler( InfoCommunicator* communicator);
+public:
+    InfoMessageHandler(InfoCommunicator* communicator);
 
-    signals:
-        void CoordinatesSignal(QString x, QString y);
-        void StartSignal();
+signals:
+    void CoordinatesSignal(QString x, QString y);
+    void StartSignal();
 
-    public slots:
-        void processMessage(QString message) override;
+public slots:
+    void processMessage(QString message) override;
 
-    };
+};
 }
 #endif // INFO_MESSAGE_HANDLER_H

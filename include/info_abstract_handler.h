@@ -7,21 +7,21 @@
 
 namespace domain
 {
-    class InfoCommunicator;
+class InfoCommunicator;
 
-    class InfoAbstractHandler: public QObject
-    {
-        Q_OBJECT
+class InfoAbstractHandler: public QObject
+{
+    Q_OBJECT
 
-    public:
-        explicit InfoAbstractHandler(InfoCommunicator* communicator);
+public:
+    explicit InfoAbstractHandler(InfoCommunicator* communicator);
 
-    protected slots:
-        virtual void processMessage(QString message) = 0;
+protected slots:
+    virtual void processMessage(QString message) = 0;
 
-    protected:
-        InfoCommunicator* const m_communicator;
-    };
+protected:
+    InfoCommunicator* const m_communicator;
+};
 }
 
 

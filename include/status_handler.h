@@ -5,17 +5,17 @@
 
 namespace domain
 {
-    class StatusHandler: public AbstractHandler
-    {
-        Q_OBJECT
+class StatusHandler: public AbstractHandler
+{
+    Q_OBJECT
 
-    public:
-        StatusHandler(MavLinkCommunicator* communicator);
-    signals:
-        void statusSignal(QString id, QString status);
+public:
+    StatusHandler(MavLinkCommunicator* communicator);
+signals:
+    void statusSignal(QString id, QString status);
 
-    public slots:
-        void processMessage(const mavlink_message_t& message) override;
-    };
+public slots:
+    void processMessage(const mavlink_message_t& message) override;
+};
 }
 #endif // STATUS_HANDLER_H

@@ -4,16 +4,16 @@
 
 namespace domain
 {
-    class MavLinkCommunicator;
-    class InfoCommunicator;
+class MavLinkCommunicator;
+class InfoCommunicator;
 
-    class AbstractCommunicatorFactory
-    {
-    public:
-        AbstractCommunicatorFactory();
-        virtual ~AbstractCommunicatorFactory();
+class AbstractCommunicatorFactory
+{
+public:
+    AbstractCommunicatorFactory();
+    virtual ~AbstractCommunicatorFactory();
 
-        virtual std::tuple<MavLinkCommunicator*, InfoCommunicator*> create() = 0;
-    };
+    virtual std::tuple<MavLinkCommunicator *, InfoCommunicator *> create() = 0;
+};
 }
 #endif // ABSTRACT_COMMUNICATOR_FACTORY_H

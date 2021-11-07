@@ -16,12 +16,12 @@ StatusHandler::StatusHandler(MavLinkCommunicator* communicator):
 void StatusHandler::processMessage(const mavlink_message_t& message)
 {
     if (message.msgid != MAVLINK_MSG_ID_STATUSTEXT ||
-        message.sysid == 0) return;
+            message.sysid == 0) return;
 
     mavlink_statustext_t text;
     mavlink_msg_statustext_decode(&message, &text);
     QString status = QString(text.text);
-    emit statusSignal( QString::number(message.sysid), status);
+    emit statusSignal(QString::number(message.sysid), status);
 
 
 }

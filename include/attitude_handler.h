@@ -6,15 +6,15 @@
 
 namespace domain
 {
-    class AttitudeHandler: public AbstractHandler
-    {
-        Q_OBJECT
+class AttitudeHandler: public AbstractHandler
+{
+    Q_OBJECT
 
-    public:
-        AttitudeHandler(MavLinkCommunicator* communicator);
+public:
+    AttitudeHandler(MavLinkCommunicator* communicator);
 
-    public slots:
-        void processMessage(const mavlink_message_t& message) override;
-    };
+public slots:
+    void processMessage(const mavlink_message_t& message) override;
+};
 }
 #endif // ATTITUDE_HANDLER_H

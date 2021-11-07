@@ -1,6 +1,6 @@
 #include "drone.h"
 
-Drone::Drone():uuid_("empty"),
+Drone::Drone(): uuid_("empty"),
     ip_("192.0.0.0"),
     heartbeat_(false),
     sattelites_(0),
@@ -15,7 +15,7 @@ Drone::Drone(QString uuid,
              bool heartbeat,
              int sattelites,
              int voltage,
-             QString status):uuid_(uuid),
+             QString status): uuid_(uuid),
     ip_(ip),
     heartbeat_(heartbeat),
     sattelites_(sattelites),

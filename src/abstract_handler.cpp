@@ -5,7 +5,7 @@
 
 using namespace domain;
 
-AbstractHandler::AbstractHandler(MavLinkCommunicator* communicator):
+AbstractHandler::AbstractHandler(MavLinkCommunicator *communicator):
     QObject(communicator),
     m_communicator(communicator)
 {

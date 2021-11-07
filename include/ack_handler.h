@@ -4,19 +4,19 @@
 #include <ardupilotmega/mavlink.h>
 namespace domain
 {
-    class AckHandler: public AbstractHandler
-    {
-        Q_OBJECT
+class AckHandler: public AbstractHandler
+{
+    Q_OBJECT
 
-    public:
-        AckHandler(MavLinkCommunicator* communicator);
-    signals:
-        void missionSignal(mavlink_mission_request_t mission_req, int id);
-        void commandSignal(int id);
-        void missionackSignal(int type, int id);
+public:
+    AckHandler(MavLinkCommunicator* communicator);
+signals:
+    void missionSignal(mavlink_mission_request_t mission_req, int id);
+    void commandSignal(int id);
+    void missionackSignal(int type, int id);
 
-    public slots:
-        void processMessage(const mavlink_message_t& message) override;
-    };
+public slots:
+    void processMessage(const mavlink_message_t& message) override;
+};
 }
 #endif // ACK_HANDLER_H

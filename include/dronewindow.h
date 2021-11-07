@@ -7,7 +7,10 @@
 #include <QMessageBox>
 #include "mavlink_communicator.h"
 QT_BEGIN_NAMESPACE
-namespace Ui { class DroneWindow; }
+namespace Ui
+{
+class DroneWindow;
+}
 QT_END_NAMESPACE
 
 class DroneWindow : public QWidget
@@ -30,7 +33,7 @@ public slots:
 signals:
     void armSignal();
     void disarmSignal();
-    void missionSignal(int x, int y, int x_land, int y_land,float height_takeoff, float height_point, float height_land, bool drop, bool send_db);
+    void missionSignal(int x, int y, int x_land, int y_land, float height_takeoff, float height_point, float height_land, bool drop, bool send_db);
     void startSignal();
     void takeoffMissionSignal(float meters, float time);
     void logListReqSignal();

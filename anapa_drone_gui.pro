@@ -59,7 +59,8 @@ OTHER_FILES += $$PWD/qml/qml_mainwindow.qml
 
 
 
-HEADERS += $$PWD/include/*.h \
+HEADERS += $$PWD/include/*.h \ \
+
 
 
 

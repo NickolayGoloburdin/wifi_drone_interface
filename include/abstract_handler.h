@@ -9,20 +9,20 @@
 
 namespace domain
 {
-    class MavLinkCommunicator;
+class MavLinkCommunicator;
 
-    class AbstractHandler: public QObject
-    {
-        Q_OBJECT
+class AbstractHandler: public QObject
+{
+    Q_OBJECT
 
-    public:
-        explicit AbstractHandler(MavLinkCommunicator* communicator);
+public:
+    explicit AbstractHandler(MavLinkCommunicator* communicator);
 
-    protected slots:
-        virtual void processMessage(const mavlink_message_t& message) = 0;
+protected slots:
+    virtual void processMessage(const mavlink_message_t& message) = 0;
 
-    protected:
-        MavLinkCommunicator* const m_communicator;
-    };
+protected:
+    MavLinkCommunicator* const m_communicator;
+};
 }
 #endif // BSTRACT_HANDLER_H

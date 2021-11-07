@@ -4,7 +4,8 @@
 
 
 // Internal
-#include "abstract_link.h"
+#include "abstract_server.h"
+#include "abstract_client.h"
 
 using namespace domain;
 
@@ -14,31 +15,49 @@ InfoCommunicator::InfoCommunicator(QObject* parent):
 {
 }
 
-QList<AbstractLink*> InfoCommunicator::links() const
+QList<AbstractClient*> InfoCommunicator::links() const
 {
     return m_linkChannels.keys();
 }
 
-void InfoCommunicator::addLink(AbstractLink* link, uint8_t channel)
+void InfoCommunicator::addLink(AbstractClient* link, uint8_t channel)
 {
     if (m_linkChannels.contains(link)) return;
 
     m_linkChannels[link] = channel;
-    connect(link, &AbstractLink::dataReceived,
-            this, &InfoCommunicator::onDataReceived);
+//    connect(link, &AbstractClient::dataReceived,
+//            this, &InfoCommunicator::onDataReceived);
 }
 
-void InfoCommunicator::removeLink(AbstractLink* link)
+void InfoCommunicator::removeLink(AbstractClient* link)
 {
     if (!m_linkChannels.contains(link)) return;
 
     m_linkChannels.remove(link);
-    disconnect(link, &AbstractLink::dataReceived,
+//    disconnect(link, &AbstractLink::dataReceived,
+    //               this, &InfoCommunicator::onDataReceived);
+}
+
+void InfoCommunicator::addServer(AbstractServer *link, uint8_t channel)
+{
+    if (m_RecievedlinkChannels.contains(link)) return;
+
+    m_RecievedlinkChannels[link] = channel;
+    connect(link, &AbstractServer::dataReceived,
             this, &InfoCommunicator::onDataReceived);
 }
 
+void InfoCommunicator::removeServer(AbstractServer *link)
+{
+    if (!m_RecievedlinkChannels.contains(link)) return;
 
-void InfoCommunicator::sendMessage(QString message, AbstractLink* link)
+    m_RecievedlinkChannels.remove(link);
+    disconnect(link, &AbstractServer::dataReceived,
+               this, &InfoCommunicator::onDataReceived);
+}
+
+
+void InfoCommunicator::sendMessage(QString message, AbstractClient* link)
 {
     if (!link || !link->isUp()) return;
 
@@ -47,24 +66,20 @@ void InfoCommunicator::sendMessage(QString message, AbstractLink* link)
     link->sendData(QByteArray((const char*)buffer.data()));
 }
 
-void InfoCommunicator::sendMessageOnLastReceivedLink(QString message)
-{
-    this->sendMessage(message, m_lastReceivedLink);
-}
 
 void InfoCommunicator::sendMessageOnAllLinks(QString message)
 {
-    for (AbstractLink* link: m_linkChannels.keys())
+    for (AbstractClient* link : m_linkChannels.keys())
         this->sendMessage(message, link);
 }
 
 void InfoCommunicator::onDataReceived(const QByteArray& data)
 {
 
-    m_lastReceivedLink = qobject_cast<AbstractLink*>(this->sender());
+    m_lastReceivedLink = qobject_cast<AbstractServer*>(this->sender());
     if (!m_lastReceivedLink) return;
-       QString msg = QString::fromUtf8(data);
-       emit messageReceived(msg);
+    QString msg = QString::fromUtf8(data);
+    emit messageReceived(msg);
 
 
     // TODO: Link RX status

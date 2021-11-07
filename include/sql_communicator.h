@@ -4,8 +4,10 @@
 #include <QString>
 #include <QVector>
 #include "mavlink_communicator.h"
-namespace domain {
-class SQLCommunicator: public QObject{
+namespace domain
+{
+class SQLCommunicator: public QObject
+{
     Q_OBJECT
 public:
     explicit SQLCommunicator(QString host, QString database, QString username, QString password);
