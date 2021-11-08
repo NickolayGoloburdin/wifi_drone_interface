@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
 
-Window {
+ApplicationWindow {
     id: appWindow
     visible: true
     height: 800
@@ -44,5 +44,11 @@ Window {
         property int defcontrolmargin: 30
         anchors.right: terminalarea.left
         anchors.rightMargin: defcontrolmargin
+    }
+    onClosing: {
+        //console.log("Model=" + App.stringifyModel());
+        console.log("Exiting application... Persisting model to file setting.json")
+        App.persistDrones()
+        close.accepted = true
     }
 }

@@ -47,7 +47,6 @@ void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_r
     waypoints[mission_req.seq].target_system = id;
     mavlink_msg_mission_item_int_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &waypoints[mission_req.seq]);
     m_communicator->sendMessageOnChannel(message, id);
-    count_++;
 
 }
 void CommandsSender::command_ack_handler()
