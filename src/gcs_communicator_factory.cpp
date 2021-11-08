@@ -40,16 +40,14 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
 
     engine->rootContext()->setContextProperty("communicator", communicator);
     engine->rootContext()->setContextProperty("commandSender", sender);
-    engine->rootContext()->setContextProperty("droneStore", model->droneStore_);
 
-    engine->rootContext()->setContextProperty("App", model);
     domain::UdpLinkServer* server = new domain::UdpLinkServer(14550);
     communicator->addServer(server, 0);
     server->up();
     for (int i = 0; i < model->m_drone.drones_.size() ; i++) {
 
         auto link = new domain::UdpLinkClient(server->getSocket(), model->m_drone.drones_.at(i).ip_, 14550);
-        communicator->addLink(link, model->m_drone.drones_.at(i).uuid_.toInt());
+        communicator->addLink(link, model->m_drone.drones_.at(i).uuid_);
 
     }
 

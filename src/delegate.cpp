@@ -50,33 +50,33 @@ QByteArray Delegate::stringifyDrones()
 
 
 
-void Delegate::addDrone(const QString &droneUuid)
+void Delegate::addDrone(const int &droneUuid)
 {
     m_drone.addDrone();
     sync();
 
 }
 
-void Delegate::setGps(const QString &droneUuid, int sattelites)
+void Delegate::setGps(const int &droneUuid, int sattelites)
 {
     m_drone.setGps(droneUuid, sattelites);
     sync();
 }
 
-void Delegate::setvoltage(const QString &droneUuid, int voltage)
+void Delegate::setvoltage(const int &droneUuid, int voltage)
 {
     m_drone.setvoltage(droneUuid, voltage);
     sync();
 }
 
-void Delegate::setHeartbeat(const QString &droneUuid, bool heartbeat)
+void Delegate::setHeartbeat(const int &droneUuid, bool heartbeat)
 {
     m_drone.setHeartbeat(droneUuid, heartbeat);
     sync();
 }
 
 
-void Delegate::removeDrone(const QString &droneUuid)
+void Delegate::removeDrone(const int &droneUuid)
 {
     m_drone.removeDrone(droneUuid);
     sync();

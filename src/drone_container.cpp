@@ -25,7 +25,7 @@ void DroneContainer::addDrone()
     drones_.append(Drone());
 }
 
-void DroneContainer::removeDrone(const QString &uuid)
+void DroneContainer::removeDrone(const int &uuid)
 {
     for (int i = 0 ; i < drones_.size() ; i++) {
         Drone& drone = drones_[i];
@@ -36,7 +36,7 @@ void DroneContainer::removeDrone(const QString &uuid)
     }
 }
 
-void DroneContainer::setGps(const QString &droneUuid, int sattelites)
+void DroneContainer::setGps(const int &droneUuid, int sattelites)
 {
     for (int i = 0 ; i < drones_.size() ; i++) {
         Drone& drone = drones_[i];
@@ -47,7 +47,7 @@ void DroneContainer::setGps(const QString &droneUuid, int sattelites)
     }
 }
 
-void DroneContainer::setvoltage(const QString &droneUuid, int voltage)
+void DroneContainer::setvoltage(const int &droneUuid, int voltage)
 {
     for (int i = 0 ; i < drones_.size() ; i++) {
         Drone& drone = drones_[i];
@@ -58,7 +58,7 @@ void DroneContainer::setvoltage(const QString &droneUuid, int voltage)
     }
 }
 
-void DroneContainer::setHeartbeat(const QString &droneUuid, bool heartbeat)
+void DroneContainer::setHeartbeat(const int &droneUuid, bool heartbeat)
 {
     for (int i = 0 ; i < drones_.size() ; i++) {
         Drone& drone = drones_[i];
@@ -97,7 +97,7 @@ void DroneContainer::load(const QString &persistFilePath)
             int             dronesCount = drones.size();
             for (int i = 0; i < dronesCount; i++) {
                 QMap<QString, QVariant> dronesMap  = drones[i].toMap();
-                QString     uuid = dronesMap.value("id").toString();
+                int     uuid = dronesMap.value("id").toInt();
                 QString     ip = dronesMap.value("ip").toString();
                 bool        heartbeat = dronesMap.value("heartbeat").toBool();
                 int         sattelites = dronesMap.value("sattelites").toInt();

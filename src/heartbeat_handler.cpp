@@ -14,7 +14,12 @@ using namespace domain;
 HeartbeatHandler::HeartbeatHandler(uint8_t type, MavLinkCommunicator* communicator):
     AbstractHandler(communicator), m_type(type)
 {
-    this->startTimer(10000); // 0.1 Hz
+
+    this->startTimer(5000); // 3 Hz
+    for( auto i :communicator->m_linkChannels.values()) {
+        heartbeats[i] = false;
+    }
+
 }
 void HeartbeatHandler::timerEvent(QTimerEvent* event)
 {
@@ -52,11 +57,18 @@ void HeartbeatHandler::timerEvent(QTimerEvent* event)
         m_communicator->sendMessage(message, a);
     }
 
+    for (auto i : heartbeats.keys()) {
+        emit HeartbeatSignal(i, heartbeats.value(i));
+    }
+    for (auto i : heartbeats.keys()) {
+        heartbeats[i] = false;
+    }
+
 }
 
 void HeartbeatHandler::processMessage(const mavlink_message_t& message)
 {
-    if (message.msgid != MAVLINK_MSG_ID_HEARTBEAT) return;
-
-    emit HeartbeatSignal(QString::number(message.sysid), true);
+    if (message.msgid != MAVLINK_MSG_ID_HEARTBEAT || !(heartbeats.keys().contains(message.sysid))) return;
+    heartbeats[message.sysid] = true;
+    //emit HeartbeatSignal(QString::number(message.sysid), true);
 }

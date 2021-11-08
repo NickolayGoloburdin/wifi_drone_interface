@@ -21,6 +21,6 @@ void BatteryHandler::processMessage(const mavlink_message_t& message)
     mavlink_battery_status_t battery;
     mavlink_msg_battery_status_decode(&message, &battery);
     int8_t battery_rem = battery.battery_remaining;
-    emit BatterySignal(QString::number(message.sysid), battery_rem);
+    emit BatterySignal(message.sysid, battery_rem);
 
 }

@@ -1,6 +1,6 @@
 #include "drone.h"
 
-Drone::Drone(): uuid_("empty"),
+Drone::Drone(): uuid_(0),
     ip_("192.0.0.0"),
     heartbeat_(false),
     sattelites_(0),
@@ -10,7 +10,7 @@ Drone::Drone(): uuid_("empty"),
 
 }
 
-Drone::Drone(QString uuid,
+Drone::Drone(int uuid,
              QString ip,
              bool heartbeat,
              int sattelites,
@@ -25,7 +25,7 @@ Drone::Drone(QString uuid,
 
 }
 
-const QString &Drone::uuid() const
+const int &Drone::uuid() const
 {
     return uuid_;
 }
