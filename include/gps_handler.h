@@ -7,7 +7,8 @@ namespace domain
 class GPSHandler: public AbstractHandler
 {
         Q_OBJECT
-
+    protected:
+        void timerEvent(QTimerEvent *event) override;
     public:
         GPSHandler(MavLinkCommunicator* communicator);
     signals:

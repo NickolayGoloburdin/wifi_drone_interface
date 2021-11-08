@@ -25,10 +25,7 @@ INCLUDEPATH += $$PWD/c_library_v2
 
 
 
-FORMS += \
-    drone_units.ui \
-    dronelist.ui \
-    dronewindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

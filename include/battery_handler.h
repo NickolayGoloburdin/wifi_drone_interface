@@ -10,6 +10,8 @@ class BatteryHandler: public AbstractHandler
 
     public:
         BatteryHandler(MavLinkCommunicator* communicator);
+    protected:
+        void timerEvent(QTimerEvent *event) override;
     signals:
         void BatterySignal(const int& id, int8_t battery_rem);
     public slots:
