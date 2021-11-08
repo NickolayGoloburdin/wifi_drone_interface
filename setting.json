@@ -2,7 +2,7 @@
     "name": "Dronelist",
     "drones":  [
         {
-            "id" : 1,
+            "uuid" : 1,
             "ip":"192.168.2.1",
             "heartbeat":false,
             "sattelites":0,
@@ -10,7 +10,7 @@
             "status": "none"
         },
         {
-            "id" : 2,
+            "uuid" : 2,
             "ip":"192.168.2.3",
             "heartbeat":false,
             "sattelites":0,
@@ -18,7 +18,7 @@
             "status": "none"
         },
         {
-            "id" : 3,
+            "uuid" : 3,
             "ip":"192.168.2.3",
             "heartbeat": false,
             "sattelites":0,

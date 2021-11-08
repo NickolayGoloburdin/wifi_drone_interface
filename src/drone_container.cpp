@@ -97,7 +97,7 @@ void DroneContainer::load(const QString &persistFilePath)
             int             dronesCount = drones.size();
             for (int i = 0; i < dronesCount; i++) {
                 QMap<QString, QVariant> dronesMap  = drones[i].toMap();
-                int     uuid = dronesMap.value("id").toInt();
+                int     uuid = dronesMap.value("uuid").toInt();
                 QString     ip = dronesMap.value("ip").toString();
                 bool        heartbeat = dronesMap.value("heartbeat").toBool();
                 int         sattelites = dronesMap.value("sattelites").toInt();

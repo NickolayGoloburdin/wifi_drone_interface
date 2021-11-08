@@ -7,5 +7,6 @@
         <file>Dronelist.qml</file>
         <file>setting.json</file>
         <file>DroneUnit.qml</file>
+        <file>Terminalarea.qml</file>
     </qresource>
 </RCC>
