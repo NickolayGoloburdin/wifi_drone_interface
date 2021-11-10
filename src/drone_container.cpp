@@ -70,6 +70,17 @@ void DroneContainer::setHeartbeat(const int &droneUuid, bool heartbeat)
 
 }
 
+void DroneContainer::setStatus(const int &droneUuid, QString &status)
+{
+    for (int i = 0 ; i < drones_.size() ; i++) {
+        Drone& drone = drones_[i];
+        if (drone.uuid() == droneUuid) {
+            drone.setStatus(status);
+            break;
+        }
+    }
+}
+
 
 
 
@@ -115,6 +126,15 @@ void DroneContainer::failsafeLoad()
 {
 
     drones_ << (Drone()) << (Drone());
+}
+
+void DroneContainer::eraseAdditionaldata()
+{
+    for (Drone& i : drones_) {
+        i.eraseStatus();
+        i.setHeartbeat(false);
+
+    }
 }
 
 QVariantMap DroneContainer::toMap() const

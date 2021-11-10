@@ -10,8 +10,9 @@ Item {
     property var heartbeat
     property var sattelites
     property var voltage
-
+    signal commandAck(int id, bool res)
     property color buttoncolor: "#1e1f30"
+    property color animcolor: "red"
     property bool active: false
     anchors.left: parent.left
     anchors.right: parent.right
@@ -19,9 +20,12 @@ Item {
 
     Rectangle {
         id: rect
-        anchors.fill: parent
-        anchors.margins: 5
+        anchors.left: rectangle.right
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        width: parent.width / 1.5
         color: buttoncolor
+        anchors.margins: 5
     }
 
     MouseArea {
@@ -55,14 +59,14 @@ Item {
         anchors.bottom: rect.bottom
         color: "white"
     }
-    Text {
-        font.pointSize: 7
-        font.family: "Arial"
-        text: "Соединение : " + heartbeat.toString()
-        anchors.left: rect.left
-        anchors.bottom: rect.bottom
-        color: "white"
-    }
+    //    Text {
+    //        font.pointSize: 7
+    //        font.family: "Arial"
+    //        text: "Соединение : " + heartbeat.toString()
+    //        anchors.left: rect.left
+    //        anchors.bottom: rect.bottom
+    //        color: "white"
+    //    }
     Text {
         font.pointSize: 7
         font.family: "Arial"
@@ -70,5 +74,57 @@ Item {
         anchors.left: rect.left
         anchors.top: rect.top
         color: "white"
+    }
+
+    Rectangle {
+        id: rectangle
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        width: parent.width / 6
+        height: parent.height
+        color: heartbeat ? "#71c3a8" : "gray"
+        anchors.margins: 5
+    }
+    Rectangle {
+        id: rectack
+        anchors.left: rect.right
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        width: parent.width / 6
+        height: parent.height
+        color: heartbeat ? "#71c3a8" : "gray"
+        anchors.margins: 5
+    }
+    Connections {
+        target: AckHandler
+        onCommandSignal: if (id === uuid) {
+
+                             if (res === false) {
+                                 animcolor = "red"
+                                 seqAni.start()
+                             } else {
+                                 animcolor = "#71c3a8"
+                                 seqAni.start()
+                             }
+                         }
+    }
+    SequentialAnimation {
+
+        id: seqAni
+
+        ColorAnimation {
+            target: rectack
+            from: "gray"
+            to: animcolor
+            duration: 1000
+        }
+
+        ColorAnimation {
+            target: rectack
+            from: animcolor
+            to: "gray"
+            duration: 1000
+        }
     }
 }

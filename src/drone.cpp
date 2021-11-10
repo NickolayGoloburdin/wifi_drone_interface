@@ -45,6 +45,16 @@ void Drone::setHeartbeat(bool heartbeat)
     heartbeat_ = heartbeat;
 }
 
+void Drone::setStatus(QString& status)
+{
+    status_ += ("\n" + status);
+}
+
+void Drone::eraseStatus()
+{
+    status_ = "";
+}
+
 QVariantMap Drone::toMap() const
 {
     QVariantMap res;

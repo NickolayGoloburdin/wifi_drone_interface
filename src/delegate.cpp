@@ -31,6 +31,8 @@ void Delegate::persistDrones()
 
 QByteArray Delegate::stringifyDrones()
 {
+    m_drone.eraseAdditionaldata();
+    sync();
     QVariantList drones;
     int count = droneStore_->storage().size();
     for (int i = 0 ; i < count ; i++) {
@@ -80,6 +82,11 @@ void Delegate::removeDrone(const int &droneUuid)
 {
     m_drone.removeDrone(droneUuid);
     sync();
+}
+
+void Delegate::setStatus(const int &droneUuid, QString &status)
+{
+    m_drone.setStatus(droneUuid,status);
 }
 
 void Delegate::sync()

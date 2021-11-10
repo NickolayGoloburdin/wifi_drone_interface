@@ -14,9 +14,11 @@ class DroneContainer
         void setGps(const int& droneUuid, int sattelites);
         void setvoltage(const int& droneUuid, int voltage);
         void setHeartbeat(const int& droneUuid, bool heartbeat);
+        void setStatus(const int& droneUuid, QString& status);
         void removeDrone(const int& droneUuid);
         void load(const QString &persistFilePath);
         void failsafeLoad();
+        void eraseAdditionaldata();
         QVariantMap toMap() const;
         QList<Drone> drones_;
 

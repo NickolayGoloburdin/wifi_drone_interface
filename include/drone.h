@@ -21,6 +21,8 @@ class Drone
         void setGps(int sattelites);
         void setvoltage(int voltage);
         void setHeartbeat(bool heartbeat);
+        void setStatus(QString& status);
+        void eraseStatus();
         QVariantMap toMap() const;
 };
 

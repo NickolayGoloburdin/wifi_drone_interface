@@ -37,16 +37,7 @@ ApplicationWindow {
         anchors.right: terminalarea.left
         anchors.rightMargin: defcontrolmargin
     }
-    Text {
-        anchors.right: terminalarea.left
-        anchors.left: dronearea.right
-        anchors.top: appWindow.top
-        anchors.topMargin: appWindow.height / 5
-        font.pointSize: 20
-        font.family: "Arial"
-        text: "Интерфейс группового управления БПЛА"
-        color: "white"
-    }
+
     onClosing: {
         //console.log("Model=" + App.stringifyModel());
         console.log("Exiting application... Persisting model to file setting.json")

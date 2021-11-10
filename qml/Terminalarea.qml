@@ -23,8 +23,8 @@ Item {
             style: TabViewStyle {
                 frameOverlap: 1
                 tab: Rectangle {
-                    color: styleData.selected ? "#71c3a8" : "lightsteelblue"
-                    border.color: "#71c3a8"
+                    color: styleData.selected ? terminalcolor : "#121324"
+                    border.color: terminalcolor
                     implicitWidth: Math.max(text.width + 4, 80)
                     implicitHeight: 50
                     radius: 2
@@ -32,11 +32,11 @@ Item {
                         id: text
                         anchors.centerIn: parent
                         text: styleData.title
-                        color: styleData.selected ? "white" : "black"
+                        color: "white" //styleData.selected ? "white" : "black"
                     }
                 }
                 frame: Rectangle {
-                    color: "#71c3a8"
+                    color: terminalcolor
                 }
             }
             Repeater {

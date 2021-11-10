@@ -51,13 +51,17 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
 
     }
 
+    domain::AckHandler *ack = new domain::AckHandler(communicator);
+    engine->rootContext()->setContextProperty("AckHandler", ack);
+
     engine->load(QUrl(QLatin1String("qrc:/qml_mainwindow.qml")));
 
     domain::InfoMessageHandler *pointinfo = new domain::InfoMessageHandler(infcommun);
     domain::HeartbeatHandler *connection = new domain::HeartbeatHandler(254, communicator);
     domain::StatusHandler *status = new domain::StatusHandler(communicator);
 
-    domain::AckHandler *ack = new domain::AckHandler(communicator);
+
+
     domain::GPSHandler *gps = new domain::GPSHandler(communicator);
     domain::LogHandler *log = new domain::LogHandler(communicator);
 

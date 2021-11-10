@@ -30,6 +30,7 @@ class Delegate: public QObject
         void setvoltage(const int& droneUuid, int voltage);
         void setHeartbeat(const int& droneUuid, bool heartbeat);
         void removeDrone(const int& droneUuid);
+        void setStatus(const int& droneUuid, QString& status);
 
 
     private slots:
