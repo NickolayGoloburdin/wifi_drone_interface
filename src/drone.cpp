@@ -52,7 +52,12 @@ void Drone::setStatus(QString& status)
 
 void Drone::eraseStatus()
 {
-    status_ = "";
+    status_ = "Terminal started";
+}
+
+void Drone::eraseVoltage()
+{
+    voltage_ = 0;
 }
 
 QVariantMap Drone::toMap() const

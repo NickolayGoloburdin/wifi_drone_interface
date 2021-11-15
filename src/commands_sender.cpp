@@ -39,14 +39,7 @@ void CommandsSender::wait_ack_mission_message()
 }
 void CommandsSender::mission_request_handler(mavlink_mission_request_t mission_req, int id)
 {
-    if (mission_req.seq > 50) {
-        return;
-    }
-    mavlink_message_t message;
-    //wait_mission_message();
-    waypoints[mission_req.seq].target_system = id;
-    mavlink_msg_mission_item_int_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &waypoints[mission_req.seq]);
-    m_communicator->sendMessageOnChannel(message, id);
+
 
 }
 void CommandsSender::command_ack_handler()
@@ -225,13 +218,13 @@ void CommandsSender::upload_fly_mission()
 {
     mavlink_mission_clear_all_t a = {0};
     a.target_component = target_component_id_all_;
-
+    emit missionDataSignal(&waypoints);
     mavlink_message_t message;
-    for (auto itr : m_communicator->m_chosenChannels.keys()) {
-        a.target_system = m_communicator->m_chosenChannels.value(itr);
-        mavlink_msg_mission_clear_all_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &a);
-        m_communicator->sendMessage(message, itr);
-    }
+//    for (auto itr : m_communicator->m_chosenChannels.keys()) {
+//        a.target_system = m_communicator->m_chosenChannels.value(itr);
+//        mavlink_msg_mission_clear_all_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &a);
+//        m_communicator->sendMessage(message, itr);
+//    }
     mavlink_mission_count_t count = {0};
     count.count = waypoints.size();
     count.target_component = target_component_id_autopilot_;

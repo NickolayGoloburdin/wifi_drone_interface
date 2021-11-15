@@ -5,7 +5,8 @@
 // Qt
 #include <QObject>
 #include <QMap>
-
+#include <QHostAddress>
+#include <QQueue>
 namespace domain
 {
 class AbstractClient;
@@ -23,6 +24,7 @@ class MavLinkCommunicator: public QObject
         QMap<AbstractClient*, uint8_t> m_linkChannels;
         QMap<AbstractServer*, uint8_t> m_RecievedlinkChannels;
         QMap<AbstractClient*, uint8_t> m_chosenChannels;
+        QMap<QString, QQueue<uint8_t>> m_UdpBuffers;
         uint8_t systemId() const;
         uint8_t componentId() const;
 
@@ -41,11 +43,12 @@ class MavLinkCommunicator: public QObject
         Q_INVOKABLE     void addLinkToChosen(const int& channel);
         Q_INVOKABLE     void removeLinkFromChosen(const int& channel);
     signals:
+        void startParser();
         void messageReceived(const mavlink_message_t& message);
 
     protected slots:
-        void onDataReceived(const QByteArray& data);
-
+        void onDataReceived(const QByteArray& data, QString sender);
+        void dataParser();
     protected:
 
         AbstractServer* m_lastReceivedLink;
@@ -53,5 +56,8 @@ class MavLinkCommunicator: public QObject
         uint8_t m_systemId;
         uint8_t m_componentId;
 };
+//class DataParser: public QObject{
+//    Q_OBJECT
+//}
 }
 #endif // MAVLINK_COMMUNICATOR_H

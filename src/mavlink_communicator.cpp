@@ -17,6 +17,8 @@ MavLinkCommunicator::MavLinkCommunicator(uint8_t systemId, uint8_t componentId,
     m_componentId(componentId)
 {
     qRegisterMetaType<mavlink_message_t>("mavlink_message_t");
+    QObject::connect(this, &MavLinkCommunicator::startParser, this, &MavLinkCommunicator::dataParser);
+    emit startParser();
 }
 
 QList<AbstractClient*> MavLinkCommunicator::links() const
@@ -118,22 +120,38 @@ void MavLinkCommunicator::removeLinkFromChosen(const int& channel)
     if (!m_chosenChannels.values().contains(channel)) return;
     m_chosenChannels.remove(m_linkChannels.key(channel));
 }
-void MavLinkCommunicator::onDataReceived(const QByteArray& data)
+void MavLinkCommunicator::onDataReceived(const QByteArray& data, QString sender)
 {
-    mavlink_message_t message;
-    mavlink_status_t status;
 
+    if (!m_UdpBuffers.keys().contains(sender)) {
+        m_UdpBuffers[sender] = {};
+    }
     m_lastReceivedLink = qobject_cast<AbstractServer*>(this->sender());
     if (!m_lastReceivedLink) return;
 
     uint8_t channel = m_RecievedlinkChannels.value(m_lastReceivedLink);
     for (int pos = 0; pos < data.length(); ++pos) {
-        if (!mavlink_parse_char(channel, (uint8_t)data[pos],
-                                &message, &status))
-            continue;
-
-        emit messageReceived(message);
+        m_UdpBuffers[sender].enqueue((uint8_t)data[pos]);
+//        if (!mavlink_parse_char(channel, (uint8_t)data[pos],
+//                                &message, &status))
+//            continue;
+//
+//        emit messageReceived(message);
     }
+}
 
-    // TODO: Link RX status
+void MavLinkCommunicator::dataParser()
+{
+    mavlink_message_t message;
+    mavlink_status_t status;
+    for (QString& a : m_UdpBuffers.keys()) {
+        while(!m_UdpBuffers[a].isEmpty()) {
+            if(mavlink_parse_char(0, m_UdpBuffers[a].dequeue(),
+                                  &message, &status)) {
+                emit messageReceived(message);
+                break;
+            }
+        }
+    }
+    QMetaObject::invokeMethod(this, "dataParser", Qt::QueuedConnection);
 }

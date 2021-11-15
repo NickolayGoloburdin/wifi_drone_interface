@@ -23,6 +23,7 @@ class Drone
         void setHeartbeat(bool heartbeat);
         void setStatus(QString& status);
         void eraseStatus();
+        void eraseVoltage();
         QVariantMap toMap() const;
 };
 

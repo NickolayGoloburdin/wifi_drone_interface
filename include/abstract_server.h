@@ -1,7 +1,7 @@
 #ifndef ABSTRACTSERVER_H
 #define ABSTRACTSERVER_H
 
-
+#include <QHostAddress>
 #include <QObject>
 
 namespace domain
@@ -23,7 +23,7 @@ class AbstractServer: public QObject
 
     signals:
         void upChanged(bool isUp);
-        void dataReceived(const QByteArray& data);
+        void dataReceived(const QByteArray& data, QString sender);
 };
 }
 

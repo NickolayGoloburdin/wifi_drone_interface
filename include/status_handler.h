@@ -12,7 +12,7 @@ class StatusHandler: public AbstractHandler
     public:
         StatusHandler(MavLinkCommunicator* communicator);
     signals:
-        void statusSignal(int id, QString status);
+        void statusSignal(const int id, QString& status);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

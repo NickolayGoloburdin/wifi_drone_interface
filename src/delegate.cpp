@@ -87,6 +87,7 @@ void Delegate::removeDrone(const int &droneUuid)
 void Delegate::setStatus(const int &droneUuid, QString &status)
 {
     m_drone.setStatus(droneUuid,status);
+    sync();
 }
 
 void Delegate::sync()

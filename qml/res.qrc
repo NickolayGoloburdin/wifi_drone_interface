@@ -8,5 +8,6 @@
         <file>setting.json</file>
         <file>DroneUnit.qml</file>
         <file>Terminalarea.qml</file>
+        <file>TestDialog.qml</file>
     </qresource>
 </RCC>

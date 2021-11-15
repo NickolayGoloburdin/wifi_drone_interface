@@ -133,6 +133,7 @@ void DroneContainer::eraseAdditionaldata()
     for (Drone& i : drones_) {
         i.eraseStatus();
         i.setHeartbeat(false);
+        i.eraseVoltage();
 
     }
 }

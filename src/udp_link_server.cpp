@@ -68,11 +68,12 @@ void UdpLinkServer::setRxPort(int port)
 
 void UdpLinkServer::readPendingDatagrams()
 {
+    QHostAddress sender;
     while (m_socket->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(m_socket->pendingDatagramSize());
-        m_socket->readDatagram(datagram.data(), datagram.size());
+        m_socket->readDatagram(datagram.data(), datagram.size(), &sender);
 
-        emit dataReceived(datagram);
+        emit dataReceived(datagram, sender.toString());
     }
 }

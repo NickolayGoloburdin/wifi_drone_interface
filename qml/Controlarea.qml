@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
 Item {
@@ -95,8 +96,16 @@ Item {
             MouseArea {
                 id: mousearea4
                 anchors.fill: parent
-                onClicked: commandSender.send_takeoff_mission()
+                onClicked: {
+
+                    testDialog.open()
+                }
             }
+        }
+        TestDialog {
+            id: testDialog
+            height: 300
+            width: 400
         }
         ControlButton {
             name: "Скачать \n логи"

@@ -1,9 +1,10 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls 1.4
+import QtQuick 2.9
 
 Item {
     id: terminalarea
@@ -24,10 +25,10 @@ Item {
                 frameOverlap: 1
                 tab: Rectangle {
                     color: styleData.selected ? terminalcolor : "#121324"
-                    border.color: terminalcolor
                     implicitWidth: Math.max(text.width + 4, 80)
                     implicitHeight: 50
                     radius: 2
+                    border.color: terminalcolor
                     Text {
                         id: text
                         anchors.centerIn: parent
@@ -35,14 +36,27 @@ Item {
                         color: "white" //styleData.selected ? "white" : "black"
                     }
                 }
-                frame: Rectangle {
-                    color: terminalcolor
-                }
             }
             Repeater {
                 model: droneStore
                 delegate: Tab {
                     title: model.uuid
+
+                    TextArea {
+
+                        anchors.fill: parent
+                        font.pointSize: 10
+                        font.family: "Arial"
+                        text: model.status
+
+                        style: TextAreaStyle {
+
+                            textColor: "white"
+                            selectionColor: "steelblue"
+                            selectedTextColor: "#eee"
+                            backgroundColor: terminalcolor
+                        }
+                    }
                 }
             }
         }

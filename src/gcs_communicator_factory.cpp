@@ -19,6 +19,7 @@
 #include "drone.h"
 #include "udp_link_client.h"
 #include "udp_link_server.h"
+#include "mission_handler.h"
 #include <QQmlContext>
 
 using namespace domain;
@@ -59,15 +60,16 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
     domain::InfoMessageHandler *pointinfo = new domain::InfoMessageHandler(infcommun);
     domain::HeartbeatHandler *connection = new domain::HeartbeatHandler(254, communicator);
     domain::StatusHandler *status = new domain::StatusHandler(communicator);
-
-
+    QObject::connect(status, &StatusHandler::statusSignal, model, &Delegate::setStatus);
+    domain::MissionHandler * missionhandler = new domain::MissionHandler(communicator);
+    QObject::connect(sender, &CommandsSender::missionDataSignal,missionhandler, &MissionHandler::missionDataRecieved);
 
     domain::GPSHandler *gps = new domain::GPSHandler(communicator);
     domain::LogHandler *log = new domain::LogHandler(communicator);
 
     domain::BatteryHandler *battery = new domain::BatteryHandler(communicator);
     QObject::connect(connection, &HeartbeatHandler::HeartbeatSignal, model, &Delegate::setHeartbeat);
-    QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
+    //QObject::connect(ack, &AckHandler::missionSignal, sender, &CommandsSender::mission_request_handler);
     QObject::connect(battery, &BatteryHandler::BatterySignal, model, &Delegate::setvoltage);
 
 
