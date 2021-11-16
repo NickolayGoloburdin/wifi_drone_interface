@@ -4,6 +4,7 @@
 #include <ardupilotmega/mavlink.h>
 // Qt
 #include <QObject>
+#include <QThread>
 #include <QMap>
 #include <QHostAddress>
 #include <QQueue>
@@ -11,6 +12,7 @@ namespace domain
 {
 class AbstractClient;
 class AbstractServer;
+class DataParser;
 
 class MavLinkCommunicator: public QObject
 {
@@ -48,16 +50,28 @@ class MavLinkCommunicator: public QObject
 
     protected slots:
         void onDataReceived(const QByteArray& data, QString sender);
-        void dataParser();
+        void dataParser(mavlink_message_t message);
     protected:
 
         AbstractServer* m_lastReceivedLink;
 
         uint8_t m_systemId;
         uint8_t m_componentId;
+        QThread* thread_;
+        DataParser* dataparser;
 };
-//class DataParser: public QObject{
-//    Q_OBJECT
-//}
+class DataParser: public QObject
+{
+        Q_OBJECT
+    public:
+        DataParser(QMap<QString, QQueue<uint8_t>>* Buffers, QObject* parent = nullptr);
+    public slots:
+        void dataParse();
+    signals:
+        void messageParsed(const mavlink_message_t& message);
+    private:
+        QMap<QString, QQueue<uint8_t>>* udpBuffers;
+
+};
 }
 #endif // MAVLINK_COMMUNICATOR_H

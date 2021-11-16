@@ -1,9 +1,4 @@
 #include "mavlink_communicator.h"
-
-// MAVLink
-
-
-// Internal
 #include "abstract_client.h"
 #include "abstract_server.h"
 
@@ -17,8 +12,16 @@ MavLinkCommunicator::MavLinkCommunicator(uint8_t systemId, uint8_t componentId,
     m_componentId(componentId)
 {
     qRegisterMetaType<mavlink_message_t>("mavlink_message_t");
-    QObject::connect(this, &MavLinkCommunicator::startParser, this, &MavLinkCommunicator::dataParser);
+    dataparser = new DataParser(&m_UdpBuffers);
+
+    //QObject::connect(this, &MavLinkCommunicator::startParser, this, &MavLinkCommunicator::dataParser);
+    QObject::connect(dataparser, &DataParser::messageParsed,this, &MavLinkCommunicator::dataParser);
+    thread_ = new QThread();
+    dataparser->moveToThread(thread_);
+    thread_->start();
+    QObject::connect(this, &MavLinkCommunicator::startParser, dataparser, &DataParser::dataParse);
     emit startParser();
+
 }
 
 QList<AbstractClient*> MavLinkCommunicator::links() const
@@ -140,18 +143,44 @@ void MavLinkCommunicator::onDataReceived(const QByteArray& data, QString sender)
     }
 }
 
-void MavLinkCommunicator::dataParser()
+void MavLinkCommunicator::dataParser(mavlink_message_t message)
 {
-    mavlink_message_t message;
-    mavlink_status_t status;
-    for (QString& a : m_UdpBuffers.keys()) {
-        while(!m_UdpBuffers[a].isEmpty()) {
-            if(mavlink_parse_char(0, m_UdpBuffers[a].dequeue(),
-                                  &message, &status)) {
-                emit messageReceived(message);
-                break;
+//    mavlink_message_t message;
+//    mavlink_status_t status;
+//    for (QString& a : m_UdpBuffers.keys()) {
+//        while(!m_UdpBuffers[a].isEmpty()) {
+//            if(mavlink_parse_char(0, m_UdpBuffers[a].dequeue(),
+//                                  &message, &status)) {
+//
+//                break;
+//            }
+//        }
+//    }
+//    QMetaObject::invokeMethod(this, "dataParser", Qt::QueuedConnection);
+    emit messageReceived(message);
+    return;
+}
+
+void DataParser::dataParse()
+{
+    forever {
+        mavlink_message_t message;
+        mavlink_status_t status;
+        for (QString& a : udpBuffers->keys()) {
+            while(!(*udpBuffers)[a].isEmpty()) {
+                if(mavlink_parse_char(0, (*udpBuffers)[a].dequeue(),
+                                      &message, &status)) {
+                    emit messageParsed(message);
+                    break;
+                }
             }
         }
+        QThread::msleep(2);
     }
-    QMetaObject::invokeMethod(this, "dataParser", Qt::QueuedConnection);
+
+}
+
+DataParser::DataParser(QMap<QString, QQueue<uint8_t> > *Buffers, QObject *parent):QObject(parent), udpBuffers(Buffers)
+{
+
 }
