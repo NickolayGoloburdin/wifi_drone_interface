@@ -175,7 +175,7 @@ void DataParser::dataParse()
                 }
             }
         }
-        QThread::msleep(2);
+        QThread::usleep(10);
     }
 
 }

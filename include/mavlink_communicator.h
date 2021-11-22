@@ -64,6 +64,7 @@ class DataParser: public QObject
 {
         Q_OBJECT
     public:
+        int count;
         DataParser(QMap<QString, QQueue<uint8_t>>* Buffers, QObject* parent = nullptr);
     public slots:
         void dataParse();
