@@ -17,8 +17,7 @@
 #include <QQmlApplicationEngine>
 #include "delegate.h"
 #include "drone.h"
-#include "udp_link_client.h"
-#include "udp_link_server.h"
+#include "tcp_link.h"
 #include "mission_handler.h"
 #include <QQmlContext>
 
@@ -42,13 +41,11 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
     engine->rootContext()->setContextProperty("communicator", communicator);
     engine->rootContext()->setContextProperty("commandSender", sender);
 
-    domain::UdpLinkServer* server = new domain::UdpLinkServer(14550);
-    communicator->addServer(server, 0);
-    server->up();
     for (int i = 0; i < model->m_drone.drones_.size() ; i++) {
 
-        auto link = new domain::UdpLinkClient(server->getSocket(), model->m_drone.drones_.at(i).ip_, 14550);
-        communicator->addLink(link, model->m_drone.drones_.at(i).uuid_);
+        auto link = new domain::TcpLink(model->m_drone.drones_.at(i).ip_, 5760);
+        infcommun->addLink(link, model->m_drone.drones_.at(i).uuid_);
+        link->up();
 
     }
 
