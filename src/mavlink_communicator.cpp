@@ -36,6 +36,8 @@ void MavLinkCommunicator::addLink(AbstractLink* link, uint8_t channel)
     if (m_linkChannels.contains(link)) return;
 
     m_linkChannels[link] = channel;
+    connect(link, &AbstractLink::dataReceived,
+            this, &MavLinkCommunicator::onDataReceived);
 
 }
 

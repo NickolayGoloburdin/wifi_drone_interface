@@ -23,7 +23,7 @@ TcpLink::TcpLink(const QString& address, int txPort,
 
 bool TcpLink::isUp() const
 {
-    return m_socket->state() == QAbstractSocket::BoundState;
+    return m_socket->state() == QAbstractSocket::ConnectedState;
 }
 
 
