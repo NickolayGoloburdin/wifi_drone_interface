@@ -33,7 +33,6 @@ Item {
             Layout.row: 1
             Layout.column: 1
             press: mousearea.containsPress
-
             MouseArea {
                 id: mousearea
                 anchors.fill: parent
@@ -66,7 +65,13 @@ Item {
             MouseArea {
                 id: mousearea2
                 anchors.fill: parent
+                onClicked: missionDialog.open()
             }
+        }
+        MissionDialog {
+            id: missionDialog
+            height: 300
+            width: 400
         }
         ControlButton {
             name: "Выключить \n двигатели"

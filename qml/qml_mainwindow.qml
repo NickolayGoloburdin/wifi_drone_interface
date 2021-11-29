@@ -8,7 +8,7 @@ ApplicationWindow {
     id: appWindow
     visible: true
     height: 800
-    width: 1200
+    width: 1400
     title: qsTr("MyApp")
     color: "#121324"
     Terminalarea {

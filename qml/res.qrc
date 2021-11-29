@@ -9,5 +9,9 @@
         <file>DroneUnit.qml</file>
         <file>Terminalarea.qml</file>
         <file>TestDialog.qml</file>
+        <file>MissionDialog.qml</file>
+        <file>images/takeoff.png</file>
+        <file>images/info.png</file>
+        <file>images/drone.png</file>
     </qresource>
 </RCC>

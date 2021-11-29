@@ -11,6 +11,7 @@ Item {
     property int k_height: 1
     property bool press: false
     property color buttonlcolor: press ? "#71c3a8" : "#1e1f30"
+    property var source_icon: "qrc:/images/takeoff.png"
 
     Button {
 
@@ -31,5 +32,14 @@ Item {
             anchors.centerIn: back
             color: "#d7d8da"
         }
+        //        Image {
+        //            id: icon
+        //            source: source_icon
+        //            height: parent.height / 2
+        //            width: parent.width / 2
+        //            anchors.right: parent.right
+        //            anchors.bottom: parent.bottom
+        //            anchors.margins: 3
+        //        }
     }
 }

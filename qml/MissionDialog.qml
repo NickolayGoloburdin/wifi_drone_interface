@@ -6,22 +6,21 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
 Dialog {
-    function parsetext(text) {
-        if (text.lenght === 0 || !text.trim()) {
-            return -1
-        } else {
-            var v = parseInt(text)
-            if (isNaN(v)) {
-                return -1
-            }
-            if (v === 0)
-                return 3
-            else
-                return v
+    id: missionDialog
+    property alias testDialog: missionDialog
+    FileDialog {
+        id: fds
+        title: "Выбрать документ"
+        folder: shortcuts.desktop
+        selectExisting: true
+        selectFolder: false
+        selectMultiple: false
+        nameFilters: ["Файл Миссии (*.waypoints)"]
+        onAccepted: {
+            commandSender.form_mission_from_file(fileUrl)
+            console.log("Accepted: " + fileUrl)
         }
     }
-    id: testDialog
-    property alias testDialog: testDialog
     contentItem: Rectangle {
         id: backgr
         anchors.fill: parent
@@ -41,15 +40,28 @@ Dialog {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.margins: 5
-                TextField {
-                    id: visota
-                    placeholderText: qsTr("Высота взлета, м")
-                    color: "gray"
-                }
-                TextField {
-                    id: vremya
-                    placeholderText: qsTr("Время зависания, с")
-                    color: "gray"
+                Button {
+                    id: filebutton
+
+                    // Растягиваем кнопку по высоте строки
+                    background: Rectangle {
+                        id: filerect
+                        anchors.fill: parent
+                        color: mousefile.containsPress ? "#71c3a8" : "#1e1f30"
+                    }
+                    MouseArea {
+                        id: mousefile
+                        anchors.fill: filerect
+                        onClicked: fds.open()
+                    }
+                    contentItem: Text {
+                        font.pointSize: 10
+                        font.family: "Arial"
+                        text: "Открыть миссию"
+                        anchors.centerIn: filerect
+
+                        color: "#d7d8da"
+                    }
                 }
             }
         }
@@ -81,12 +93,12 @@ Dialog {
                 MouseArea {
                     id: mouse
                     anchors.fill: butnrec1
-                    onClicked: testDialog.close()
+                    onClicked: missionDialog.close()
                 }
                 contentItem: Text {
                     font.pointSize: 10
                     font.family: "Arial"
-                    text: "Cancel"
+                    text: "Выйти"
                     anchors.centerIn: butnrec1
 
                     color: "#d7d8da"
@@ -108,29 +120,12 @@ Dialog {
                 MouseArea {
                     id: mouse2
                     anchors.fill: btnrec2
-                    onClicked: {
-                        if (parsetext(visota.text) === -1 || parsetext(
-                                    vremya.text) === -1) {
-
-                            dialogerror.open()
-                            visota.text = ""
-                            vremya.text = ""
-                        } else {
-                            commandSender.send_takeoff_mission(
-                                        parsetext(visota.text),
-                                        parsetext(vremya.text))
-                        }
-                    }
-                    Dialog {
-                        id: dialogerror
-                        title: "Неправильный формат"
-                        standardButtons: Dialog.Ok
-                    }
+                    onClicked: commandSender.upload_fly_mission()
                 }
                 contentItem: Text {
                     font.pointSize: 10
                     font.family: "Arial"
-                    text: "Send Mission"
+                    text: "Отправить дрону"
                     anchors.centerIn: btnrec2
                     color: "#d7d8da"
                 }

@@ -40,9 +40,9 @@ int TcpLink::txPort() const
 void TcpLink::up()
 {
     m_socket->connectToHost(m_address, txPort());
-    if(!m_socket->waitForConnected(5000)) {
-        qDebug() << "Error: " << m_socket->errorString();
-    }
+    //if(!m_socket->waitForConnected(5000)) {
+    //    qDebug() << "Error: " << m_socket->errorString();
+    //}
 }
 
 void TcpLink::down()

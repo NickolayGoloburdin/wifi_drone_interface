@@ -4,6 +4,7 @@
 #include "mavlink_communicator.h"
 #include "abstract_handler.h"
 #include <QVector>
+#include <QString>
 namespace domain
 {
 class MavLinkCommunicator;
@@ -42,13 +43,15 @@ class CommandsSender: public QObject
         Q_INVOKABLE void set_land_speed(float speed);
         Q_INVOKABLE void set_fly_speed(float speed);
         Q_INVOKABLE void send_rtl_cmd();
+        Q_INVOKABLE void form_mission_from_file(QString url);
+        Q_INVOKABLE void upload_fly_mission();
     signals:
         void dbSignal(QVector<mavlink_mission_item_int_t>& mission);
         void missionDataSignal(QVector<mavlink_mission_item_int_t>* waypoints);
 
     protected:
         MavLinkCommunicator* const m_communicator;
-        void upload_fly_mission();
+
 
 
     private:

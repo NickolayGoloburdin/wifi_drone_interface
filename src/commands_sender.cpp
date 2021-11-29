@@ -370,6 +370,39 @@ void CommandsSender::send_rtl_cmd()
         m_communicator->sendMessage(message, itr);
     }
 }
+
+void CommandsSender::form_mission_from_file(QString url)
+{
+    waypoints.clear();
+    url.remove(0,8);
+    QFile inputFile(url);
+    if (inputFile.open(QIODevice::ReadOnly)) {
+        QTextStream in(&inputFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if (line[0] == 'Q') continue;
+            mavlink_mission_item_int_t mission_element = {0};
+            QStringList items = line.split('\t');
+            mission_element.seq = items[0].toInt();
+            mission_element.current = items[1].toInt();
+            mission_element.frame = items[2].toInt();
+            mission_element.command = items[3].toInt();
+            mission_element.param1 = items[4].toFloat();
+            mission_element.param2 = items[5].toFloat();
+            mission_element.param3 = items[6].toFloat();
+            mission_element.param4 = items[7].toFloat();
+            mission_element.x = static_cast<int>(items[8].toDouble()*10000000);
+            mission_element.y = static_cast<int>(items[9].toDouble()*10000000);
+            mission_element.z = static_cast<int>(items[10].toDouble()*10000000);
+            mission_element.autocontinue = items[11].toInt();
+            mission_element.target_component = target_component_id_autopilot_;
+            waypoints.append(mission_element);
+
+
+        }
+        inputFile.close();
+    }
+}
 void CommandsSender::send_takeoff_mission(float meters, float time)
 {
     waypoints.clear();
