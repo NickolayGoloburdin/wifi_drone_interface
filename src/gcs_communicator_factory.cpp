@@ -43,7 +43,7 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
 
     for (int i = 0; i < model->m_drone.drones_.size() ; i++) {
 
-        auto link = new domain::TcpLink(model->m_drone.drones_.at(i).ip_, 5760);
+        auto link = new domain::TcpLink(model->m_drone.drones_.at(i).ip_,model->m_drone.drones_.at(i).port_);
         communicator->addLink(link, model->m_drone.drones_.at(i).uuid_);
         link->up();
 

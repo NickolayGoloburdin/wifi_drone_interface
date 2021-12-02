@@ -5,7 +5,9 @@ Drone::Drone(): uuid_(0),
     heartbeat_(false),
     sattelites_(0),
     voltage_(0),
+    port_(5760),
     status_("empty")
+
 {
 
 }
@@ -15,11 +17,13 @@ Drone::Drone(int uuid,
              bool heartbeat,
              int sattelites,
              int voltage,
+             int port,
              QString status): uuid_(uuid),
     ip_(ip),
     heartbeat_(heartbeat),
     sattelites_(sattelites),
     voltage_(voltage),
+    port_(port),
     status_(status)
 {
 
@@ -65,9 +69,11 @@ QVariantMap Drone::toMap() const
     QVariantMap res;
     res["uuid"] = uuid_;
     res["ip"] = ip_;
+    res["port"] = port_;
     res["heartbeat"] = heartbeat_;
     res["sattelites"] = sattelites_;
     res["voltage"] = voltage_;
     res["status"] = status_;
+
     return res;
 }

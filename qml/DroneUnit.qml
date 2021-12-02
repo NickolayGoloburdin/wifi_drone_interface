@@ -22,10 +22,68 @@ Item {
         id: param_list
         visible: visible_param
         height: rectack.height
-        width: rectack.width / 2
         anchors.left: rectack.right
-        color: "black"
+        color: "#1e1f30"
         anchors.top: rectack.top
+        width: parent.width / 3.5
+        z: 1
+        GridLayout {
+            id: param_grid
+            columnSpacing: 5
+            rowSpacing: 5
+            anchors.fill: parent
+            anchors.leftMargin: 5
+            rows: 2
+            columns: 2
+            Text {
+
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 1
+                Layout.column: 1
+                font.pointSize: 6
+                font.family: "Arial"
+                Layout.alignment: Qt.AlignHCenter
+                text: voltage.toString() + "v"
+                color: "white"
+            }
+            Text {
+
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 1
+                Layout.alignment: Qt.AlignHCenter
+                Layout.column: 2
+                font.pointSize: 6
+                font.family: "Arial"
+                text: sattelites.toString() + "sat"
+                color: "white"
+            }
+            Text {
+
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 2
+                Layout.alignment: Qt.AlignHCenter
+                Layout.column: 1
+                font.pointSize: 6
+                font.family: "Arial"
+                text: "Arm"
+                color: "white"
+            }
+            Text {
+
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 2
+                Layout.alignment: Qt.AlignHCenter
+                Layout.column: 2
+                font.pointSize: 6
+                font.family: "Arial"
+                text: "Heartbeat"
+                color: "white"
+            }
+        }
     }
     Rectangle {
         id: rect
@@ -65,8 +123,10 @@ Item {
     Text {
         font.pointSize: 10
         font.family: "Arial"
-        text: "id : " + uuid
-        anchors.centerIn: rect
+        text: "Дрон : " + uuid
+        anchors.verticalCenter: rect.verticalCenter
+        anchors.right: rect.right
+        anchors.rightMargin: rect.width / 4
         color: "white"
     }
     Text {

@@ -170,6 +170,13 @@ Item {
                 anchors.fill: parent
                 onClicked: commandSender.start_mission()
             }
+            //            Image {
+            //                id: drone_start
+            //                source: "qrc:/images/smartphone.png"
+            //                height: parent.height / 1.5
+            //                width: height
+            //                anchors.centerIn: parent
+            //            }
         }
         ControlButton {
             name: "Возврат"

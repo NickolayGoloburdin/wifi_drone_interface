@@ -10,12 +10,14 @@ class Drone
               bool heartbeat,
               int sattelites,
               int voltage,
+              int port,
               QString status);
         int uuid_;
         QString ip_;
         bool heartbeat_;
         int sattelites_;
         int voltage_;
+        int port_;
         QString status_;
         const int & uuid() const;
         void setGps(int sattelites);

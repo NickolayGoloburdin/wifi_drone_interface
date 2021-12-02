@@ -110,11 +110,12 @@ void DroneContainer::load(const QString &persistFilePath)
                 QMap<QString, QVariant> dronesMap  = drones[i].toMap();
                 int     uuid = dronesMap.value("uuid").toInt();
                 QString     ip = dronesMap.value("ip").toString();
+                int         port = dronesMap.value("port").toInt();
                 bool        heartbeat = dronesMap.value("heartbeat").toBool();
                 int         sattelites = dronesMap.value("sattelites").toInt();
                 int         voltage =   dronesMap.value("voltage").toInt();
                 QString     status = dronesMap.value("status").toString();
-                drones_ << (Drone(uuid, ip, heartbeat, sattelites, voltage, status));
+                drones_ << (Drone(uuid, ip, heartbeat, sattelites, voltage, port, status));
             }
 
         }

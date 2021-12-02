@@ -13,5 +13,8 @@
         <file>images/takeoff.png</file>
         <file>images/info.png</file>
         <file>images/drone.png</file>
+        <file>images/smartphone.png</file>
+        <file>images/left-arrow.png</file>
+        <file>images/power-button.png</file>
     </qresource>
 </RCC>

@@ -55,12 +55,13 @@ void TcpLink::down()
 
 void TcpLink::disconnected()
 {
-    qDebug() << "disconnected";
+    qDebug() << "Disconnected, trying to reconnect...";
+    up();
 }
 
 void TcpLink::connected()
 {
-    qDebug() << "connected";
+    qDebug() << "Connected!";
 }
 
 void TcpLink::sendData(const QByteArray& data)
