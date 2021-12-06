@@ -3,12 +3,13 @@
 
 using namespace domain;
 
-TcpLink::TcpLink(const QString& address, int txPort,
+TcpLink::TcpLink(const QString& address, int txPort, int id,
                  QObject* parent):
     AbstractLink(parent),
     m_socket(new QTcpSocket(this)),
     m_address(address),
-    m_txPort(txPort)
+    m_txPort(txPort),
+    id_(id)
 {
     QObject::connect(m_socket, &QTcpSocket::readyRead,
                      this, &TcpLink::readPendingDatagrams);
@@ -16,7 +17,8 @@ TcpLink::TcpLink(const QString& address, int txPort,
                      this, &TcpLink::connected);
     QObject::connect(m_socket, &QTcpSocket::disconnected,
                      this, &TcpLink::disconnected);
-
+    QObject::connect(m_socket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),
+                     this, &TcpLink::reconnect);
 
 
 }
@@ -55,13 +57,22 @@ void TcpLink::down()
 
 void TcpLink::disconnected()
 {
-    qDebug() << "Disconnected, trying to reconnect...";
+    emit connect(id_, false);
+    qDebug() << "Disconnected, trying to reconnect..."<< address();
     up();
+}
+
+void TcpLink::reconnect()
+{
+    if (m_socket->error() == QAbstractSocket::ConnectionRefusedError) {
+        disconnected();
+    };
 }
 
 void TcpLink::connected()
 {
-    qDebug() << "Connected!";
+    emit connect(id_, true);
+    qDebug() << "Connected! Ip:" << address();
 }
 
 void TcpLink::sendData(const QByteArray& data)
@@ -85,6 +96,11 @@ void TcpLink::setTxPort(int port)
 
     m_txPort = port;
     emit txPortChanged(port);
+}
+
+int TcpLink::id()
+{
+    return id_;
 }
 
 void TcpLink::readPendingDatagrams()

@@ -30,7 +30,7 @@ class MavLinkCommunicator: public QObject
         uint8_t componentId() const;
 
     public slots:
-        void addLink(AbstractLink* link, uint8_t channel);
+        void addLink(AbstractLink* link);
         void removeLink(AbstractLink* link);
         void setSystemId(uint8_t systemId);
         void setComponentId(uint8_t componentId);

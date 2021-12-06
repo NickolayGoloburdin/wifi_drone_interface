@@ -90,6 +90,12 @@ void Delegate::setStatus(const int &droneUuid, QString &status)
     sync();
 }
 
+void Delegate::setTcpLink(const int &droneUuid, bool tcp_link)
+{
+    m_drone.setTcpLink(droneUuid, tcp_link);
+    sync();
+}
+
 void Delegate::sync()
 {
     QVariantMap map = m_drone.toMap();

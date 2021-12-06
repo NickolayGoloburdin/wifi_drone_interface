@@ -13,7 +13,7 @@ class TcpLink: public AbstractLink
         Q_OBJECT
 
     public:
-        TcpLink(const QString& address, int txPort,
+        TcpLink(const QString& address, int txPort, int id,
                 QObject* parent = nullptr);
 
         bool isUp() const override;
@@ -27,10 +27,11 @@ class TcpLink: public AbstractLink
         void down() override;
         void connected() override;
         void disconnected() override;
+        void reconnect() override;
         void sendData(const QByteArray& data) override;
         void setAddress(const QString& address);
         void setTxPort(int port);
-
+        int id() override;
     signals:
         void rxPortChanged(int port);
         void addressChanged(QString address);
@@ -43,6 +44,7 @@ class TcpLink: public AbstractLink
         QTcpSocket* m_socket;
         QString m_address;
         int m_txPort;
+        int id_;
 };
 }
 

@@ -31,6 +31,7 @@ class Delegate: public QObject
         void setHeartbeat(const int& droneUuid, bool heartbeat);
         void removeDrone(const int& droneUuid);
         void setStatus(const int& droneUuid, QString& status);
+        void setTcpLink(const int& droneUuid, bool tcp_link);
 
 
     private slots:

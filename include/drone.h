@@ -11,22 +11,25 @@ class Drone
               int sattelites,
               int voltage,
               int port,
-              QString status);
+              QString status, bool tcp_link);
         int uuid_;
         QString ip_;
-        bool heartbeat_;
-        int sattelites_;
-        int voltage_;
         int port_;
-        QString status_;
         const int & uuid() const;
         void setGps(int sattelites);
+        void setTcpLink(bool tcp_link);
         void setvoltage(int voltage);
         void setHeartbeat(bool heartbeat);
         void setStatus(QString& status);
         void eraseStatus();
         void eraseVoltage();
         QVariantMap toMap() const;
+    private:
+        bool heartbeat_;
+        int sattelites_;
+        int voltage_;
+        QString status_;
+        bool tcp_link_;
 };
 
 #endif // DRONE_H

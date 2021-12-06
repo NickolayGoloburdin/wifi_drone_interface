@@ -1,12 +1,13 @@
 #include "drone.h"
 
 Drone::Drone(): uuid_(0),
-    ip_("192.0.0.0"),
+    ip_("0.0.0.0"),
+    port_(5760),
     heartbeat_(false),
     sattelites_(0),
     voltage_(0),
-    port_(5760),
-    status_("empty")
+    status_("empty"),
+    tcp_link_(false)
 
 {
 
@@ -18,13 +19,15 @@ Drone::Drone(int uuid,
              int sattelites,
              int voltage,
              int port,
-             QString status): uuid_(uuid),
+             QString status, bool tcp_link): uuid_(uuid),
     ip_(ip),
+
+    port_(port),
     heartbeat_(heartbeat),
     sattelites_(sattelites),
     voltage_(voltage),
-    port_(port),
-    status_(status)
+    status_(status),
+    tcp_link_(tcp_link)
 {
 
 }
@@ -37,6 +40,11 @@ const int &Drone::uuid() const
 void Drone::setGps(int sattelites)
 {
     sattelites_ = sattelites;
+}
+
+void Drone::setTcpLink(bool tcp_link)
+{
+    tcp_link_ = tcp_link;
 }
 
 void Drone::setvoltage(int voltage)
@@ -74,6 +82,7 @@ QVariantMap Drone::toMap() const
     res["sattelites"] = sattelites_;
     res["voltage"] = voltage_;
     res["status"] = status_;
+    res["tcp_link"] = tcp_link_;
 
     return res;
 }

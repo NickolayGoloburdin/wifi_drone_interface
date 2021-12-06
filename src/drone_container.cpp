@@ -81,6 +81,17 @@ void DroneContainer::setStatus(const int &droneUuid, QString &status)
     }
 }
 
+void DroneContainer::setTcpLink(const int &droneUuid, bool tcp_link)
+{
+    for (int i = 0 ; i < drones_.size() ; i++) {
+        Drone& drone = drones_[i];
+        if (drone.uuid() == droneUuid) {
+            drone.setTcpLink(tcp_link);
+            break;
+        }
+    }
+}
+
 
 
 
@@ -115,7 +126,8 @@ void DroneContainer::load(const QString &persistFilePath)
                 int         sattelites = dronesMap.value("sattelites").toInt();
                 int         voltage =   dronesMap.value("voltage").toInt();
                 QString     status = dronesMap.value("status").toString();
-                drones_ << (Drone(uuid, ip, heartbeat, sattelites, voltage, port, status));
+                bool tcp_link = dronesMap.value("tcp_link").toBool();
+                drones_ << (Drone(uuid, ip, heartbeat, sattelites, voltage, port, status, tcp_link ));
             }
 
         }
@@ -135,6 +147,8 @@ void DroneContainer::eraseAdditionaldata()
         i.eraseStatus();
         i.setHeartbeat(false);
         i.eraseVoltage();
+        i.setTcpLink(false);
+        i.setGps(0);
 
     }
 }

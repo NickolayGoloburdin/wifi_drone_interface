@@ -393,7 +393,7 @@ void CommandsSender::form_mission_from_file(QString url)
             mission_element.param4 = items[7].toFloat();
             mission_element.x = static_cast<int>(items[8].toDouble()*10000000);
             mission_element.y = static_cast<int>(items[9].toDouble()*10000000);
-            mission_element.z = static_cast<int>(items[10].toDouble()*10000000);
+            mission_element.z = items[10].toFloat();
             mission_element.autocontinue = items[11].toInt();
             mission_element.target_component = target_component_id_autopilot_;
             waypoints.append(mission_element);

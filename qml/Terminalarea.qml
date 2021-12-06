@@ -43,7 +43,7 @@ Item {
                     title: model.uuid
 
                     TextArea {
-
+                        readOnly: true
                         anchors.fill: parent
                         font.pointSize: 10
                         font.family: "Arial"
@@ -55,6 +55,9 @@ Item {
                             selectionColor: "steelblue"
                             selectedTextColor: "#eee"
                             backgroundColor: terminalcolor
+                        }
+                        onTextChanged: {
+                            cursorPosition = length
                         }
                     }
                 }

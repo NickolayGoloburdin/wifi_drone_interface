@@ -24,27 +24,26 @@
 using namespace domain;
 
 GcsCommunicatorFactory::GcsCommunicatorFactory()
-{  }
+{}
 
 std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::create()
 {
     MavLinkCommunicator *communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator *infcommun = new InfoCommunicator();
-    SQLCommunicator *sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"), QString("rdsuser"), QString("9X7QhbDzBQYpmnBBsB7ZMjb"));
+    SQLCommunicator *sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"), QString("rdsuser"), QString("9X"));
     QQmlApplicationEngine *engine = new QQmlApplicationEngine(nullptr);
     domain::CommandsSender *sender = new domain::CommandsSender(communicator);
     Delegate *model = new Delegate("setting.json", engine);
     model->run();
-
-
 
     engine->rootContext()->setContextProperty("communicator", communicator);
     engine->rootContext()->setContextProperty("commandSender", sender);
 
     for (int i = 0; i < model->m_drone.drones_.size() ; i++) {
 
-        auto link = new domain::TcpLink(model->m_drone.drones_.at(i).ip_,model->m_drone.drones_.at(i).port_);
-        communicator->addLink(link, model->m_drone.drones_.at(i).uuid_);
+        auto link = new domain::TcpLink(model->m_drone.drones_.at(i).ip_,model->m_drone.drones_.at(i).port_, model->m_drone.drones_.at(i).uuid_);
+        QObject::connect(link, &AbstractLink::connect, model, &Delegate::setTcpLink);
+        communicator->addLink(link);
         link->up();
 
     }
@@ -60,8 +59,9 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
     QObject::connect(status, &StatusHandler::statusSignal, model, &Delegate::setStatus);
     domain::MissionHandler * missionhandler = new domain::MissionHandler(communicator);
     QObject::connect(sender, &CommandsSender::missionDataSignal,missionhandler, &MissionHandler::missionDataRecieved);
-
     domain::GPSHandler *gps = new domain::GPSHandler(communicator);
+    QObject::connect(gps, &GPSHandler::gpsSignal,model, &Delegate::setGps);
+
     domain::LogHandler *log = new domain::LogHandler(communicator);
 
     domain::BatteryHandler *battery = new domain::BatteryHandler(communicator);

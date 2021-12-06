@@ -31,11 +31,11 @@ uint8_t MavLinkCommunicator::componentId() const
     return m_componentId;
 }
 
-void MavLinkCommunicator::addLink(AbstractLink* link, uint8_t channel)
+void MavLinkCommunicator::addLink(AbstractLink* link)
 {
     if (m_linkChannels.contains(link)) return;
 
-    m_linkChannels[link] = channel;
+    m_linkChannels[link] = link->id();
     connect(link, &AbstractLink::dataReceived,
             this, &MavLinkCommunicator::onDataReceived);
 

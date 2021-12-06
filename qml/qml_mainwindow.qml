@@ -9,7 +9,7 @@ ApplicationWindow {
     visible: true
     height: 800
     width: 1400
-    title: qsTr("MyApp")
+    title: qsTr("Drone control center")
     color: "#121324"
     Terminalarea {
         defterminalmargin: 15

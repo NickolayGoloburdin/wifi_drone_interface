@@ -15,6 +15,7 @@ class DroneContainer
         void setvoltage(const int& droneUuid, int voltage);
         void setHeartbeat(const int& droneUuid, bool heartbeat);
         void setStatus(const int& droneUuid, QString& status);
+        void setTcpLink(const int& droneUuid, bool tcp_link);
         void removeDrone(const int& droneUuid);
         void load(const QString &persistFilePath);
         void failsafeLoad();

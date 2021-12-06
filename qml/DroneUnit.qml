@@ -10,6 +10,7 @@ Item {
     property var heartbeat
     property var sattelites
     property var voltage
+    property var tcp_link
     signal commandAck(int id, bool res)
     property color buttoncolor: "#1e1f30"
     property color animcolor: "red"
@@ -44,7 +45,7 @@ Item {
                 font.pointSize: 6
                 font.family: "Arial"
                 Layout.alignment: Qt.AlignHCenter
-                text: voltage.toString() + "v"
+                text: voltage.toString() + "%"
                 color: "white"
             }
             Text {
@@ -81,7 +82,7 @@ Item {
                 font.pointSize: 6
                 font.family: "Arial"
                 text: "Heartbeat"
-                color: "white"
+                color: heartbeat ? "green" : "red"
             }
         }
     }
@@ -174,7 +175,7 @@ Item {
                 width: rectangle.height / 5
                 height: rectangle.height / 5
 
-                color: heartbeat ? "#71c3a8" : "#ab2424"
+                color: tcp_link ? "#71c3a8" : "#ab2424"
                 border.color: "#1e1f30"
                 border.width: 2
                 radius: width * 0.5

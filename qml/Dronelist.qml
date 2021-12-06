@@ -27,6 +27,7 @@ Item {
             heartbeat: model.heartbeat
             sattelites: model.sattelites
             voltage: model.voltage
+            tcp_link: model.tcp_link
         }
     }
 }
