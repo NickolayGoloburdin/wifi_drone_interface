@@ -58,6 +58,7 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
     domain::StatusHandler *status = new domain::StatusHandler(communicator);
     QObject::connect(status, &StatusHandler::statusSignal, model, &Delegate::setStatus);
     domain::MissionHandler * missionhandler = new domain::MissionHandler(communicator);
+    QObject::connect(missionhandler, &MissionHandler::synchronizeSignal,sender, &CommandsSender::set_synchronize);
     QObject::connect(sender, &CommandsSender::missionDataSignal,missionhandler, &MissionHandler::missionDataRecieved);
     domain::GPSHandler *gps = new domain::GPSHandler(communicator);
     QObject::connect(gps, &GPSHandler::gpsSignal,model, &Delegate::setGps);

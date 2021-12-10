@@ -12,6 +12,7 @@ class MissionHandler: public AbstractHandler
     public:
         MissionHandler(MavLinkCommunicator* communicator);
     signals:
+        void synchronizeSignal(int id, int seq);
 
     public slots:
         void processMessage(const mavlink_message_t& message) override;

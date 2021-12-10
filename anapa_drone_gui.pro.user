@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.2, 2021-12-06T11:58:08. -->
+<!-- Written by QtCreator 4.11.2, 2021-12-10T11:23:22. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -530,8 +530,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/kokak/Desktop/anapa_drone_gui/anapa_drone_gui.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/kokak/Desktop/anapa_drone_gui/anapa_drone_gui.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">anapa_drone_gui2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/anapa_interface/wifi_drone_interface/anapa_drone_gui.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/anapa_interface/wifi_drone_interface/anapa_drone_gui.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

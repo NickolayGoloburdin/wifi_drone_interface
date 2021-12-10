@@ -5,6 +5,9 @@
 #include "abstract_handler.h"
 #include <QVector>
 #include <QString>
+#include <QMap>
+#include <QSet>
+
 namespace domain
 {
 class MavLinkCommunicator;
@@ -26,6 +29,9 @@ class CommandsSender: public QObject
         QVector<mavlink_mission_item_int_t> waypoints;
     public slots:
         Q_INVOKABLE void send_arm();
+        void set_synchronize(int id, int seq);
+        Q_INVOKABLE void enable_disable_sync(bool state);
+        void synchronizing();
         Q_INVOKABLE void send_disarm();
         Q_INVOKABLE void send_takeoff_mission(float meters = 5, float time = 10.0);
         Q_INVOKABLE void start_mission();
@@ -51,7 +57,7 @@ class CommandsSender: public QObject
 
     protected:
         MavLinkCommunicator* const m_communicator;
-
+        QMap<int, int> drone_waypoint_reaching_;
 
 
     private:
@@ -60,6 +66,8 @@ class CommandsSender: public QObject
         int system_id_ = 254;
         int target_system_id_ = 1;
         int component_id_ = 1;
+        bool sync_state = false;
+
 };
 }
 #endif // COMMANDS_SENDER_H

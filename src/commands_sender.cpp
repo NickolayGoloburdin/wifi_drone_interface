@@ -7,6 +7,7 @@
 #include <QThread>
 #include <cstring>
 #include <QFile>
+#include <QtGlobal>
 
 
 using namespace domain;
@@ -65,6 +66,54 @@ void CommandsSender::send_arm()
                                         &set_mode);
         m_communicator->sendMessage(message, itr);
     }
+}
+
+void CommandsSender::set_synchronize(int id, int seq)
+{
+    if (sync_state) {
+
+        mavlink_set_mode_t set_mode = {0};
+        mavlink_message_t msg;
+        set_mode.target_system = id;
+        set_mode.base_mode = 1;
+        set_mode.custom_mode = 4;
+        mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+        m_communicator->sendMessageOnChannel(msg, id);
+        drone_waypoint_reaching_[id] = seq;
+        synchronizing();
+    }
+}
+
+void CommandsSender::enable_disable_sync(bool state)
+{
+    sync_state = state;
+}
+
+void CommandsSender::synchronizing()
+{
+    QSet<int> compare;
+    for(auto i: drone_waypoint_reaching_.values()) {
+        if (i != *std::max_element(drone_waypoint_reaching_.values().begin(),drone_waypoint_reaching_.values().end())) {
+            return;
+        };
+    }
+
+    mavlink_set_mode_t set_mode = {0};
+    mavlink_message_t msg;
+
+    set_mode.base_mode = 1;
+    set_mode.custom_mode = 3;
+
+    for (auto itr : m_communicator->m_linkChannels.keys()) {
+        set_mode.target_system = m_communicator->m_linkChannels.value(itr);
+        mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+        m_communicator->sendMessage(msg, itr);
+    }
+    for (auto i : drone_waypoint_reaching_.keys()) {
+        drone_waypoint_reaching_[i] = 0;
+    }
+
+
 }
 void CommandsSender::send_disarm()
 {
@@ -255,6 +304,13 @@ void CommandsSender::start_mission()
         start.target_system = m_communicator->m_chosenChannels.value(itr);
         mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
         m_communicator->sendMessage(message, itr);
+    }
+    drone_waypoint_reaching_.clear();
+    if (sync_state) {
+
+        for (auto value : m_communicator->m_chosenChannels.values()) {
+            drone_waypoint_reaching_[value] = 0;
+        }
     }
 }
 
