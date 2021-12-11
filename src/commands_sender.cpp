@@ -92,11 +92,17 @@ void CommandsSender::enable_disable_sync(bool state)
 void CommandsSender::synchronizing()
 {
     QSet<int> compare;
+    int max = drone_waypoint_reaching_.values().first();
+    for (int i = 1; i < drone_waypoint_reaching_.values().size(); i++)
+        if (max < drone_waypoint_reaching_.values().at(i)) {
+            max = drone_waypoint_reaching_.values().at(i);
+        }
     for(auto i: drone_waypoint_reaching_.values()) {
-        if (i != *std::max_element(drone_waypoint_reaching_.values().begin(),drone_waypoint_reaching_.values().end())) {
+        if (i != max) {
             return;
-        };
+        }
     }
+
 
     mavlink_set_mode_t set_mode = {0};
     mavlink_message_t msg;

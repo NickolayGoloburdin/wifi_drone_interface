@@ -133,6 +133,7 @@ Item {
             MouseArea {
                 id: mousearea5
                 anchors.fill: parent
+                onClicked: commandSender.req_log_list()
             }
         }
         ControlButton {
