@@ -24,8 +24,8 @@ build_script:
   - mingw32-make -f Makefile.Release -j
   - dir
   - windeployqt.exe --qmldir ..\qml release\anapa_drone_gui.exe
-  - cmd: del c:\project\build\*.cpp
-  - cmd: c:\project\build\*.o
+  - del c:\project\build\release\*.cpp
+  - del c:\project\build\release\*.o
 
 after_build:
  - cd c:\project\build
