@@ -1,0 +1,33 @@
+clone_folder: c:\project
+image:
+#     - Visual Studio 2015
+    - Visual Studio 2017
+#     - Ubuntu
+environment:
+    matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      name: win32
+      platform: amd64_x86
+      qt: ming73
+install:
+  - set QTDIR=C:\Qt\5.12\mingw73_64
+  - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_64\bin;%PATH%
+before_build:
+- git submodule update --init --recursive
+- call "%QTDIR%/bin/qtenv2.bat"
+build_script:
+  - cd c:\project
+  - mkdir build
+  - cd build
+  
+  - qmake ..\anapa_drone_gui.pro
+  - mingw32-make -f Makefile.Release -j
+  - dir
+  - windeployqt.exe --qmldir ..\qml release\anapa_drone_gui.exe
+  - del *.cpp
+  - del *.o
+
+after_build:
+ - cd c:\project\build
+ - 7z a release.zip .\release\*
+ - appveyor PushArtifact c:\project\build\release.zip
