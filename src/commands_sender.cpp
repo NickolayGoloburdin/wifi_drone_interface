@@ -70,33 +70,33 @@ void CommandsSender::send_arm()
 
 void CommandsSender::set_synchronize(int id, int seq)
 {
-    if (sync_state) {
 
-        mavlink_set_mode_t set_mode = {0};
-        mavlink_message_t msg;
-        set_mode.target_system = id;
-        set_mode.base_mode = 1;
-        set_mode.custom_mode = 4;
-        mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
-        m_communicator->sendMessageOnChannel(msg, id);
+    if (!drone_waypoint_reaching_.isEmpty() && drone_waypoint_reaching_.contains(id)) {
+
+        int max = drone_waypoint_reaching_.values().first();
+        for (int i = 1; i < drone_waypoint_reaching_.values().size(); i++)
+            if (max < drone_waypoint_reaching_.values().at(i)) {
+                max = drone_waypoint_reaching_.values().at(i);
+            }
+        if (seq >= max) {
+            mavlink_set_mode_t set_mode = {0};
+            mavlink_message_t msg;
+            set_mode.target_system = id;
+            set_mode.base_mode = 1;
+            set_mode.custom_mode = 4;
+            mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
+            m_communicator->sendMessageOnChannel(msg, id);
+        }
         drone_waypoint_reaching_[id] = seq;
-        synchronizing();
+        synchronizing(max);
     }
 }
 
-void CommandsSender::enable_disable_sync(bool state)
-{
-    sync_state = state;
-}
 
-void CommandsSender::synchronizing()
+void CommandsSender::synchronizing(int max)
 {
-    QSet<int> compare;
-    int max = drone_waypoint_reaching_.values().first();
-    for (int i = 1; i < drone_waypoint_reaching_.values().size(); i++)
-        if (max < drone_waypoint_reaching_.values().at(i)) {
-            max = drone_waypoint_reaching_.values().at(i);
-        }
+
+
     for(auto i: drone_waypoint_reaching_.values()) {
         if (i != max) {
             return;
@@ -120,6 +120,18 @@ void CommandsSender::synchronizing()
     }
 
 
+}
+
+void CommandsSender::add_drone_to_sync(int id)
+{
+    drone_waypoint_reaching_[id] = 0;
+}
+
+void CommandsSender::remove_drone_from_sync(int id)
+{
+    if (drone_waypoint_reaching_.contains(id)) {
+        drone_waypoint_reaching_.remove(id);
+    }
 }
 void CommandsSender::send_disarm()
 {
@@ -311,13 +323,7 @@ void CommandsSender::start_mission()
         mavlink_msg_command_long_encode(m_communicator->systemId(), m_communicator->componentId(), &message, &start);
         m_communicator->sendMessage(message, itr);
     }
-    drone_waypoint_reaching_.clear();
-    if (sync_state) {
 
-        for (auto value : m_communicator->m_chosenChannels.values()) {
-            drone_waypoint_reaching_[value] = 0;
-        }
-    }
 }
 
 void CommandsSender::set_guided_mode()

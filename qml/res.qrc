@@ -16,5 +16,6 @@
         <file>images/smartphone.png</file>
         <file>images/left-arrow.png</file>
         <file>images/power-button.png</file>
+        <file>SyncDialog.qml</file>
     </qresource>
 </RCC>
