@@ -48,18 +48,18 @@ Item {
             Layout.rowSpan: 1
             Layout.row: 1
             Layout.column: 3
+            press: mousearea1.containsPress
             MouseArea {
                 id: mousearea1
                 anchors.fill: parent
                 onClicked: {
-                    if (cb1.press === false) {
-                        cb1.press = true
-                        commandSender.enable_disable_sync(true)
-                    } else {
-                        cb1.press = false
-                        commandSender.enable_disable_sync(false)
-                    }
+                    syncDialog.open()
                 }
+            }
+            SyncDialog {
+                id: syncDialog
+                height: 300
+                width: 440
             }
         }
         ControlButton {
