@@ -152,7 +152,7 @@ Item {
             }
         }
         ControlButton {
-            name: "Загрузить \n миссию \n сброса"
+            name: "Настройки скорости"
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.columnSpan: 2
@@ -164,6 +164,12 @@ Item {
             MouseArea {
                 id: mousearea7
                 anchors.fill: parent
+                onClicked: speedDialog.open()
+            }
+            SpeedDialog {
+                id: speedDialog
+                height: 300
+                width: 400
             }
         }
         ControlButton {

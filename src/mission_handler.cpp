@@ -19,7 +19,7 @@ void MissionHandler::processMessage(const mavlink_message_t& message)
         mavlink_mission_request_t mission_req;
         mavlink_msg_mission_request_decode(&message, &mission_req);
         // qWarning() << (QString("message id: ") + QString::number(message.sysid) + QString("   seq number: ") + QString::number(mission_req.seq));
-        if (mission_req.seq > 100) {
+        if (mission_req.seq > 200) {
             return;
         }
 
