@@ -395,7 +395,7 @@ void CommandsSender::set_land_speed(float speed)
 
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
-    strcpy(param.param_id, "LAND_SPEED");
+    strcpy(param.param_id, "WPNAV_SPEED_DN");
     param.param_value = speed;
     mavlink_message_t msg;
     for (auto itr : m_communicator->m_chosenChannels.keys()) {
@@ -408,7 +408,6 @@ void CommandsSender::set_land_speed(float speed)
 void CommandsSender::set_fly_speed(float speed)
 {
     mavlink_param_set_t param = {0};
-
     param.target_component = target_component_id_autopilot_;
     param.param_type = MAV_PARAM_TYPE_INT8;
     strcpy(param.param_id, "WPNAV_SPEED");

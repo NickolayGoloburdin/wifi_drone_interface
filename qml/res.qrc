@@ -17,5 +17,6 @@
         <file>images/left-arrow.png</file>
         <file>images/power-button.png</file>
         <file>SyncDialog.qml</file>
+        <file>SpeedDialog.qml</file>
     </qresource>
 </RCC>
