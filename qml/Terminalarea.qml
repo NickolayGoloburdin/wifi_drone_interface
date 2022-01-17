@@ -25,7 +25,7 @@ Item {
                 frameOverlap: 1
                 tab: Rectangle {
                     color: styleData.selected ? terminalcolor : "#121324"
-                    implicitWidth: Math.max(text.width + 4, 80)
+                    implicitWidth: Math.min(tabViewer.width / droneStore.count,80)
                     implicitHeight: 50
                     radius: 2
                     border.color: terminalcolor

@@ -29,11 +29,10 @@ void MissionHandler::processMessage(const mavlink_message_t& message)
         m_communicator->sendMessageOnChannel(message_send, message.sysid);
 
     }
-    if (message.msgid == MAVLINK_MSG_ID_MISSION_ITEM_REACHED) {
+    if (message.msgid == MAVLINK_MSG_ID_MISSION_CURRENT) {
 
-        mavlink_mission_item_reached_t reached;
-        mavlink_msg_mission_item_reached_decode(&message,&reached);
-
+        mavlink_mission_current_t reached;
+        mavlink_msg_mission_current_decode(&message,&reached);
         emit synchronizeSignal(message.sysid, reached.seq);
 
 

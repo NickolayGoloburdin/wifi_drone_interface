@@ -1,7 +1,7 @@
 #include "drone.h"
 
 Drone::Drone(): uuid_(0),
-    ip_("0.0.0.0"),
+    ip_("127.0.0.1"),
     port_(5760),
     heartbeat_(false),
     sattelites_(0),
