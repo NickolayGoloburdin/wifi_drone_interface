@@ -29,5 +29,7 @@ build_script:
 
 after_build:
  - cd c:\project\build
+ - copy ..\setting.json
+ - copy ..\setting_real_flight.json
  - 7z a release.zip .\release\*
  - appveyor PushArtifact c:\project\build\release.zip
