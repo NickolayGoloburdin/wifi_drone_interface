@@ -138,7 +138,7 @@ void DroneContainer::load(const QString &persistFilePath)
 void DroneContainer::failsafeLoad()
 {
 
-    drones_ << (Drone()) << (Drone());
+    drones_ << (Drone(1,"192.168.50.112")) << (Drone(2,"192.168.50.119")) << (Drone(3,"192.168.50.165")) << (Drone(4,"192.168.50.42")) << (Drone(5,"192.168.50.101")) << (Drone(6,"192.168.50.180")) << (Drone(7,"192.168.50.43")) << (Drone(8,"192.168.50.139")) << (Drone(9,"192.168.50.25"));
 }
 
 void DroneContainer::eraseAdditionaldata()

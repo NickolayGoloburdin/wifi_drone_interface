@@ -6,6 +6,7 @@ class Drone
 {
     public:
         Drone();
+        Drone(int id, QString ip);
         Drone(int uuid, QString ip,
               bool heartbeat,
               int sattelites,

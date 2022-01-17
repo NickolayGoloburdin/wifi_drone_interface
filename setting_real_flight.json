@@ -2,7 +2,7 @@
     "drones": [
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
+            "ip": "192.168.50.112",
             "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
@@ -12,8 +12,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5770,
+            "ip": "192.168.50.119",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -22,8 +22,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5780,
+            "ip": "192.168.50.165",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -32,8 +32,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5790,
+            "ip": "192.168.50.42",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -42,8 +42,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5800,
+            "ip": "192.168.50.101",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -52,8 +52,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5810,
+            "ip": "192.168.50.180",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -62,8 +62,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5820,
+            "ip": "192.168.50.43",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -72,8 +72,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5830,
+            "ip": "192.168.50.139",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
@@ -82,8 +82,8 @@
         },
         {
             "heartbeat": false,
-            "ip": "127.0.0.1",
-            "port": 5840,
+            "ip": "192.168.50.25",
+            "port": 5760,
             "sattelites": 0,
             "status": "Terminal started",
             "tcp_link": false,
