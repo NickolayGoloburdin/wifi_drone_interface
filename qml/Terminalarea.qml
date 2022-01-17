@@ -45,7 +45,7 @@ Item {
                     TextArea {
                         readOnly: true
                         anchors.fill: parent
-                        font.pointSize: 10
+                        font.pointSize: 9
                         font.family: "Arial"
                         text: model.status
 
