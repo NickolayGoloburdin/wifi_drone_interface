@@ -78,7 +78,7 @@ void CommandsSender::set_synchronize(int id, int seq)
             if (max < drone_waypoint_reaching_.values().at(i)) {
                 max = drone_waypoint_reaching_.values().at(i);
             }
-        if (seq >= max) {
+        if (seq > max) {
             mavlink_set_mode_t set_mode = {0};
             mavlink_message_t msg;
             set_mode.target_system = id;
