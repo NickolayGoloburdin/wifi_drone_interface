@@ -71,14 +71,8 @@ void CommandsSender::send_arm()
 void CommandsSender::set_synchronize(int id, int seq)
 {
 
-    if (!drone_waypoint_reaching_.isEmpty() && drone_waypoint_reaching_.contains(id)) {
+    if (!drone_waypoint_reaching_.isEmpty() && drone_waypoint_reaching_.contains(id) && seq == 4) {
 
-        int max = drone_waypoint_reaching_.values().first();
-        for (int i = 1; i < drone_waypoint_reaching_.values().size(); i++)
-            if (max < drone_waypoint_reaching_.values().at(i)) {
-                max = drone_waypoint_reaching_.values().at(i);
-            }
-        if (seq > max) {
             mavlink_set_mode_t set_mode = {0};
             mavlink_message_t msg;
             set_mode.target_system = id;
@@ -87,9 +81,7 @@ void CommandsSender::set_synchronize(int id, int seq)
             mavlink_msg_set_mode_encode(m_communicator->systemId(), m_communicator->componentId(), &msg, &set_mode);
             m_communicator->sendMessageOnChannel(msg, id);
         }
-        drone_waypoint_reaching_[id] = seq;
-        synchronizing(max);
-    }
+
 }
 
 
