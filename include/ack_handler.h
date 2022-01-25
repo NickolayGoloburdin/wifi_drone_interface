@@ -4,7 +4,7 @@
 #include <ardupilotmega/mavlink.h>
 namespace domain
 {
-class AckHandler: public AbstractHandler
+ class AckHandler: public AbstractHandler
 {
         Q_OBJECT
 

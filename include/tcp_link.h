@@ -3,7 +3,6 @@
 
 
 #include "abstract_link.h"
-
 class QTcpSocket;
 
 namespace domain
@@ -23,6 +22,7 @@ class TcpLink: public AbstractLink
         int txPort() const;
 
     public slots:
+
         void up() override;
         void down() override;
         void connected() override;

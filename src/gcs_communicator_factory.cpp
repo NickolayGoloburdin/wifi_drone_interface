@@ -30,7 +30,7 @@ std::tuple<MavLinkCommunicator *, InfoCommunicator *> GcsCommunicatorFactory::cr
 {
     MavLinkCommunicator *communicator = new MavLinkCommunicator(254, 190);
     InfoCommunicator *infcommun = new InfoCommunicator();
-    SQLCommunicator *sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"), QString("rdsuser"), QString("9X"));
+    //SQLCommunicator *sqlcommunicator = new SQLCommunicator(QString("37.18.110.142"), QString("copter_logs"), QString("rdsuser"), QString("9X"));
     QQmlApplicationEngine *engine = new QQmlApplicationEngine(nullptr);
     domain::CommandsSender *sender = new domain::CommandsSender(communicator);
     Delegate *model = new Delegate("setting.json", engine);

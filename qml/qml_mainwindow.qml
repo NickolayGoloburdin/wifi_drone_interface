@@ -27,6 +27,15 @@ ApplicationWindow {
         anchors.right: controlarea.left
         anchors.rightMargin: 50
     }
+    AddRemoveDrone {
+        id:addrm
+        anchors.right: dronearea.right
+        anchors.top: dronearea.bottom
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 15
+        anchors.topMargin: 5
+        anchors.left: dronearea.left
+    }
     Controlarea {
         id: controlarea
         anchors.bottom: parent.bottom
@@ -39,7 +48,7 @@ ApplicationWindow {
     }
 
     onClosing: {
-        //console.log("Model=" + App.stringifyModel());
+         //console.log("Model=" + App.stringifyModel());
         console.log("Exiting application... Persisting model to file setting.json")
         App.persistDrones()
         close.accepted = true

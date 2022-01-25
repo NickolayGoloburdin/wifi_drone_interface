@@ -68,12 +68,13 @@ void TcpLink::reconnect()
     if (m_socket->error() == QAbstractSocket::ConnectionRefusedError ) {
         disconnected();
     };
-    if (m_socket->error() == QAbstractSocket::NetworkError ) {
+    if (m_socket->error() == QAbstractSocket::NetworkError) {
         m_socket->abort();
         m_socket->close();
-        qDebug() << "HostNotFound"<< address();
+        qDebug() << "NetworkError"<< address();
         disconnected();
     };
+
 
 }
 

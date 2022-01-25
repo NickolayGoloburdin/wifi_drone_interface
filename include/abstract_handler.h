@@ -7,7 +7,7 @@
 // Qt
 #include <QObject>
 
-namespace domain
+ namespace domain
 {
 class MavLinkCommunicator;
 
