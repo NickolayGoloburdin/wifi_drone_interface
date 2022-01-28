@@ -8,10 +8,15 @@ import QtQuick.Controls.Styles 1.4
 Dialog {
 
     id: syncDialog
+
+
+    height: 300
+    width: 440
     property alias testDialog: syncDialog
     contentItem: Rectangle {
         id: backgr
-        anchors.fill: parent
+        height: 300
+        width: 440
         color: "#121324"
 
         Rectangle {

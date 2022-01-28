@@ -48,7 +48,7 @@ ApplicationWindow {
     }
 
     onClosing: {
-         //console.log("Model=" + App.stringifyModel());
+        //console.log("Model=" + App.stringifyModel());
         console.log("Exiting application... Persisting model to file setting.json")
         App.persistDrones()
         close.accepted = true

@@ -58,8 +58,7 @@ Item {
             }
             SyncDialog {
                 id: syncDialog
-                height: 300
-                width: 440
+
             }
         }
         ControlButton {
@@ -79,8 +78,7 @@ Item {
         }
         MissionDialog {
             id: missionDialog
-            height: 300
-            width: 400
+
         }
         ControlButton {
             name: "Выключить \n двигатели"
@@ -118,8 +116,7 @@ Item {
         }
         TestDialog {
             id: testDialog
-            height: 300
-            width: 400
+
         }
         ControlButton {
             name: "Скачать \n логи"

@@ -65,18 +65,27 @@ Item{
     }
     Dialog {
         id: dialog
-        title: "Удалить дроны"
-        width: addrm.width
-        standardButtons: Dialog.Ok | Dialog.Cancel
 
-         contentItem: Rectangle {
+
+
+        width: 400
+        height: 400
+        title: "Удалить"
+
+
+        contentItem: Rectangle {
             id: backgr
-            anchors.fill: parent
+            width: 400
+            height: 400
             color: "#121324"
+
             Rectangle{
                   id:txt
-                    anchors.fill: parent
-                    anchors.bottomMargin: parent.height/2
+                  anchors.left: parent.left
+                  anchors.right: parent.right
+                  anchors.top: parent.top
+                  height: parent.height / 2
+
                     color: "#121324"
                     Text {
                         font.pointSize: 10
@@ -155,28 +164,19 @@ Item{
     }
 }
     Dialog {
-        width: 270
+        id: addDialog
+
+
+
+        width: 400
         height: 400
         title: "Добавить дрон"
-        function parsetext(text) {
-            if (text.lenght === 0 || !text.trim()) {
-                return 0
-            } else {
-                var v = parseInt(text)
-                if (isNaN(v)) {
-                    return -1
-                }
-                if (v < 50)
-                    return -1
-                else
-                    return v
-            }
-        }
-        id: addDialog
+
 
         contentItem: Rectangle {
             id: back
-            anchors.fill: parent
+            width: 400
+            height: 400
             color: "#121324"
 
             Rectangle {
@@ -266,7 +266,7 @@ Item{
                         id: mouse21
                         anchors.fill: btnrec21
                         onClicked: {
-                            commandSender.create_drone(ip.text,parseInt(idnum.text),parseInt(port))
+                            commandSender.create_drone(ip.text,parseInt(idnum.text),parseInt(port.text))
                             addDialog.close()
 
                         }

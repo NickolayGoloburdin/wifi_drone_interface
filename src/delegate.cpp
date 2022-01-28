@@ -61,7 +61,7 @@ void Delegate::addLink(domain::AbstractLink *link)
 void Delegate::addDrone(domain::AbstractLink *link)
 {
     m_drone.addDrone(link->id(),link->ip(), link->port());
-    QObject::connect(link, &domain::AbstractLink::connect, this, &Delegate::setTcpLink);
+    addLink(link);
     sync();
 
 }

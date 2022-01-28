@@ -330,9 +330,9 @@ void CommandsSender::start_mission()
 void CommandsSender::create_drone(QString ip, int id, int port)
 {
     auto link = new domain::TcpLink(ip,port, id);
-    emit linkPointerSignal(link);
     m_communicator->addLink(link);
     link->up();
+    emit linkPointerSignal(link);
 }
 
 void CommandsSender::set_guided_mode()

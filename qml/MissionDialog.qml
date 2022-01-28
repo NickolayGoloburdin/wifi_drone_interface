@@ -7,6 +7,10 @@ import QtQuick.Controls.Styles 1.4
 
 Dialog {
     id: missionDialog
+
+
+    height: 300
+    width: 400
     property alias testDialog: missionDialog
     FileDialog {
         id: fds
@@ -23,7 +27,8 @@ Dialog {
     }
     contentItem: Rectangle {
         id: backgr
-        anchors.fill: parent
+        height: 300
+        width: 400
         color: "#121324"
 
         Rectangle {

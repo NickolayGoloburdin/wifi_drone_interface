@@ -6,6 +6,12 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
 Dialog {
+    id: testDialog
+
+
+    height: 300
+    width: 400
+
     function parsetext(text) {
         if (text.lenght === 0 || !text.trim()) {
             return -1
@@ -20,11 +26,11 @@ Dialog {
                 return v
         }
     }
-    id: testDialog
     property alias testDialog: testDialog
     contentItem: Rectangle {
         id: backgr
-        anchors.fill: parent
+        height: 300
+        width: 400
         color: "#121324"
 
         Rectangle {
