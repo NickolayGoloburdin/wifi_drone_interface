@@ -7,9 +7,10 @@
 #include <QString>
 #include <QMap>
 #include <QSet>
-
+#include <tcp_link.h>
 namespace domain
 {
+
 class MavLinkCommunicator;
 class CommandsSender: public QObject
 {
@@ -33,9 +34,11 @@ class CommandsSender: public QObject
         void synchronizing(int max);
         Q_INVOKABLE void add_drone_to_sync(int id);
         Q_INVOKABLE void remove_drone_from_sync(int id);
+        Q_INVOKABLE void remove_chosen_drones();
         Q_INVOKABLE void send_disarm();
         Q_INVOKABLE void send_takeoff_mission(float meters = 5, float time = 10.0);
         Q_INVOKABLE void start_mission();
+        Q_INVOKABLE void create_drone(QString ip, int id, int port);
         void form_send_fly_mission(int x, int y, int x_land, int y_land, float height_takeoff, float height_point, float height_land, bool drop, bool db);
         Q_INVOKABLE void set_guided_mode();
         Q_INVOKABLE void set_auto_mode();
@@ -55,6 +58,9 @@ class CommandsSender: public QObject
     signals:
         void dbSignal(QVector<mavlink_mission_item_int_t>& mission);
         void missionDataSignal(QVector<mavlink_mission_item_int_t>* waypoints);
+        void droneIdSignal(const int & id);
+        void linkPointerSignal(AbstractLink* linkpointer);
+        void linkRmPointerSignal(AbstractLink* linkpointer);
 
     protected:
         MavLinkCommunicator* const m_communicator;

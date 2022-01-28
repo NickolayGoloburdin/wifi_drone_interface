@@ -9,7 +9,7 @@ class DroneContainer
         DroneContainer();
         ~DroneContainer();
         QList<Drone> drones() const;
-        void addDrone();
+        void addDrone(int id, QString ip, int port);
         void removeDrone(int& uuid);
         void setGps(const int& droneUuid, int sattelites);
         void setvoltage(const int& droneUuid, int voltage);

@@ -16,6 +16,9 @@ class AbstractLink: public QObject
 
         virtual bool isUp() const = 0;
         virtual int id() = 0;
+        virtual QString ip() = 0;
+        virtual int port() = 0;
+
     public slots:
         virtual void up() = 0;
         virtual void down() = 0;

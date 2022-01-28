@@ -15,7 +15,7 @@ Item {
     anchors.bottom: parent.bottom
     anchors.left: parent.left
     anchors.topMargin: parent.height / 12
-    anchors.bottomMargin: defterminalmargin
+    anchors.bottomMargin: parent.height/6
     anchors.leftMargin: defterminalmargin
     ListView {
         id: listview1
@@ -29,5 +29,6 @@ Item {
             voltage: model.voltage
             tcp_link: model.tcp_link
         }
+
     }
 }

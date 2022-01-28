@@ -6,25 +6,22 @@
 
 #include <tuple>
 #include <QMap>
-int main(int argc, char *argv[])
+int
+main(int argc, char* argv[])
 {
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QApplication app(argc, argv);
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication app(argc, argv);
 
-    app.setOrganizationName("IPU");
-    app.setOrganizationDomain("IPU");
+  app.setOrganizationName("IPU");
+  app.setOrganizationDomain("IPU");
 
-    domain::GcsCommunicatorFactory factory;
-    domain::MavLinkCommunicator *communicator;
-    domain::InfoCommunicator* infcommun;
+  domain::GcsCommunicatorFactory factory;
+  domain::MavLinkCommunicator* communicator;
+  domain::InfoCommunicator* infcommun;
 
+  std::tie(communicator, infcommun) = factory.create();
+  communicator->setParent(&app);
 
-    std::tie(communicator, infcommun) = factory.create();
-    communicator->setParent(&app);
-
-
-
-
-    return app.exec();
+  return app.exec();
 }

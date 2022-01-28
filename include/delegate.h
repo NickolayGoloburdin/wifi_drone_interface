@@ -7,6 +7,7 @@
 #include <QQmlApplicationEngine>
 
 #include "drone_container.h"
+#include <tcp_link.h>
 class Delegate: public QObject
 {
         Q_OBJECT
@@ -24,12 +25,12 @@ class Delegate: public QObject
         QByteArray stringifyDrones(); //NPM
 
 
-
-        void addDrone(const int& droneUuid);
+        void addLink(domain::AbstractLink* link);
+        void addDrone(domain::AbstractLink *link);
         void setGps(const int& droneUuid, int sattelites);
         void setvoltage(const int& droneUuid, int voltage);
         void setHeartbeat(const int& droneUuid, bool heartbeat);
-        void removeDrone(const int& droneUuid);
+        void removeDrone(domain::AbstractLink* link);
         void setStatus(const int& droneUuid, QString& status);
         void setTcpLink(const int& droneUuid, bool tcp_link);
 
