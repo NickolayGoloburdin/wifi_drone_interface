@@ -23,6 +23,10 @@ TcpLink::TcpLink(const QString& address, int txPort, int id,
 
 }
 
+TcpLink::~TcpLink(){
+ delete m_socket;
+}
+
 bool TcpLink::isUp() const
 {
     return m_socket->state() == QAbstractSocket::ConnectedState;
@@ -69,10 +73,10 @@ void TcpLink::reconnect()
         disconnected();
     };
     if (m_socket->error() == QAbstractSocket::NetworkError) {
-        m_socket->abort();
-        m_socket->close();
-        qDebug() << "NetworkError"<< address();
-        disconnected();
+//        m_socket->abort();
+//        m_socket->close();
+//        qDebug() << "NetworkError"<< address();
+//        disconnected();
     };
 
 
@@ -110,6 +114,16 @@ void TcpLink::setTxPort(int port)
 int TcpLink::id()
 {
     return id_;
+}
+
+QString TcpLink::ip()
+{
+    return m_address;
+}
+
+int TcpLink::port()
+{
+    return m_txPort;
 }
 
 void TcpLink::readPendingDatagrams()

@@ -139,7 +139,10 @@ Item{
                     MouseArea {
                         id: mouse2
                         anchors.fill: btnrec2
-                       onClicked: dialog.close()}
+                       onClicked: {dialog.close();
+                       commandSender.remove_chosen_drones()}
+
+                    }
                     contentItem: Text {
                         font.pointSize: 10
                         font.family: "Arial"
@@ -200,11 +203,11 @@ Item{
                         placeholderText: qsTr("id")
                         color: "gray"
                     }
-//                    TextField {
-//                        id: port
-//                        placeholderText: qsTr("Порт")
-//                        color: "gray"
-//                    }
+                    TextField {
+                        id: port
+                        placeholderText: qsTr("Порт")
+                        color: "gray"
+                    }
                 }
             }
 
@@ -263,6 +266,7 @@ Item{
                         id: mouse21
                         anchors.fill: btnrec21
                         onClicked: {
+                            commandSender.create_drone(ip.text,parseInt(idnum.text),parseInt(port))
                             addDialog.close()
 
                         }

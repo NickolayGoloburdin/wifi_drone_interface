@@ -14,7 +14,7 @@ class TcpLink: public AbstractLink
     public:
         TcpLink(const QString& address, int txPort, int id,
                 QObject* parent = nullptr);
-
+        ~TcpLink();
         bool isUp() const override;
 
 
@@ -32,6 +32,8 @@ class TcpLink: public AbstractLink
         void setAddress(const QString& address);
         void setTxPort(int port);
         int id() override;
+        QString ip() override;
+        int port() override;
     signals:
         void rxPortChanged(int port);
         void addressChanged(QString address);

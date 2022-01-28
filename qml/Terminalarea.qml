@@ -25,7 +25,7 @@ Item {
                 frameOverlap: 1
                 tab: Rectangle {
                     color: styleData.selected ? terminalcolor : "#121324"
-                    implicitWidth: Math.min(tabViewer.width / droneStore.count,80)
+                    implicitWidth: Math.min(tabViewer.width / droneStore.count,70)
                     implicitHeight: 50
                     radius: 2
                     border.color: terminalcolor
@@ -39,7 +39,7 @@ Item {
             }
             Repeater {
                 model: droneStore
-                delegate: Tab {
+               Tab {
                     title: model.uuid
 
                     TextArea {

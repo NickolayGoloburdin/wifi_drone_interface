@@ -46,9 +46,13 @@ void MavLinkCommunicator::addLink(AbstractLink* link)
 void MavLinkCommunicator::removeLink(AbstractLink* link)
 {
     if (!m_linkChannels.contains(link)) return;
+    if (m_chosenChannels.contains(link)){
+        m_chosenChannels.remove(link);
+    }
 
     m_linkChannels.remove(link);
 }
+
 
 void MavLinkCommunicator::setSystemId(uint8_t systemId)
 {

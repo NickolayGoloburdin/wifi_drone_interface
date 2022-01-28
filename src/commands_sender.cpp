@@ -125,6 +125,15 @@ void CommandsSender::remove_drone_from_sync(int id)
         drone_waypoint_reaching_.remove(id);
     }
 }
+
+void CommandsSender::remove_chosen_drones()
+{
+    for (auto i: m_communicator->m_chosenChannels.keys()){
+        emit linkRmPointerSignal(i);
+        m_communicator->removeLink(i);
+        delete i;
+    }
+}
 void CommandsSender::send_disarm()
 {
     set_guided_mode();
@@ -316,6 +325,14 @@ void CommandsSender::start_mission()
         m_communicator->sendMessage(message, itr);
     }
 
+}
+
+void CommandsSender::create_drone(QString ip, int id, int port)
+{
+    auto link = new domain::TcpLink(ip,port, id);
+    emit linkPointerSignal(link);
+    m_communicator->addLink(link);
+    link->up();
 }
 
 void CommandsSender::set_guided_mode()

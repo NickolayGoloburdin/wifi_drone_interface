@@ -1,6 +1,7 @@
 #include "delegate.h"
 #include "qsdiffrunner.h"
 #include <QQmlContext>
+#include <tcp_link.h>
 Delegate::Delegate(QString persistDir, QQmlApplicationEngine* engine, QObject *parent): QObject(parent), path_(persistDir),
     engine_(engine)
 {
@@ -50,11 +51,17 @@ QByteArray Delegate::stringifyDrones()
     return bytes;
 }
 
-
-
-void Delegate::addDrone(const int &droneUuid)
+void Delegate::addLink(domain::AbstractLink *link)
 {
-    m_drone.addDrone();
+    QObject::connect(link, &domain::AbstractLink::connect, this, &Delegate::setTcpLink);
+}
+
+
+
+void Delegate::addDrone(domain::AbstractLink *link)
+{
+    m_drone.addDrone(link->id(),link->ip(), link->port());
+    QObject::connect(link, &domain::AbstractLink::connect, this, &Delegate::setTcpLink);
     sync();
 
 }
@@ -78,9 +85,10 @@ void Delegate::setHeartbeat(const int &droneUuid, bool heartbeat)
 }
 
 
-void Delegate::removeDrone(const int &droneUuid)
+void Delegate::removeDrone(domain::AbstractLink* link)
 {
-    m_drone.removeDrone(droneUuid);
+    m_drone.removeDrone(link->id());
+    QObject::disconnect(link, &domain::AbstractLink::connect, this, &Delegate::setTcpLink);
     sync();
 }
 

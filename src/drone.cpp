@@ -13,9 +13,9 @@ Drone::Drone(): uuid_(0),
 
 }
 
-Drone::Drone(int id, QString ip):uuid_(id),
+Drone::Drone(int id, QString ip, int port):uuid_(id),
                                 ip_(ip),
-                                port_(5760),
+                                port_(port),
                                 heartbeat_(false),
                                 sattelites_(0),
                                 voltage_(0),
