@@ -1,1 +1,1 @@
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/NickolayGoloburdin/wifi-drone-interface)](https://ci.appveyor.com/api/projects/status/github/NickolayGoloburdin/wifi-drone-interface)]
+
